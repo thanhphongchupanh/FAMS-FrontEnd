@@ -1,10 +1,8 @@
-<!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport"
-        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="/css/Bootstrap%205/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
   <script src="/js/Bootstrap%205/bootstrap.bundle.min.js"></script>
@@ -19,7 +17,7 @@
   <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
   <title>Syllabus</title>
   <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
-  <link href="/css/syllabus/importSyllabus.css" rel="stylesheet">
+
   <style>
     .search-item {
       border-radius: 8px;
@@ -70,71 +68,40 @@
 
     <div class="flex-grow-1">
       <div class="ListSyllabus">Syllabus</div>
-      <div class="nav-syllabus">
-        <div class="row w-100">
-          <div class="d-inline-block position-relative" style="width: 49%; padding-left: 28px;">
-            <!--          <i class="icon bi bi-search"></i>-->
-            <div class="container-input" style="display: flex;">
-              <div class="input-container">
-                <ion-icon name="search-outline" class="search-icon"></ion-icon>
-                <input id="search-input" type="text" class="form-control search d-inline-block ps-4" style="width: 300px; margin-right: 10px"
-                       placeholder="  Search by ...">
-              </div>
-              <div class="input-container">
-                <input id="search-input-calendar" type="date" class="form-control search d-inline-block ps-4" style="width: 300px"
-                       placeholder="  Created date ...">
-              </div>
-            </div>
-          </div>
-          <div class="col text-end" style="padding-right: 28px">
-            <button class="btn btn-dark">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <g clip-path="url(#clip0_487_2486)">
-                  <path
-                          d="M13 7H11V11H7V13H11V17H13V13H17V11H13V7ZM12 2C6.49 2 2 6.49 2 12C2 17.51 6.49 22 12 22C17.51 22 22 17.51 22 12C22 6.49 17.51 2 12 2ZM12 20C7.59 20 4 16.41 4 12C4 7.59 7.59 4 12 4C16.41 4 20 7.59 20 12C20 16.41 16.41 20 12 20Z"
-                          fill="#DFDEDE" />
-                </g>
-                <defs>
-                  <clipPath id="clip0_487_2486">
-                    <rect width="24" height="24" fill="white" />
-                  </clipPath>
-                </defs>
-              </svg>
-              Add Syllabus
-            </button>
+      <div class="row w-100">
+        <div class="d-inline-block position-relative" style="width: 49%; padding-left: 28px;">
+<!--          <i class="icon bi bi-search"></i>-->
+          <div class="input-container">
+            <ion-icon name="search-outline" class="search-icon"></ion-icon>
+            <input id="search-input" type="text" class="form-control search d-inline-block ps-4"
+                   placeholder="  Search by ...">
           </div>
         </div>
-        <!--      button import-->
-        <div class="button" id="open-import-syllabus-dialog-button">
-          <svg
-                  class="upload"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-          >
-            <g clip-path="url(#clip0_2391_623)">
-              <path
-                      d="M9 16H15V10H19L12 3L5 10H9V16ZM12 5.83L14.17 8H13V14H11V8H9.83L12 5.83ZM5 18H19V20H5V18Z"
-                      fill="#DFDEDE"
-              />
-            </g>
-            <defs>
-              <clipPath id="clip0_2391_623">
-                <rect width="24" height="24" fill="white" />
-              </clipPath>
-            </defs>
-          </svg>
-          <div class="filter">Import</div>
+
+        <div class="col text-end" style="padding-right: 28px">
+          <button class="btn btn-dark" id="open-add-user-dialog-button">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <g clip-path="url(#clip0_487_2486)">
+                <path
+                        d="M13 7H11V11H7V13H11V17H13V13H17V11H13V7ZM12 2C6.49 2 2 6.49 2 12C2 17.51 6.49 22 12 22C17.51 22 22 17.51 22 12C22 6.49 17.51 2 12 2ZM12 20C7.59 20 4 16.41 4 12C4 7.59 7.59 4 12 4C16.41 4 20 7.59 20 12C20 16.41 16.41 20 12 20Z"
+                        fill="#DFDEDE" />
+              </g>
+              <defs>
+                <clipPath id="clip0_487_2486">
+                  <rect width="24" height="24" fill="white" />
+                </clipPath>
+              </defs>
+            </svg>
+            Add Syllabus
+          </button>
         </div>
       </div>
-      <!--// search key-->
+      <!--// search-->
       <div id="search-keyword" class="search-keyword d-flex p-2 flex-wrap">
-        <div class="search-item p-2" style="display: none">
-          foundation
-          <span class="deleteButton">&#10005;</span>
-        </div>
+<!--                        <div class="search-item p-2">-->
+<!--                            foundation-->
+<!--                            <span>&#10005;</span>-->
+<!--                        </div>-->
       </div>
 
       <div class="table-container">
@@ -253,238 +220,127 @@
         </table>
       </div>
 
-<!--      === PAGING BAR ===-->
-      <div class="navigation-dot">
-        <div class="navi-dot">
-          <svg
-                  class="arrow-back-ios"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-          >
-            <g clip-path="url(#clip0_2189_1594)">
-              <path
-                      d="M16 7.16212L14.9323 6L9 12.5L14.9383 19L16 17.8379L11.1234 12.5L16 7.16212Z"
-                      fill="#2D3748"
-              />
-            </g>
-            <defs>
-              <clipPath id="clip0_2189_1594">
-                <rect width="24" height="24" fill="white" />
-              </clipPath>
-            </defs>
-          </svg>
-            <div class="group-6" id="group-6">
-              <div class="ellipse-2-1"></div>
-              <div class="_1">1</div>
+      <dialog id="add-user-dialog" class="p-0">
+        <table class="table m-0">
+          <thead class="table-dark">
+          <th class="text-center">
+            <div class="d-flex flex-row align-items-center">
+                                    <span class="flex-grow-1">
+                                        Add Syllabus
+                                    </span>
+              <button class="btn close-add-user-dialog-button">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                     xmlns="http://www.w3.org/2000/svg">
+                  <g clip-path="url(#clip0_46_6114)">
+                    <path
+                            d="M12 2C6.47 2 2 6.47 2 12C2 17.53 6.47 22 12 22C17.53 22 22 17.53 22 12C22 6.47 17.53 2 12 2ZM12 20C7.59 20 4 16.41 4 12C4 7.59 7.59 4 12 4C16.41 4 20 7.59 20 12C20 16.41 16.41 20 12 20ZM15.59 7L12 10.59L8.41 7L7 8.41L10.59 12L7 15.59L8.41 17L12 13.41L15.59 17L17 15.59L13.41 12L17 8.41L15.59 7Z"
+                            fill="white" />
+                  </g>
+                  <defs>
+                    <clipPath id="clip0_46_6114">
+                      <rect width="24" height="24" fill="white" />
+                    </clipPath>
+                  </defs>
+                </svg>
+              </button>
             </div>
-            <div class="group-5" id="group-5">
-              <div class="ellipse-2"></div>
-              <div class="_2">2</div>
-            </div>
-            <div class="group-7" id="group-7">
-              <div class="ellipse-2-2"></div>
-              <div class="_3">3</div>
-            </div>
-
-
-          <div style="position: absolute; top: 0px">
-            <div style="border-radius: 50px; width: 3px; height: 3px; left: 11px; top: 11px; position: absolute; background: #2D3748"></div>
-            <div style="border-radius: 50px; width: 3px; height: 3px; left: 18px; top: 11px; position: absolute; background: #2D3748"></div>
-            <div style="border-radius: 50px; width: 3px; height: 3px; left: 4px; top: 11px; position: absolute; background: #2D3748"></div>
-          </div>
-
-          <div class="group-8" id="group-8">
-            <div class="ellipse-2-22"></div>
-            <div class="_10">10</div>
-          </div>
-
-          <svg
-                  class="arrow-forward-ios"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-          >
-            <g clip-path="url(#clip0_2189_1613)">
-              <path
-                      d="M9 16.8149L10.0617 17.8766L16 11.9383L10.0617 6L9 7.0617L13.8766 11.9383L9 16.8149Z"
-                      fill="#2D3748"
-              />
-            </g>
-            <defs>
-              <clipPath id="clip0_2189_1613">
-                <rect width="24" height="24" fill="white" />
-              </clipPath>
-            </defs>
-          </svg>
-
-          <svg
-                  class="last-page"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-          >
-            <g clip-path="url(#clip0_2189_1616)">
-              <path
-                      d="M5.59 7.41L10.18 12L5.59 16.59L7 18L13 12L7 6L5.59 7.41ZM16 6H18V18H16V6Z"
-                      fill="#2D3748"
-              />
-            </g>
-            <defs>
-              <clipPath id="clip0_2189_1616">
-                <rect width="24" height="24" fill="white" />
-              </clipPath>
-            </defs>
-          </svg>
-          <div style="display: flex; justify-content: center; position: absolute; right: 0; align-items: center">
-            <label style="margin-right: 50px">Rows per page</label>
-            <select id="rowPerPage" name="colors" class="combo-box" style="border: none; outline: none">
-              <option value="5" style="font-size: .8em">5</option>
-              <option value="10" style="font-size: .8em">10</option>
-              <option value="15" style="font-size: .8em">15</option>
-              <option value="20" style="font-size: .8em">20</option>
-            </select>
-          </div>
-        </div>
-      </div>
-
-      <dialog id="import-syllabus-dialog" class="p-0" style="border-radius: 20px; border: none;">
-        <div class="popup-container">
-          <div class="popup-header">
-            <div class="pop-up-header-text">Import Syllabus</div>
-            <button style="position: absolute; right: 0;" class="btn close-import-syllabus-dialog-button">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                   xmlns="http://www.w3.org/2000/svg">
-                <g clip-path="url(#clip0_46_6114)">
-                  <path
-                          d="M12 2C6.47 2 2 6.47 2 12C2 17.53 6.47 22 12 22C17.53 22 22 17.53 22 12C22 6.47 17.53 2 12 2ZM12 20C7.59 20 4 16.41 4 12C4 7.59 7.59 4 12 4C16.41 4 20 7.59 20 12C20 16.41 16.41 20 12 20ZM15.59 7L12 10.59L8.41 7L7 8.41L10.59 12L7 15.59L8.41 17L12 13.41L15.59 17L17 15.59L13.41 12L17 8.41L15.59 7Z"
-                          fill="white" />
-                </g>
-                <defs>
-                  <clipPath id="clip0_46_6114">
-                    <rect width="24" height="24" fill="white" />
-                  </clipPath>
-                </defs>
-              </svg>
-            </button>
-          </div>
-          <form id="import-syllabus-form">
-            <div class="form-container">
-              <div class="form-header">Import setting</div>
-              <div style="width: 333px; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 15px; display: inline-flex">
-                <div class="form-item">
-                  <div style="height: 17px; padding-left: 10px; padding-right: 10px; justify-content: flex-start; align-items: flex-start; gap: 10px; display: flex">
-                    <div><span style="color: #1E1F20; font-size: 14px; font-family: Inter; font-weight: 400; word-wrap: break-word">File (csv)</span><span style="color: #FD5656; font-size: 14px; font-family: Inter; font-weight: 400; word-wrap: break-word">*</span></div>
-                  </div>
-                  <div style="width: 82px; padding-left: 20px; padding-right: 20px; padding-top: 5px; padding-bottom: 5px; background: #2D3748; border-radius: 5px; justify-content: flex-start; align-items: center; gap: 10px; display: flex">
-                    <div style="color: white; font-size: 14px; font-family: Inter; font-weight: 400; line-height: 22px; word-wrap: break-word">Select</div>
+          </th>
+          </thead>
+          <tbody>
+          <tr>
+            <td>
+              <form id="add-user-form">
+                <div class="mb-3 mt-3 row align-items-center">
+                  <label for="select-user-type" class="form-label col-12 col-md-2 col-form-label">User
+                    type</label>
+                  <div class="col-12 col-md-10">
+                    <select name="userPermission" class="form-control form-select" id="select-user-type"
+                            aria-placeholder="Select one">
+                      <option value="TRAINER">Trainer</option>
+                      <option value="CLASS_ADMIN">Admin</option>
+                      <option value="SUPER_ADMIN">Super Admin</option>
+                    </select>
                   </div>
                 </div>
-                <div class="form-item">
-                  <div style="height: 17px; padding-left: 10px; padding-right: 10px; justify-content: flex-start; align-items: flex-start; gap: 10px; display: flex">
-                    <div style="color: #1E1F20; font-size: 14px; font-family: Inter; font-weight: 400; word-wrap: break-word">Encoding type</div>
-                  </div>
-                  <div style="width: 140px; height: 24px; padding-left: 10px; padding-right: 10px; background: white; border-radius: 5px; border: 1px #ACACAC solid; justify-content: space-between; align-items: center; display: flex">
-                    <div style="color: black; font-size: 14px; font-family: Inter; font-weight: 400; word-wrap: break-word">Auto detect</div>
-                    <div style="width: 10px; height: 9px; position: relative">
-                      <img style="width: 7.66px; height: 4.83px; left: 1.17px; top: 2.03px; position: absolute" src="https://via.placeholder.com/8x5" />
-                    </div>
+                <div class="mb-3 row align-items-center">
+                  <label for="input-user-name"
+                         class="form-label col-12 col-md-2 col-form-label">Name</label>
+                  <div class="col-12 col-md-10">
+                    <input type="text" class="form-control form-text" id="input-user-name"
+                           name="name" placeholder="User name">
+                    <div class="invalid-feedback" id="invalid-user-name"></div>
                   </div>
                 </div>
-                <div class="form-item">
-                  <div style="height: 22px; padding-left: 10px; padding-right: 10px; justify-content: flex-start; align-items: flex-start; gap: 10px; display: flex">
-                    <div style="color: #1E1F20; font-size: 14px; font-family: Inter; font-weight: 400; line-height: 22px; word-wrap: break-word">Column seperator</div>
-                  </div>
-                  <div style="width: 140px; height: 24px; padding-left: 10px; padding-right: 10px; background: white; border-radius: 5px; border: 1px #ACACAC solid; justify-content: space-between; align-items: center; display: flex">
-                    <div style="color: black; font-size: 14px; font-family: Inter; font-weight: 400; line-height: 22px; word-wrap: break-word">Comma</div>
-                    <div style="width: 10px; height: 9px; padding-top: 2.03px; padding-bottom: 2.14px; padding-left: 1.17px; padding-right: 1.17px; justify-content: center; align-items: center; display: flex">
-                      <img style="width: 7.66px; height: 4.83px" src="https://via.placeholder.com/8x5" />
-                    </div>
-                  </div>
-                </div>
-                <div class="form-item">
-                  <div style="height: 22px; padding-left: 10px; padding-right: 10px; justify-content: flex-start; align-items: flex-start; gap: 10px; display: flex">
-                    <div style="color: #1E1F20; font-size: 14px; font-family: Inter; font-weight: 400; line-height: 22px; word-wrap: break-word">Import template</div>
-                  </div>
-                  <div style="justify-content: flex-start; align-items: flex-start; gap: 10px; display: flex">
-                    <div style="color: #285D9A; font-size: 14px; font-family: Inter; font-weight: 400; text-decoration: underline; line-height: 22px; word-wrap: break-word">Download</div>
+                <div class="mb-3 row align-items-center">
+                  <label for="input-user-email-address"
+                         class="form-label col-12 col-md-2 col-form-label">Email
+                    address</label>
+                  <div class="col-12 col-md-10">
+                    <input type="text" class="form-control form-text" id="input-user-email-address"
+                           name="email" placeholder="Email address">
+                    <div class="invalid-feedback" id="invalid-email-address"></div>
                   </div>
                 </div>
-              </div>
-            </div>
-            <div style="width: 460px; height: 0px; border: 1px #ACACAC solid"></div>
-            <div style="width: 500px; padding-left: 20px; padding-right: 20px; justify-content: space-between; align-items: flex-start; display: inline-flex">
-              <div style="color: black; font-size: 14px; font-family: Inter; font-weight: 700; line-height: 22px; word-wrap: break-word">Duplicate control</div>
-              <div style="width: 333px; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 15px; display: inline-flex">
-                <div style="align-self: stretch; height: 49px; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 5px; display: flex">
-                  <div style="width: 165px; padding-left: 10px; padding-right: 10px; justify-content: flex-start; align-items: flex-start; gap: 10px; display: inline-flex">
-                    <div style="color: #1E1F20; font-size: 14px; font-family: Inter; font-weight: 400; line-height: 22px; word-wrap: break-word">Scanning</div>
-                  </div>
-                  <div style="padding-left: 10px; justify-content: flex-start; align-items: center; gap: 16px; display: inline-flex">
-                    <div style="justify-content: flex-start; align-items: center; gap: 8px; display: flex">
-                      <div style="background: white; border-radius: 2px; justify-content: center; align-items: center; gap: 10px; display: flex">
-                        <div style="width: 24px; height: 24px; border-radius: 2px; border: 1px rgba(24, 144, 255, 0) solid"></div>
-                        <div style="width: 16px; height: 16px; background: #2D3748; border-radius: 2px"></div>
-                        <div style="width: 10.62px; height: 7.62px; background: white"></div>
-                      </div>
-                      <div style="color: rgba(0, 0, 0, 0.85); font-size: 14px; font-family: Roboto; font-weight: 400; line-height: 22px; word-wrap: break-word">Syllabus code</div>
-                    </div>
-                    <div style="justify-content: flex-start; align-items: center; gap: 8px; display: flex">
-                      <div style="background: white; border-radius: 2px; flex-direction: column; justify-content: center; align-items: center; display: inline-flex">
-                        <div style="width: 16px; height: 16px; background: white; border-radius: 2px; border: 1px #D9D9D9 solid"></div>
-                      </div>
-                      <div style="color: rgba(0, 0, 0, 0.85); font-size: 14px; font-family: Roboto; font-weight: 400; line-height: 22px; word-wrap: break-word">Syllabus name</div>
-                    </div>
+                <div class="mb-3 row align-items-center">
+                  <label for="input-user-phone" class="form-label col-12 col-md-2 col-form-label">Phone
+                    number</label>
+                  <div class="col-12 col-md-10">
+                    <input type="text" class="form-control form-text" id="input-user-phone"
+                           name="phone" placeholder="Phone number">
+                    <div class="invalid-feedback" id="invalid-phone-number"></div>
                   </div>
                 </div>
-                <div style="align-self: stretch; height: 59px; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 5px; display: flex">
-                  <div style="width: 165px; padding-left: 10px; padding-right: 10px; justify-content: flex-start; align-items: flex-start; gap: 10px; display: inline-flex">
-                    <div style="color: #1E1F20; font-size: 14px; font-family: Inter; font-weight: 400; line-height: 22px; word-wrap: break-word">Duplicate handle</div>
-                  </div>
-                  <div style="align-self: stretch; padding-top: 5px; padding-bottom: 5px; padding-left: 10px; justify-content: flex-start; align-items: center; gap: 16px; display: inline-flex">
-                    <div style="background: rgba(255, 255, 255, 0); justify-content: flex-start; align-items: center; gap: 8px; display: flex">
-                      <div style="width: 16px; height: 16px; position: relative">
-                        <div style="width: 16px; height: 16px; left: 0px; top: 0px; position: absolute; background: #E6F7FF; border-radius: 9999px"></div>
-                        <div style="width: 16px; height: 16px; left: 0px; top: 0px; position: absolute; background: white; border-radius: 100px; border: 1px #2D3748 solid"></div>
-                        <div style="width: 8px; height: 8px; left: 4px; top: 4px; position: absolute; background: #2D3748; border-radius: 20px"></div>
-                      </div>
-                      <div style="color: rgba(0, 0, 0, 0.85); font-size: 14px; font-family: Roboto; font-weight: 400; line-height: 22px; word-wrap: break-word">Allow</div>
-                    </div>
-                    <div style="background: rgba(255, 255, 255, 0); justify-content: flex-start; align-items: center; gap: 8px; display: flex">
-                      <div style="width: 16px; height: 16px; background: white; border-radius: 100px; border: 1px #D9D9D9 solid"></div>
-                      <div style="color: rgba(0, 0, 0, 0.85); font-size: 14px; font-family: Roboto; font-weight: 400; line-height: 22px; word-wrap: break-word">Replace</div>
-                    </div>
-                    <div style="background: rgba(255, 255, 255, 0); justify-content: flex-start; align-items: center; gap: 8px; display: flex">
-                      <div style="width: 16px; height: 16px; background: white; border-radius: 100px; border: 1px #D9D9D9 solid"></div>
-                      <div style="color: rgba(0, 0, 0, 0.85); font-size: 14px; font-family: Roboto; font-weight: 400; line-height: 22px; word-wrap: break-word">Skip</div>
-                    </div>
+                <div class="mb-3 row align-items-center">
+                  <label for="pick-date-of-birth" class="form-label col-12 col-md-2 col-form-label">Date
+                    of
+                    birth</label>
+                  <div class="col-12 col-md-10">
+                    <input type="date" class="form-control" id="pick-date-of-birth" name="dob"
+                           placeholder="">
+                    <div class="invalid-feedback" id="invalid-date-of-birth"></div>
                   </div>
                 </div>
-              </div>
-            </div>
-            <div style="width: 460px; height: 0px; border: 1px #ACACAC solid"></div>
-            <div style="width:100%; right: 0; align-self: stretch; padding-left: 20px; padding-right: 20px; justify-content: flex-end; align-items: flex-start; gap: 10px; display: inline-flex">
-              <div style="padding-left: 10px; padding-right: 10px; padding-top: 7px; padding-bottom: 7px; border-radius: 10px; justify-content: center; align-items: center; gap: 5px; display: flex">
-                <div style="color: #E74A3B; font-size: 14px; font-family: Inter; font-weight: 700; text-decoration: underline; word-wrap: break-word">Cancel</div>
-              </div>
-              <div style="padding-left: 25px; padding-right: 25px; padding-top: 7px; padding-bottom: 7px; background: #2D3748; border-radius: 10px; justify-content: center; align-items: center; gap: 10px; display: flex">
-                <div style="color: white; font-size: 14px; font-family: Inter; font-weight: 700; word-wrap: break-word">Import</div>
-              </div>
-            </div>
-          </form>
-          </div>
+                <fieldset class="row mb-3 align-items-baseline">
+                  <legend class="col-12 col-md-2 col-form-label">Gender</legend>
+                  <div class="col-12 col-md-10">
+                    <div class="form-check-inline">
+                      <input class="form-check-input" type="radio" name="gender"
+                             id="gender-radio-male" value="true" checked>
+                      <label for="gender-radio-male" class="form-check-label">Male</label>
+                    </div>
+                    <div class="form-check-inline">
+                      <input class="form-check-input" type="radio" name="gender"
+                             id="gender-radio-female" value="false">
+                      <label for="gender-radio-female" class="form-check-label">Female</label>
+                    </div>
+                  </div>
+                </fieldset>
+                <div class="mb-3 row align-items-end">
+                  <p class="form-label col-12 col-md-2 col-form-label">Status</p>
+                  <div class="col-12 col-md-10 form-check form-switch ps-3 m-auto">
+                    <input type="checkbox" name="status" id="toggle-user-status"
+                           class="form-check-input m-0 align-self-center" value="true"
+                           style="scale: 1.5;">
+                    <label for="toggle-user-status" id="user-status-label"
+                           class="form-check-label mx-3">Inactive</label>
+                  </div>
+                </div>
+                <div class="col-12 text-center">
+                  <input type="reset" class="btn btn-danger close-add-user-dialog-button" value="Cancel">
+                  <input type="submit" name="btAction" id="submit-add-user-dialog-button"
+                         class="btn btn-dark" value="Save">
+                </div>
+              </form>
+            </td>
+          </tr>
+          </tbody>
+        </table>
       </dialog>
     </div>
   </div>
   <div th:replace="~{common :: footer}"></div>
   <!--// js search-->
-  <div class="dialog-backdrop" id="dialog-backdrop"></div>
+
 
   <script src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
   <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
@@ -497,102 +353,56 @@
   <!-- Optional Plugin -->
   <script src="https://cdn.jsdelivr.net/npm/react-multi-date-picker@latest/build/date_picker_header.browser.js"></script>
 
-<!--  LISTING SYLLABUS-->
+
   <script>
-    var mode = 1;
-    var myVar = 1;
-    var selectedValue = 5;
-    $(document).ready(function () {
-      // MODE 1
-      if(mode === 1) {
-        var combo = document.getElementById("rowPerPage");
-        combo.addEventListener("change", function () {
-          selectedValue = combo.value; // Lấy giá trị đã chọn
-          if (selectedValue !== "" && !combo.disabled) {
-            console.log("Giá trị đã chọn mode 1: " + selectedValue);
-            if(mode === 1){performAjaxRequest();}
-          } else {
-            console.log("Chưa chọn tùy chọn");
-          }
-        });
-            var page1 = document.getElementById("group-6");
-            var page2 = document.getElementById("group-5");
-            var page3 = document.getElementById("group-7");
-            var page10 = document.getElementById("group-8");
-            performAjaxRequest();
-            page1.addEventListener("click", function () {
-              myVar = 1;
-              if(mode == 1) {
-                performAjaxRequest();
-              }
-            });
-            page2.addEventListener("click", function () {
-              myVar = 2;
-              if(mode == 1) {
-                performAjaxRequest();
-              }
-            });
-            page3.addEventListener("click", function () {
-              myVar = 3;
-              if(mode == 1) {
-                performAjaxRequest();
-              }
-            });
-            page10.addEventListener("click", function () {
-              myVar = 10;
-              if(mode === 1) {
-                performAjaxRequest();
-              }
-              dataTable.empty();
-            });
+    $(document).ready(function() {
+      // Sử dụng AJAX để lấy dữ liệu từ API
+      $.ajax({
+        url: 'http://localhost:8080/api/v1/syllabus/list-syllabus?page=1', // Thay đổi đường dẫn API của bạn
+        type: 'GET',
+        success: function(data) {
+          console.log(data);
+          // Xử lý dữ liệu và cập nhật bảng
+          var dataTable = $('#data-table');
+          dataTable.empty(); // Xóa nội dung hiện có trong bảng
 
+          // Lặp qua dữ liệu và thêm từng dòng vào bảng
+          $.each(data, function(index, item) {
+              var row = '<tr>' +
+                      '<td>' + item.topicName + '</td>' +
+                      '<td>' + item.topicCode + '</td>' +
+                      '<td>' + item.createdDate + '</td>' +
+                      '<td>' + item.createdBy + '</td>' +
+                      '<td>' + item.duration + '</td>' +
+                      '<td>' + item.outputStandardArr + '</td>' +
+                      // '<td>' + ACTIVE + '</td>' +
 
-
-        function performAjaxRequest() {
-          $.ajax({
-            url: 'http://localhost:8080/api/v1/syllabus/list-syllabus/' + selectedValue + '?page=' + myVar,
-            type: 'GET',
-            success: function (data) {
-              console.log("DATA 1: " +data);
-              // Xử lý dữ liệu và cập nhật bảng
-              var dataTable = $('#data-table');
-              dataTable.empty(); // Xóa nội dung hiện có trong bảng
-
-              // Lặp qua dữ liệu và thêm từng dòng vào bảng
-              $.each(data, function (index, item) {
-                var durationText = item.duration + " days";
-                var row = '<tr>' +
-                        '<td>' + item.topicName + '</td>' +
-                        '<td>' + item.topicCode + '</td>' +
-                        '<td>' + item.createdDate + '</td>' +
-                        '<td>' + item.createdBy + '</td>' +
-                        '<td>' + durationText + '</td>' +
-                        '<td>' + item.outputStandardArr + '</td>' +
-                        '<td id="' + item.syllabusStatus + '">' + item.syllabusStatus + '</td>' +
-                        // Thêm các ô khác ở đây
-                        '</tr>';
-                dataTable.append(row);
-              });
-            }
+                      // Thêm các ô khác ở đây
+                      '</tr>';
+              dataTable.append(row);
           });
-        };
+        }
+      });
+    });
+  </script>
 
-      }
 
-      // MODE 2
+  <script>
+    $(document).ready(function () {
       // Tạo mảng lưu trữ các từ khóa đã tìm kiếm
       var searchedKeywords = [];
+
+      // Khởi tạo DataTable ban đầu
+      initializeDataTable(searchedKeywords);
+
       // Lắng nghe sự kiện khi người dùng nhấn Enter trong ô tìm kiếm
       var input = document.getElementById("search-input");
       input.addEventListener("keypress", function (event) {
         if (event.key === "Enter" && input.value.trim() !== "") {
-          mode = 2;
-          console.log(mode+" là mode hiện tại");
-          if(mode === 2) {
           let search = document.getElementById("search-keyword");
           let item = document.createElement("div");
           item.className = "search-item";
-          const keyword = input.value.trim();
+          const keyword = input.value.trim().toLowerCase(); // Chuyển đổi thành chữ viết thường
           item.innerHTML += `
                 ${keyword}
                 <span>&#10005;</span>
@@ -600,194 +410,149 @@
           search.appendChild(item);
           searchedKeywords.push(keyword);
           // Gọi hàm sendSearchRequest để gửi yêu cầu AJAX
-            var combo1 = document.getElementById("rowPerPage");
-            combo1.addEventListener("change", function () {
-              selectedValue = combo1.value; // Lấy giá trị đã chọn
-              if (selectedValue !== "" && !combo1.disabled) {
-                console.log("Giá trị đã chọn mode 2: " + selectedValue);
-                console.log("Giá trị searchKey mode 2: " + searchedKeywords);
-                sendSearchRequest(searchedKeywords);
-              } else {
-                console.log("Chưa chọn tùy chọn");
-              }
-            });
-              var page1 = document.getElementById("group-6");
-              var page2 = document.getElementById("group-5");
-              var page3 = document.getElementById("group-7");
-              var page10 = document.getElementById("group-8");
-              sendSearchRequest(searchedKeywords);
-              page1.addEventListener("click", function () {
-                myVar = 1;
-                sendSearchRequest(searchedKeywords);
-              });
-              page2.addEventListener("click", function () {
-                myVar = 2;
-                sendSearchRequest(searchedKeywords);
-              });
-              page3.addEventListener("click", function () {
-                myVar = 3;
-                sendSearchRequest(searchedKeywords);
-              });
-              page10.addEventListener("click", function () {
-                myVar = 10;
-                sendSearchRequest(searchedKeywords);
-                dataTable.empty();
-              });
+          sendSearchRequest(searchedKeywords);
+          input.value = "";
 
-            // XÓA TỪ KHÓA
-            let deleteButton = item.getElementsByTagName("span")[0];
-            deleteButton.addEventListener("click", () => {
-              // Xóa từ khóa khỏi mảng searchedKeywords
-              const index = searchedKeywords.indexOf(keyword);
-              if (index !== -1) {
-                searchedKeywords.splice(index, 1);
-                if (searchedKeywords.length == 0) {
-                } else
-                  sendSearchRequest(searchedKeywords);
-              }
-              item.remove();
-            });
-          }
-
-            sendSearchRequest(searchedKeywords);
-          // input.value = searchedKeywords;
-
-            console.log("mode "+mode);
-            // Hàm gửi yêu cầu AJAX với từ khóa tìm kiếm
-            function sendSearchRequest(searchKeywords) {
-              var url = "";
-              if (searchKeywords.length > 0) {
-                url = `http://localhost:8080/api/v1/syllabus/search-syllabus/` + selectedValue + `?key=` + searchKeywords + '&page=' + myVar;
-              }
-              $.ajax({
-                url: url,
-                method: "GET",
-                success: function (data) {
-                  console.log("DATA 2: " +data);
-                  // Xử lý dữ liệu và cập nhật bảng
-                  var dataTable = $('#data-table');
-                  dataTable.empty();
-                  // Lặp qua dữ liệu và thêm từng dòng vào bảng
-                  $.each(data, function (index, item) {
-                    var durationText = item.duration + " days";
-                    var row = '<tr>' +
-                            '<td>' + item.topicName + '</td>' +
-                            '<td>' + item.topicCode + '</td>' +
-                            '<td>' + item.createdDate + '</td>' +
-                            '<td>' + item.createdBy + '</td>' +
-                            '<td>' + durationText + '</td>' +
-                            '<td>' + item.outputStandardArr + '</td>' +
-                            '<td id="' + item.syllabusStatus + '">' + item.syllabusStatus + '</td>' +
-                            // Thêm các ô khác ở đây
-                            '</tr>';
-                    dataTable.append(row);
-                  });
-                },
-                error: function (error) {
-                  console.log(error)
-                }
-              });
+          let deleteButton = item.getElementsByTagName("span")[0];
+          deleteButton.addEventListener("click", () => {
+            // Xóa từ khóa khỏi mảng searchedKeywords
+            const index = searchedKeywords.indexOf(keyword);
+            if (index !== -1) {
+              searchedKeywords.splice(index, 1);
+              if(searchedKeywords.length == 0){
+                initializeDataTable(searchedKeywords);
+              }else
+                sendSearchRequest(searchedKeywords);
             }
-        }//mode
-      });
-
-      //MODE 3
-      // Lắng nghe sự kiện khi người dùng nhấn Enter trong ô tìm kiếm
-      var inputCalendar = document.getElementById("search-input-calendar");
-      inputCalendar.addEventListener("change", function(){
-        var date = inputCalendar.value;
-        var selectedDate = new Date(inputCalendar.value);
-        var year = selectedDate.getFullYear();
-        var month = (selectedDate.getMonth() + 1).toString().padStart(2, '0');
-        var day = selectedDate.getDate().toString().padStart(2, '0');
-        // Định dạng lại thành "yyyy/mm/dd"
-        var formattedDate = year + '/' + month + '/' + day;
-
-        if(formattedDate.trim() !== ""){
-          mode = 3;
+            item.remove();
+          });
         }
-        console.log(mode + " là mode hiện tại");
-        if (mode === 3) {
-          // Gọi hàm sendSearchRequest để gửi yêu cầu AJAX
-          var combo1 = document.getElementById("rowPerPage");
-          combo1.addEventListener("change", function () {
-            selectedValue = combo1.value; // Lấy giá trị đã chọn
-            if (selectedValue !== "" && !combo1.disabled) {
-              console.log("Giá trị searchKey mode 3: " + formattedDate);
-              sendDateRequest(formattedDate);
-            } else {
-              console.log("Chưa chọn tùy chọn");
-            }
-          });
-          var page1 = document.getElementById("group-6");
-          var page2 = document.getElementById("group-5");
-          var page3 = document.getElementById("group-7");
-          var page10 = document.getElementById("group-8");
-          sendDateRequest(formattedDate);
-          page1.addEventListener("click", function () {
-            myVar = 1;
-            sendDateRequest(formattedDate);
-          });
-          page2.addEventListener("click", function () {
-            myVar = 2;
-            sendDateRequest(formattedDate);
-          });
-          page3.addEventListener("click", function () {
-            myVar = 3;
-            sendDateRequest(formattedDate);
-          });
-          page10.addEventListener("click", function () {
-            myVar = 10;
-            sendDateRequest(formattedDate);
-            dataTable.empty();
-          });
-
-          sendDateRequest(formattedDate);
-          console.log("mode " + mode);
-
-          // Hàm gửi yêu cầu AJAX với từ khóa tìm kiếm
-          function sendDateRequest(formattedDate) {
-            var url = `http://localhost:8080/api/v1/syllabus/search-syllabus-byCreatedDate/`+selectedValue+`?page=`+myVar+`&key=`+formattedDate;
-            $.ajax({
-              url: url,
-              method: "GET",
-              success: function (data) {
-                console.log("DATA 3: " + data);
-                // Xử lý dữ liệu và cập nhật bảng
-                var dataTable = $('#data-table');
-                dataTable.empty();
-                // Lặp qua dữ liệu và thêm từng dòng vào bảng
-                $.each(data, function (index, item) {
-                  var durationText = item.duration + " days";
-                  var row = '<tr>' +
-                          '<td>' + item.topicName + '</td>' +
-                          '<td>' + item.topicCode + '</td>' +
-                          '<td>' + item.createdDate + '</td>' +
-                          '<td>' + item.createdBy + '</td>' +
-                          '<td>' + durationText + '</td>' +
-                          '<td>' + item.outputStandardArr + '</td>' +
-                          '<td id="' + item.syllabusStatus + '">' + item.syllabusStatus + '</td>' +
-                          '</tr>';
-                  dataTable.append(row);
-                });
-              },
-              error: function (error) {
-                console.log(error)
-              }
-            });
-          }
-        }//mode
       });
-    });
-  </script>
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script src="/js/common.js"></script>
 
-<!--   Pop-up window-->
-  <script>
+      // Lắng nghe sự kiện khi người dùng xóa từ khóa
+      document.querySelectorAll(".search-item").forEach(element => {
+        let deleteButton = element.getElementsByTagName("span")[0];
+        deleteButton.addEventListener("click", () => {
+          // Xóa từ khóa khỏi mảng searchedKeywords
+          const index = searchedKeywords.indexOf(element.textContent.trim());
+          if (index !== -1) {
+            searchedKeywords.splice(index, 1);
+          }
+          element.remove();
+          // Gọi hàm sendSearchRequest để gửi yêu cầu AJAX khi xóa từ khóa
+          sendSearchRequest(searchedKeywords);
+        });
+      });
+
+      // Hàm khởi tạo DataTable
+      function initializeDataTable(searchKeywords) {
+        var url = `http://localhost:8080/api/v1/syllabus/search-syllabus/${searchKeywords}`;
+        if (searchKeywords.length > 0) {
+          var url = `http://localhost:8080/api/v1/syllabus/search-syllabus/${searchKeywords.join(",")}`;
+        }
+
+        $.ajax({
+          url: url,
+          method: "GET",
+          success: function (response) {
+            let tableData = [];
+            response.payload.forEach(element => {
+              let elementArr = [];
+              elementArr.push(element.userId);
+              elementArr.push('<strong>' + element.name + '</strong>');
+              elementArr.push(element.email);
+              elementArr.push(element.dob);
+              if (element.gender.toLowerCase() === "male") {
+                elementArr.push('<img src="img/male.png" alt="Male" class="gender-icon">');
+              } else if (element.gender.toLowerCase() === "female") {
+                elementArr.push('<img src="img/female.png" alt="Female" class="gender-icon">');
+              }
+              if (element.userPermission === "CLASS_ADMIN") {
+                elementArr.push('<p class="class-admin-row name">ADMIN</p>');
+              }else if (element.userPermission === "TRAINER") {
+                elementArr.push('<p class="trainer-row name">TRAINER</p>');
+              }else if (element.userPermission === "SUPER_ADMIN") {
+                elementArr.push('<p class="super-admin-row name">SUPER-ADMIN</p>');
+              }
+              elementArr.push('<img style="align-content: center" src="img/more_horizontal.svg">');
+              tableData.push(elementArr);
+              console.log(tableData);
+            });
+
+            // Khởi tạo hoặc cập nhật DataTable
+            if ($.fn.dataTable.isDataTable("#user-information-table")) {
+              $("#user-information-table").DataTable().clear().destroy();
+            }
+
+            $("#user-information-table").DataTable({
+              data: tableData,
+              searching: false,
+              paging: true,
+              info: false,
+            });
+          },
+          error: function (error) {
+            console.log(error);
+          }
+        });
+      }
+
+      // Hàm gửi yêu cầu AJAX với từ khóa tìm kiếm
+      function sendSearchRequest(searchKeywords) {
+        var url = "http://localhost:8080/api/v1/users";
+        if (searchKeywords.length > 0) {
+          url = "http://localhost:8080/api/v1/users/search?keyword=" + searchKeywords.join(",");
+        }
+
+        $.ajax({
+          url: url,
+          method: "GET",
+          success: function (response) {
+            let tableData = [];
+            response.payload.forEach(element => {
+              let elementArr = [];
+              elementArr.push(element.userId);
+              elementArr.push('<strong>' + element.name + '</strong>');
+              elementArr.push(element.email);
+              elementArr.push(element.dob);
+              if (element.gender.toLowerCase() === "male") {
+                elementArr.push('<img src="img/male.png" alt="Male" class="gender-icon">');
+              } else if (element.gender.toLowerCase() === "female") {
+                elementArr.push('<img src="img/female.png" alt="Female" class="gender-icon">');
+              }
+              if (element.userPermission === "CLASS_ADMIN") {
+                elementArr.push('<p class="class-admin-row name">ADMIN</p>');
+              }else if (element.userPermission === "TRAINER") {
+                elementArr.push('<p class="trainer-row name">TRAINER</p>');
+              }else if (element.userPermission === "SUPER_ADMIN") {
+                elementArr.push('<p class="super-admin-row name">SUPER-ADMIN</p>');
+              }
+              elementArr.push('<img style="align-content: center" src="img/more_horizontal.svg">');
+              tableData.push(elementArr);
+              console.log(tableData);
+            });
+
+            // Khởi tạo hoặc cập nhật DataTable
+            if ($.fn.dataTable.isDataTable("#user-information-table")) {
+              $("#user-information-table").DataTable().clear().destroy();
+            }
+
+            $("#user-information-table").DataTable({
+              data: tableData,
+              searching: false,
+              paging: true,
+              info: false,
+            });
+          },
+          error: function (error) {
+            console.log(error)
+          }
+        });
+      }
+    });
     function getUserTableData(){
       $.ajax({
-        url: "https://localhost:8080/api/v1/syllabus",
+        url: "https://localhost:8080/api/v1/users",
         method: "GET",
         success: function (response) {
           let tableData = [];
@@ -839,9 +604,8 @@
       $("#filter-class-location").val(null).trigger("change");
       $("#filter-option-dialog")[0].close();
     });
-    $("#open-import-syllabus-dialog-button").click(() => {
-      $("#dialog-backdrop").css("display", "block");
-      $("#import-syllabus-dialog")[0].showModal();
+    $("#open-add-user-dialog-button").click(() => {
+      $("#add-user-dialog")[0].showModal();
     });
     $("#toggle-user-status").click(function () {
       $(this).prop("disabled", true);
@@ -854,7 +618,7 @@
         $(this).prop("disabled", false);
       }, 150);
     });
-    $("#import-syllabus-form").submit(function (event) {
+    $("#add-user-form").submit(function (event) {
       event.preventDefault();
       $(".is-invalid").removeClass("is-invalid")
       $(".invalid-feedback").text("");
@@ -901,7 +665,7 @@
           data: JSON.stringify(keyValues),
           success: function(){
             alert("Success");
-            $("#import-syllabus-dialog")[0].close();
+            $("#add-user-dialog")[0].close();
             getUserTableData();
           },
           error:function(error){
@@ -922,19 +686,17 @@
     $("#pick-date-of-birth").click(function () {
       $(this).removeClass("is-invalid");
     });
-    $(".close-import-syllabus-dialog-button").click(function (event) {
+    $(".close-add-user-dialog-button").click(function (event) {
       event.preventDefault();
       $(".is-invalid").removeClass("is-invalid")
       $(".invalid-feedback").text("");
-      $("#import-syllabus-form")[0].reset();
-      $("#import-syllabus-dialog")[0].close();
-      hideBackdrop();
+      $("#add-user-form")[0].reset();
+      $("#add-user-dialog")[0].close();
     });
-    function hideBackdrop() {
-      $("#dialog-backdrop").css("display", "none");
-    }
 
   </script>
+  <script src="/js/common.js"></script>
 </div>
 </body>
+
 </html>

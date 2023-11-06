@@ -267,7 +267,7 @@
             var searchedKeywords = [];
 
             // Khởi tạo DataTable ban đầu
-            sendSearchRequest(searchedKeywords);
+            initializeDataTable(searchedKeywords);
 
             // Lắng nghe sự kiện khi người dùng nhấn Enter trong ô tìm kiếm
             var input = document.getElementById("search-input");
@@ -294,7 +294,7 @@
                         if (index !== -1) {
                             searchedKeywords.splice(index, 1);
                             if(searchedKeywords.length == 0){
-                                sendSearchRequest(searchedKeywords);
+                                initializeDataTable(searchedKeywords);
                             }else
                             sendSearchRequest(searchedKeywords);
                         }
@@ -319,7 +319,57 @@
             });
 
             // Hàm khởi tạo DataTable
+            function initializeDataTable(searchKeywords) {
+                var url = "http://localhost:8080/api/v1/users";
+                if (searchKeywords.length > 0) {
+                    url = "http://localhost:8080/api/v1/users/search?keyword=" + searchKeywords.join(",");
+                }
 
+                $.ajax({
+                    url: url,
+                    method: "GET",
+                    success: function (response) {
+                        let tableData = [];
+                        response.payload.forEach(element => {
+                            let elementArr = [];
+                            elementArr.push(element.userId);
+                            elementArr.push('<strong>' + element.name + '</strong>');
+                            elementArr.push(element.email);
+                            elementArr.push(element.dob);
+                            if (element.gender.toLowerCase() === "male") {
+                                elementArr.push('<img src="img/male.png" alt="Male" class="gender-icon">');
+                            } else if (element.gender.toLowerCase() === "female") {
+                                elementArr.push('<img src="img/female.png" alt="Female" class="gender-icon">');
+                            }
+                            if (element.userPermission === "CLASS_ADMIN") {
+                                elementArr.push('<p class="class-admin-row name">ADMIN</p>');
+                            }else if (element.userPermission === "TRAINER") {
+                                elementArr.push('<p class="trainer-row name">TRAINER</p>');
+                            }else if (element.userPermission === "SUPER_ADMIN") {
+                                elementArr.push('<p class="super-admin-row name">SUPER-ADMIN</p>');
+                            }
+                            elementArr.push('<img style="align-content: center" src="img/more_horizontal.svg">');
+                            tableData.push(elementArr);
+                            console.log(tableData);
+                        });
+
+                        // Khởi tạo hoặc cập nhật DataTable
+                        if ($.fn.dataTable.isDataTable("#user-information-table")) {
+                            $("#user-information-table").DataTable().clear().destroy();
+                        }
+
+                        $("#user-information-table").DataTable({
+                            data: tableData,
+                            searching: false,
+                            paging: true,
+                            info: false,
+                        });
+                    },
+                    error: function (error) {
+                        alert(error);
+                    }
+                });
+            }
 
             // Hàm gửi yêu cầu AJAX với từ khóa tìm kiếm
             function sendSearchRequest(searchKeywords) {

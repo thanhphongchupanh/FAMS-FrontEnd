@@ -3,7 +3,7 @@ package com.fams.famsfrontend;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
-//@Controller
+@Controller
 public class userController {
 
     @GetMapping
