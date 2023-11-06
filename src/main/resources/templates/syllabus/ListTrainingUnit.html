@@ -1,0 +1,857 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/css/Bootstrap%205/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <script src="/js/Bootstrap%205/bootstrap.bundle.min.js"></script>
+    <script src="/js/JQuery/jquery-3.7.1.js"></script>
+    <link href="/css/select2/select2.css" rel="stylesheet" />
+    <script src="/js/select2/select2.min.js"></script>
+    <link href="/css/DataTable/jquery.dataTables.css" rel="stylesheet">
+    <script src="/js/DataTable/jquery.dataTables.js"></script>
+    <link href="/css/user.css" rel="stylesheet" >
+    <!--    <script src="/js/user.js"></script>-->
+    <link rel="shortcut icon" type="image/png" href="img/FPT_logo.png"/>
+    <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
+    <link rel="stylesheet" href="css/syllabus/createSyllabusOutline.css">
+
+    <title>Document</title>
+</head>
+<body>
+<header class="bg-main text-white px-5 py-1" >
+    <div th:replace="~{common :: header}"></div>
+</header>
+
+<div class="d-flex flex-grow-1 flex-row">
+    <div th:replace="~{common :: menu}"></div>
+
+    <div class="frame-1186">
+        <div class="program-detail">
+            <div class="program-header">
+                <div class="frame-1191">
+                    <div class="training-program">Syllabus</div>
+                    <div class="progress-bar">
+                        <div class="label">
+                            <div class="bar">
+                                <div class="progress-bar2"></div>
+                            </div>
+                            <div class="padding">
+                                <div class="text">General</div>
+                            </div>
+                        </div>
+                        <div class="label">
+                            <div class="bar2">
+                                <div class="progress-bar2">
+                                    <div class="ellipse-offset-to-get-to-the-middle">
+                                        <div class="ellipse"></div>
+                                    </div>
+                                </div>
+                                <div class="spacer"></div>
+                            </div>
+                            <div class="padding">
+                                <div class="text">Outline</div>
+                            </div>
+                        </div>
+                        <div class="label">
+                            <div class="bar2">
+                                <div class="spacer"></div>
+                            </div>
+                            <div class="padding">
+                                <div class="text2">Other</div>
+                            </div>
+                        </div>
+                        <div class="label">
+                            <div class="bar3">
+                                <div class="spacer"></div>
+                            </div>
+                            <div class="padding">
+                                <div class="text">Done</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="basic-info">
+                <div class="syllabus-name-code">
+                    <div class="req-text-box">
+                        <div class="text3">Syllabus Name*</div>
+                        <input type="text" id="syllabusNameInput" name="" class="text-box">
+                    </div>
+                    <div class="req-text-box">
+                        <div class="text3">Code:</div>
+                        <div class="npl">NPL</div>
+                    </div>
+                    <div class="req-text-box">
+                        <div class="text3">Version:</div>
+                        <div class="_1-0">1.0</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="frame-1189">
+            <div class="b-ody">
+                <div class="syllabus-tab">
+                    <div class="tab-3">
+                        <div class="frame-51">
+                            <div class="tab-2">Others</div>
+                        </div>
+                    </div>
+                    <div class="tab-1">
+                        <div class="frame-51">
+                            <div class="general">General</div>
+                        </div>
+                    </div>
+                    <div class="tab-22">
+                        <div class="frame-51">
+                            <div class="tab-2">Outline</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="frame-1207">
+                    <div class="frame-1192">
+                        <div class="content">
+                            <div class="day-3">
+                                <div class="frame-1193">
+                                    <div class="frame-48">
+                                        <div class="frame-512">
+                                            <div class="frame-513">
+                                                <div class="day-1">Day 1</div>
+                                                <svg
+                                                        class="remove-circle-outline"
+                                                        width="24"
+                                                        height="24"
+                                                        viewBox="0 0 24 24"
+                                                        fill="none"
+                                                        xmlns="http://www.w3.org/2000/svg"
+                                                >
+                                                    <g clip-path="url(#clip0_1173_20029)">
+                                                        <path
+                                                                d="M7 11V13H17V11H7ZM12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM12 20C7.59 20 4 16.41 4 12C4 7.59 7.59 4 12 4C16.41 4 20 7.59 20 12C20 16.41 16.41 20 12 20Z"
+                                                                fill="#E74A3B"
+                                                        />
+                                                    </g>
+                                                    <defs>
+                                                        <clipPath id="clip0_1173_20029">
+                                                            <rect width="24" height="24" fill="white" />
+                                                        </clipPath>
+                                                    </defs>
+                                                </svg>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="frame-49">
+                                        <div class="frame-52">
+                                            <div class="day-2">Day 2</div>
+                                            <svg
+                                                    class="remove-circle-outline2"
+                                                    width="24"
+                                                    height="24"
+                                                    viewBox="0 0 24 24"
+                                                    fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                            >
+                                                <g clip-path="url(#clip0_1173_20024)">
+                                                    <path
+                                                            d="M7 11V13H17V11H7ZM12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM12 20C7.59 20 4 16.41 4 12C4 7.59 7.59 4 12 4C16.41 4 20 7.59 20 12C20 16.41 16.41 20 12 20Z"
+                                                            fill="#E74A3B"
+                                                    />
+                                                </g>
+                                                <defs>
+                                                    <clipPath id="clip0_1173_20024">
+                                                        <rect width="24" height="24" fill="white" />
+                                                    </clipPath>
+                                                </defs>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <div class="frame-50">
+                                        <div class="frame-513">
+                                            <div class="day-32">Day 3</div>
+                                            <svg
+                                                    class="remove-circle-outline3"
+                                                    width="24"
+                                                    height="24"
+                                                    viewBox="0 0 24 24"
+                                                    fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                            >
+                                                <g clip-path="url(#clip0_1173_19661)">
+                                                    <path
+                                                            d="M7 11V13H17V11H7ZM12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM12 20C7.59 20 4 16.41 4 12C4 7.59 7.59 4 12 4C16.41 4 20 7.59 20 12C20 16.41 16.41 20 12 20Z"
+                                                            fill="#E74A3B"
+                                                    />
+                                                </g>
+                                                <defs>
+                                                    <clipPath id="clip0_1173_19661">
+                                                        <rect width="24" height="24" fill="white" />
+                                                    </clipPath>
+                                                </defs>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="unit-1-day-1">
+                                    <div class="frame-514">
+                                        <div class="frame-54">
+                                            <div class="frame-108">
+                                                <div class="unit-5">Unit 5</div>
+                                            </div>
+                                            <div class="frame-47">
+                                                <div class="frame-101">
+                                                    <div class="frame-1200">
+                                                        <div class="frame-100">
+                                                            <div class="unit-Name">
+                                                                .NET Introduction
+                                                            </div>
+                                                            <div class="">7hrs</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="frame-65">
+                                                        <svg
+                                                                class="create"
+                                                                width="24"
+                                                                height="24"
+                                                                viewBox="0 0 24 24"
+                                                                fill="none"
+                                                                xmlns="http://www.w3.org/2000/svg"
+                                                        >
+                                                            <g clip-path="url(#clip0_1173_19230)">
+                                                                <path
+                                                                        d="M3 17.25V21H6.75L17.81 9.94L14.06 6.19L3 17.25ZM5.92 19H5V18.08L14.06 9.02L14.98 9.94L5.92 19ZM20.71 5.63L18.37 3.29C18.17 3.09 17.92 3 17.66 3C17.4 3 17.15 3.1 16.96 3.29L15.13 5.12L18.88 8.87L20.71 7.04C21.1 6.65 21.1 6.02 20.71 5.63Z"
+                                                                        fill="#F1F1F1"
+                                                                />
+                                                            </g>
+                                                            <defs>
+                                                                <clipPath id="clip0_1173_19230">
+                                                                    <rect width="24" height="24" fill="white" />
+                                                                </clipPath>
+                                                            </defs>
+                                                        </svg>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="frame-53">
+                                            <svg
+                                                    class="arrow-drop-down-circle"
+                                                    width="24"
+                                                    height="24"
+                                                    viewBox="0 0 24 24"
+                                                    fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                            >
+                                                <g clip-path="url(#clip0_1173_19232)">
+                                                    <path
+                                                            d="M12 4C16.41 4 20 7.59 20 12C20 16.41 16.41 20 12 20C7.59 20 4 16.41 4 12C4 7.59 7.59 4 12 4ZM12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM12 15L8 11H16L12 15Z"
+                                                            fill="#285D9A"
+                                                    />
+                                                </g>
+                                                <defs>
+                                                    <clipPath id="clip0_1173_19232">
+                                                        <rect width="24" height="24" fill="white" />
+                                                    </clipPath>
+                                                </defs>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <div class="frame-81">
+                                        <div class="frame-89">
+                                            <div class="frame-43">
+                                                <div class="frame-41">
+                                                    <div class="net-introduction2">.NET Introduction</div>
+                                                    <div class="frame-40">
+                                                        <div class="frame-95">
+                                                            <div class="h-4-sd">H4SD</div>
+                                                        </div>
+                                                        <div class="_30-mins">30mins</div>
+                                                        <div class="online">
+                                                            <div class="online2">Online</div>
+                                                        </div>
+                                                        <svg
+                                                                class="concept-lecture"
+                                                                width="25"
+                                                                height="24"
+                                                                viewBox="0 0 25 24"
+                                                                fill="none"
+                                                                xmlns="http://www.w3.org/2000/svg"
+                                                        >
+                                                            <g clip-path="url(#clip0_1173_19245)">
+                                                                <path
+                                                                        d="M9.5 13C11.71 13 13.5 11.21 13.5 9C13.5 6.79 11.71 5 9.5 5C7.29 5 5.5 6.79 5.5 9C5.5 11.21 7.29 13 9.5 13ZM9.5 7C10.6 7 11.5 7.9 11.5 9C11.5 10.1 10.6 11 9.5 11C8.4 11 7.5 10.1 7.5 9C7.5 7.9 8.4 7 9.5 7ZM9.5 15C6.83 15 1.5 16.34 1.5 19V21H17.5V19C17.5 16.34 12.17 15 9.5 15ZM3.5 19C3.72 18.28 6.81 17 9.5 17C12.2 17 15.3 18.29 15.5 19H3.5ZM15.58 7.05C16.42 8.23 16.42 9.76 15.58 10.94L17.26 12.63C19.28 10.61 19.28 7.56 17.26 5.36L15.58 7.05ZM20.57 2L18.94 3.63C21.71 6.65 21.71 11.19 18.94 14.37L20.57 16C24.47 12.11 24.48 6.05 20.57 2Z"
+                                                                        fill="#285D9A"
+                                                                />
+                                                            </g>
+                                                            <defs>
+                                                                <clipPath id="clip0_1173_19245">
+                                                                    <rect
+                                                                            width="24"
+                                                                            height="24"
+                                                                            fill="white"
+                                                                            transform="translate(0.5)"
+                                                                    />
+                                                                </clipPath>
+                                                            </defs>
+                                                        </svg>
+
+                                                        <div class="folder">
+                                                            <svg
+                                                                    class="group"
+                                                                    width="24"
+                                                                    height="24"
+                                                                    viewBox="0 0 24 24"
+                                                                    fill="none"
+                                                                    xmlns="http://www.w3.org/2000/svg"
+                                                            >
+                                                                <path
+                                                                        d="M20 6H12L10 4H4C2.9 4 2.01 4.9 2.01 6L2 18C2 19.1 2.9 20 4 20H20C21.1 20 22 19.1 22 18V8C22 6.9 21.1 6 20 6ZM20 18H4V6H9.17L11.17 8H20V18ZM17.5 12.12V15.5H14.5V10.5H15.88L17.5 12.12ZM13 9V17H19V11.5L16.5 9H13Z"
+                                                                        fill="#285D9A"
+                                                                />
+                                                            </svg>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="frame-472">
+                                                    <div class="declaration-assignment">
+                                                        Declaration &amp; Assignment
+                                                    </div>
+                                                    <div class="frame-40">
+                                                        <div class="frame-95">
+                                                            <div class="h-4-sd">H4SD</div>
+                                                        </div>
+                                                        <div class="_30-mins">30mins</div>
+                                                        <div class="offline">
+                                                            <div class="offline2">Offline</div>
+                                                        </div>
+                                                        <svg
+                                                                class="concept-lecture2"
+                                                                width="25"
+                                                                height="24"
+                                                                viewBox="0 0 25 24"
+                                                                fill="none"
+                                                                xmlns="http://www.w3.org/2000/svg"
+                                                        >
+                                                            <g clip-path="url(#clip0_1173_19254)">
+                                                                <path
+                                                                        d="M9.5 13C11.71 13 13.5 11.21 13.5 9C13.5 6.79 11.71 5 9.5 5C7.29 5 5.5 6.79 5.5 9C5.5 11.21 7.29 13 9.5 13ZM9.5 7C10.6 7 11.5 7.9 11.5 9C11.5 10.1 10.6 11 9.5 11C8.4 11 7.5 10.1 7.5 9C7.5 7.9 8.4 7 9.5 7ZM9.5 15C6.83 15 1.5 16.34 1.5 19V21H17.5V19C17.5 16.34 12.17 15 9.5 15ZM3.5 19C3.72 18.28 6.81 17 9.5 17C12.2 17 15.3 18.29 15.5 19H3.5ZM15.58 7.05C16.42 8.23 16.42 9.76 15.58 10.94L17.26 12.63C19.28 10.61 19.28 7.56 17.26 5.36L15.58 7.05ZM20.57 2L18.94 3.63C21.71 6.65 21.71 11.19 18.94 14.37L20.57 16C24.47 12.11 24.48 6.05 20.57 2Z"
+                                                                        fill="#285D9A"
+                                                                />
+                                                            </g>
+                                                            <defs>
+                                                                <clipPath id="clip0_1173_19254">
+                                                                    <rect
+                                                                            width="24"
+                                                                            height="24"
+                                                                            fill="white"
+                                                                            transform="translate(0.5)"
+                                                                    />
+                                                                </clipPath>
+                                                            </defs>
+                                                        </svg>
+
+                                                        <div class="folder">
+                                                            <svg
+                                                                    class="group2"
+                                                                    width="24"
+                                                                    height="24"
+                                                                    viewBox="0 0 24 24"
+                                                                    fill="none"
+                                                                    xmlns="http://www.w3.org/2000/svg"
+                                                            >
+                                                                <path
+                                                                        d="M20 6H12L10 4H4C2.9 4 2.01 4.9 2.01 6L2 18C2 19.1 2.9 20 4 20H20C21.1 20 22 19.1 22 18V8C22 6.9 21.1 6 20 6ZM20 18H4V6H9.17L11.17 8H20V18ZM17.5 12.12V15.5H14.5V10.5H15.88L17.5 12.12ZM13 9V17H19V11.5L16.5 9H13Z"
+                                                                        fill="#285D9A"
+                                                                />
+                                                            </svg>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="frame-502">
+                                                    <div class="frame-1197">
+                                                        <div class="practice-time">Practice Time</div>
+                                                    </div>
+                                                    <div class="frame-40">
+                                                        <div class="delivery-type">
+                                                            <div class="frame-111">
+                                                                <div class="delivery-type2">Output standard</div>
+                                                                <svg
+                                                                        class="arrow-back-ios"
+                                                                        width="24"
+                                                                        height="24"
+                                                                        viewBox="0 0 24 24"
+                                                                        fill="none"
+                                                                        xmlns="http://www.w3.org/2000/svg"
+                                                                >
+                                                                    <g clip-path="url(#clip0_125767_54)">
+                                                                        <path
+                                                                                d="M7.16212 8L6 9.0677L12.5 15L19 9.0617L17.8379 8L12.5 12.8766L7.16212 8Z"
+                                                                                fill="#285D9A"
+                                                                        />
+                                                                    </g>
+                                                                    <defs>
+                                                                        <clipPath id="clip0_125767_54">
+                                                                            <rect
+                                                                                    width="24"
+                                                                                    height="24"
+                                                                                    fill="white"
+                                                                                    transform="matrix(0 -1 1 0 0 24)"
+                                                                            />
+                                                                        </clipPath>
+                                                                    </defs>
+                                                                </svg>
+                                                            </div>
+                                                        </div>
+                                                        <div class="frame-1198">
+                                                            <div class="_15">15</div>
+                                                        </div>
+                                                        <div class="toggle-online">
+                                                            <div class="ellipse-19"></div>
+                                                            <div class="online3">Online</div>
+                                                        </div>
+                                                        <div class="delivery-type">
+                                                            <div class="frame-111">
+                                                                <div class="delivery-type2">Delivery type</div>
+                                                                <svg
+                                                                        class="arrow-back-ios2"
+                                                                        width="25"
+                                                                        height="24"
+                                                                        viewBox="0 0 25 24"
+                                                                        fill="none"
+                                                                        xmlns="http://www.w3.org/2000/svg"
+                                                                >
+                                                                    <g clip-path="url(#clip0_125767_1123)">
+                                                                        <path
+                                                                                d="M7.91212 8L6.75 9.0677L13.25 15L19.75 9.0617L18.5879 8L13.25 12.8766L7.91212 8Z"
+                                                                                fill="#285D9A"
+                                                                        />
+                                                                    </g>
+                                                                    <defs>
+                                                                        <clipPath id="clip0_125767_1123">
+                                                                            <rect
+                                                                                    width="24"
+                                                                                    height="24"
+                                                                                    fill="white"
+                                                                                    transform="matrix(0 -1 1 0 0.75 24)"
+                                                                            />
+                                                                        </clipPath>
+                                                                    </defs>
+                                                                </svg>
+                                                            </div>
+                                                        </div>
+                                                        <div class="folder">
+                                                            <svg
+                                                                    class="group3"
+                                                                    width="24"
+                                                                    height="24"
+                                                                    viewBox="0 0 24 24"
+                                                                    fill="none"
+                                                                    xmlns="http://www.w3.org/2000/svg"
+                                                            >
+                                                                <path
+                                                                        d="M20 6H12L10 4H4C2.9 4 2.01 4.9 2.01 6L2 18C2 19.1 2.9 20 4 20H20C21.1 20 22 19.1 22 18V8C22 6.9 21.1 6 20 6ZM20 18H4V6H9.17L11.17 8H20V18ZM17.5 12.12V15.5H14.5V10.5H15.88L17.5 12.12ZM13 9V17H19V11.5L16.5 9H13Z"
+                                                                        fill="#285D9A"
+                                                                />
+                                                            </svg>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="add-day-button">
+                                                    <svg
+                                                            class="add"
+                                                            width="24"
+                                                            height="24"
+                                                            viewBox="0 0 24 24"
+                                                            fill="none"
+                                                            xmlns="http://www.w3.org/2000/svg"
+                                                    >
+                                                        <g clip-path="url(#clip0_1173_19784)">
+                                                            <path
+                                                                    d="M13 7H11V11H7V13H11V17H13V13H17V11H13V7ZM12 2C6.49 2 2 6.49 2 12C2 17.51 6.49 22 12 22C17.51 22 22 17.51 22 12C22 6.49 17.51 2 12 2ZM12 20C7.59 20 4 16.41 4 12C4 7.59 7.59 4 12 4C16.41 4 20 7.59 20 12C20 16.41 16.41 20 12 20Z"
+                                                                    fill="#F1F1F1"
+                                                            />
+                                                        </g>
+                                                        <defs>
+                                                            <clipPath id="clip0_1173_19784">
+                                                                <rect width="24" height="24" fill="white" />
+                                                            </clipPath>
+                                                        </defs>
+                                                    </svg>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <svg
+                                        class="line-9"
+                                        width="860"
+                                        viewBox="0 0 860 0"
+                                        fill="none"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                >
+                                    <g filter="url(#filter0_d_1173_19787)">
+                                        <path d="M0 0L860 0" stroke="black" stroke-width="0.7" />
+                                    </g>
+                                    <defs>
+                                        <filter
+                                                id="filter0_d_1173_19787"
+                                                x="-4"
+                                                y="-0.350006"
+                                                width="868"
+                                                height="8.70001"
+                                                filterUnits="userSpaceOnUse"
+                                                color-interpolation-filters="sRGB"
+                                        >
+                                            <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                                            <feColorMatrix
+                                                    in="SourceAlpha"
+                                                    type="matrix"
+                                                    values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+                                                    result="hardAlpha"
+                                            />
+                                            <feOffset dy="4" />
+                                            <feGaussianBlur stdDeviation="2" />
+                                            <feComposite in2="hardAlpha" operator="out" />
+                                            <feColorMatrix
+                                                    type="matrix"
+                                                    values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"
+                                            />
+                                            <feBlend
+                                                    mode="normal"
+                                                    in2="BackgroundImageFix"
+                                                    result="effect1_dropShadow_1173_19787"
+                                            />
+                                            <feBlend
+                                                    mode="normal"
+                                                    in="SourceGraphic"
+                                                    in2="effect1_dropShadow_1173_19787"
+                                                    result="shape"
+                                            />
+                                        </filter>
+                                    </defs>
+                                </svg>
+
+                                <svg
+                                        class="line-8"
+                                        width="860"
+                                        viewBox="0 0 860 0"
+                                        fill="none"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                >
+                                    <g filter="url(#filter0_d_1173_19274)">
+                                        <path d="M0 0L860 0" stroke="black" stroke-width="0.7" />
+                                    </g>
+                                    <defs>
+                                        <filter
+                                                id="filter0_d_1173_19274"
+                                                x="-4"
+                                                y="-0.349998"
+                                                width="868"
+                                                height="8.7"
+                                                filterUnits="userSpaceOnUse"
+                                                color-interpolation-filters="sRGB"
+                                        >
+                                            <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                                            <feColorMatrix
+                                                    in="SourceAlpha"
+                                                    type="matrix"
+                                                    values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+                                                    result="hardAlpha"
+                                            />
+                                            <feOffset dy="4" />
+                                            <feGaussianBlur stdDeviation="2" />
+                                            <feComposite in2="hardAlpha" operator="out" />
+                                            <feColorMatrix
+                                                    type="matrix"
+                                                    values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"
+                                            />
+                                            <feBlend
+                                                    mode="normal"
+                                                    in2="BackgroundImageFix"
+                                                    result="effect1_dropShadow_1173_19274"
+                                            />
+                                            <feBlend
+                                                    mode="normal"
+                                                    in="SourceGraphic"
+                                                    in2="effect1_dropShadow_1173_19274"
+                                                    result="shape"
+                                            />
+                                        </filter>
+                                    </defs>
+                                </svg>
+
+                                <div class="unit-1-day-3">
+                                    <div class="frame-514">
+                                        <div class="frame-542">
+                                            <div class="frame-108">
+                                                <div class="unit-7">Unit 7</div>
+                                            </div>
+                                            <div class="frame-1199">
+                                                <div class="program-name">
+                                                    <div class="unit-name">Unit name</div>
+                                                    <div class="frame-84">
+                                                        <div class="frame-652">
+                                                            <div class="type-unit-name">Type unit name</div>
+                                                        </div>
+                                                        <div class="frame-66">
+                                                            <div class="create3">Create</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="frame-53">
+                                            <svg
+                                                    class="arrow-drop-down-circle3"
+                                                    width="24"
+                                                    height="24"
+                                                    viewBox="0 0 24 24"
+                                                    fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                            >
+                                                <g clip-path="url(#clip0_1173_19802)">
+                                                    <path
+                                                            d="M12 4C16.41 4 20 7.59 20 12C20 16.41 16.41 20 12 20C7.59 20 4 16.41 4 12C4 7.59 7.59 4 12 4ZM12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM12 15L8 11H16L12 15Z"
+                                                            fill="#285D9A"
+                                                    />
+                                                </g>
+                                                <defs>
+                                                    <clipPath id="clip0_1173_19802">
+                                                        <rect width="24" height="24" fill="white" />
+                                                    </clipPath>
+                                                </defs>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                </div>
+                                <svg
+                                        class="line-10"
+                                        width="860"
+                                        viewBox="0 0 860 0"
+                                        fill="none"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                >
+                                    <g filter="url(#filter0_d_1173_19901)">
+                                        <path d="M0 0L860 0" stroke="black" stroke-width="0.7" />
+                                    </g>
+                                    <defs>
+                                        <filter
+                                                id="filter0_d_1173_19901"
+                                                x="-4"
+                                                y="-0.35"
+                                                width="868"
+                                                height="8.7"
+                                                filterUnits="userSpaceOnUse"
+                                                color-interpolation-filters="sRGB"
+                                        >
+                                            <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                                            <feColorMatrix
+                                                    in="SourceAlpha"
+                                                    type="matrix"
+                                                    values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+                                                    result="hardAlpha"
+                                            />
+                                            <feOffset dy="4" />
+                                            <feGaussianBlur stdDeviation="2" />
+                                            <feComposite in2="hardAlpha" operator="out" />
+                                            <feColorMatrix
+                                                    type="matrix"
+                                                    values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"
+                                            />
+                                            <feBlend
+                                                    mode="normal"
+                                                    in2="BackgroundImageFix"
+                                                    result="effect1_dropShadow_1173_19901"
+                                            />
+                                            <feBlend
+                                                    mode="normal"
+                                                    in="SourceGraphic"
+                                                    in2="effect1_dropShadow_1173_19901"
+                                                    result="shape"
+                                            />
+                                        </filter>
+                                    </defs>
+                                </svg>
+
+                                <div class="add-unit-button">
+                                    <div class="add-day-button2">
+                                        <svg
+                                                class="add2"
+                                                width="24"
+                                                height="24"
+                                                viewBox="0 0 24 24"
+                                                fill="none"
+                                                xmlns="http://www.w3.org/2000/svg"
+                                        >
+                                            <g clip-path="url(#clip0_1173_19892)">
+                                                <path
+                                                        d="M13 7H11V11H7V13H11V17H13V13H17V11H13V7ZM12 2C6.49 2 2 6.49 2 12C2 17.51 6.49 22 12 22C17.51 22 22 17.51 22 12C22 6.49 17.51 2 12 2ZM12 20C7.59 20 4 16.41 4 12C4 7.59 7.59 4 12 4C16.41 4 20 7.59 20 12C20 16.41 16.41 20 12 20Z"
+                                                        fill="#F1F1F1"
+                                                />
+                                            </g>
+                                            <defs>
+                                                <clipPath id="clip0_1173_19892">
+                                                    <rect width="24" height="24" fill="white" />
+                                                </clipPath>
+                                            </defs>
+                                        </svg>
+
+                                        <div class="add-unit">Add unit</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="add-day-button-2">
+                                <div class="add-day-button3">
+                                    <svg
+                                            class="add3"
+                                            width="24"
+                                            height="24"
+                                            viewBox="0 0 24 24"
+                                            fill="none"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                    >
+                                        <g clip-path="url(#clip0_1173_19917)">
+                                            <path
+                                                    d="M13 7H11V11H7V13H11V17H13V13H17V11H13V7ZM12 2C6.49 2 2 6.49 2 12C2 17.51 6.49 22 12 22C17.51 22 22 17.51 22 12C22 6.49 17.51 2 12 2ZM12 20C7.59 20 4 16.41 4 12C4 7.59 7.59 4 12 4C16.41 4 20 7.59 20 12C20 16.41 16.41 20 12 20Z"
+                                                    fill="#F1F1F1"
+                                            />
+                                        </g>
+                                        <defs>
+                                            <clipPath id="clip0_1173_19917">
+                                                <rect width="24" height="24" fill="white" />
+                                            </clipPath>
+                                        </defs>
+                                    </svg>
+
+                                    <div class="add-day">Add day</div>
+                                </div>
+                            </div>
+                            <div class="rectangle-2487"></div>
+                        </div>
+                        <div class="rectangle-645"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="frame-1190">
+                <div class="time-allocation">
+                    <div class="time-allocation2">Time allocation</div>
+                </div>
+                <div class="time-allocation3">
+                    <div class="time-allocation2">Time allocation</div>
+                </div>
+                <div class="content2">
+                    <div class="doughnut">
+                        <div class="_01"></div>
+                        <div class="_02"></div>
+                        <div class="_03"></div>
+                        <div class="_04"></div>
+                    </div>
+                    <div class="info">
+                        <div class="frame-1082">
+                            <div class="bullet">
+                                <div class="rectangle-644"></div>
+                            </div>
+                            <div class="assignment-lab">Assignment/Lab</div>
+                            <div class="_54">(54%)</div>
+                        </div>
+                        <div class="frame-109">
+                            <div class="bullet">
+                                <div class="rectangle-6442"></div>
+                            </div>
+                            <div class="concept-lecture5">Concept/Lecture</div>
+                            <div class="_29">(29%)</div>
+                        </div>
+                        <div class="frame-110">
+                            <div class="bullet">
+                                <div class="rectangle-6443"></div>
+                            </div>
+                            <div class="guide-review2">Guide/Review</div>
+                            <div class="_9">(9%)</div>
+                        </div>
+                        <div class="frame-1112">
+                            <div class="bullet">
+                                <div class="rectangle-6444"></div>
+                            </div>
+                            <div class="test-quiz">Test/Quiz</div>
+                            <div class="_1">(1%)</div>
+                        </div>
+                        <div class="frame-112">
+                            <div class="bullet">
+                                <div class="rectangle-6445"></div>
+                            </div>
+                            <div class="exam">Exam</div>
+                            <div class="_6">(6%)</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="saving-button">
+            <div class="frame-92">
+                <div class="previous">Previous</div>
+            </div>
+            <div class="frame-1201">
+                <div class="add-day-button4">
+                    <div class="cancel">Cancel</div>
+                </div>
+                <div class="frame-91">
+                    <div class="save">Save as draft</div>
+                </div>
+                <div class="frame-912">
+                    <div class="next">Next</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+<div th:replace="~{common :: footer}"></div>
+
+<script src="/js/common.js"></script>
+
+<script>
+    $(document).ready(function() {
+        // Lắng nghe sự kiện khi thẻ input thay đổi
+        $('#syllabusNameInput').on('input', function() {
+            var syllabusName = $(this).val();
+            var apiUrl = 'http://localhost:8080/api/v1/syllabus/OutlineScreen/' + syllabusName;
+
+            // Sử dụng AJAX để lấy dữ liệu từ API với URL đã được cập nhật
+            $.ajax({
+                url: apiUrl,
+                type: 'GET',
+                success: function(data) {
+                    console.log(data);
+                    // Lấy dữ liệu từ API và cập nhật vào các thành phần HTML tương ứng
+                    var netIntroduction = data.unitName;
+                    var dataTable = $('.unit-Name');
+                    dataTable.empty();
+
+                    // Cập nhật dữ liệu .NET Introduction
+                    $('.unit-Name').text(netIntroduction);
+
+                    // var dataTable = $('#data-table');
+                    // dataTable.empty(); // Xóa nội dung hiện có trong bảng
+                    //
+                    // // Lặp qua dữ liệu và thêm từng dòng vào bảng
+                    // $.each(data, function(index, item) {
+                    //     var row = '<tr>' +
+                    //         '<td>' + item.topicName + '</td>'
+                    //
+                    //         '</tr>';
+                    //     dataTable.append(row);
+                    // });
+                },
+                error: function() {
+                    console.log('Lỗi vì ngu');
+                }
+            });
+        });
+    });
+</script>
+
+</body>
+
+</html>

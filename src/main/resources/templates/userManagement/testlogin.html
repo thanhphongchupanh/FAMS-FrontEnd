@@ -1,0 +1,141 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/globals.css" />
+  <link rel="stylesheet" href="/css/style.css" />
+
+</head>
+<style>
+  input{
+    display: block;
+    background-color: rgba(255,255,255,0.07);
+    border: none;
+    padding: 0 10px;
+    font-size: 18px;
+    font-weight: 300;
+    outline: none;
+  }
+  .text-danger{
+    padding-bottom: 10px;
+    color: red;
+  }
+
+</style>
+<style>
+  :root {
+    --sub-info: rgba(71, 71, 71, 1);
+    --main: rgba(45, 55, 72, 1);
+    --alert: rgba(231, 74, 59, 1);
+    --un-modified: rgba(139, 139, 139, 1);
+    --orange-main: rgba(212, 91, 19, 1);
+    --female: rgba(255, 117, 104, 1);
+    --green-main: rgba(47, 144, 63, 1);
+    --blue-main: rgba(40, 93, 154, 1);
+    --box: rgba(241, 241, 241, 1);
+    --sub-text-font-family: "Inter-Italic", Helvetica;
+    --sub-text-font-weight: 400;
+    --sub-text-font-size: 14px;
+    --sub-text-letter-spacing: 0px;
+    --sub-text-line-height: normal;
+    --sub-text-font-style: italic;
+    --header-font-family: "Inter-Bold", Helvetica;
+    --header-font-weight: 700;
+    --header-font-size: 16px;
+    --header-letter-spacing: 0px;
+    --header-line-height: normal;
+    --header-font-style: normal;
+    --paragraph-font-family: "Inter-Regular", Helvetica;
+    --paragraph-font-weight: 400;
+    --paragraph-font-size: 14px;
+    --paragraph-letter-spacing: 0px;
+    --paragraph-line-height: normal;
+    --paragraph-font-style: normal;
+    --section-font-family: "Inter-Medium", Helvetica;
+    --section-font-weight: 500;
+    --section-font-size: 24px;
+    --section-letter-spacing: 4.8px;
+    --section-line-height: normal;
+    --section-font-style: normal;
+    --title-font-family: "Inter-Bold", Helvetica;
+    --title-font-weight: 700;
+    --title-font-size: 36px;
+    --title-letter-spacing: 7.2px;
+    --title-line-height: normal;
+    --title-font-style: normal;
+    --sub-title-font-family: "Inter-Bold", Helvetica;
+    --sub-title-font-weight: 700;
+    --sub-title-font-size: 24px;
+    --sub-title-letter-spacing: 0px;
+    --sub-title-line-height: normal;
+    --sub-title-font-style: normal;
+  }
+
+</style>
+<body>
+<div class="login">
+  <header class="frame-wrapper">
+    <div class="frame">
+      <img class="logo" src="/img/logo-1.png" />
+      <div class="div">
+        <div class="div-wrapper">
+          <div class="frame-2">
+            <img class="image" src="/img/image-2-1.png" />
+            <div class="text-wrapper">uniGate</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+  <div class="group">
+    <div class="overlap-group">
+      <div class="frame-3">
+        <div class="frame-4">
+          <p class="FPT-fresh-academy">FPT Fresh Academy <br />Training Management</p>
+          <p class="if-you-don-t-have">
+            <span class="span">If you don’t have the account, please contact </span>
+            <span class="text-wrapper-2">FA.HCM@fsoft.com.vn</span>
+          </p>
+        </div>
+        <div class="frame-5">
+          <form id="loginForm" th:action="@{/api/v1/auth/authenticate}" method="POST">
+            <div th:if="${param.error}">
+              <p class="text-danger">The Username or Password is Incorrect!</p>
+            </div>
+            <div class="frame-6">
+              <input type="text" id="email"
+                     class="frame-7" name="email"
+                     th:classappend="${param.error} ? 'is-invalid' : ''" placeholder="Enter Email">
+              <div class="password-input-container">
+                <input type="password" id="password"
+                       class="frame-8" name="password"
+                       th:classappend="${param.error} ? 'is-invalid' : ''" placeholder="Enter Password">
+                <img class="visibility-off" src="/img/visibility-off-1.svg" id="password-toggle"/>
+              </div>
+              <div class="frame-9"><div class="text-wrapper-5"><a href="/forgot-password">Forgot password?</a></div></div>
+            </div>
+            <button class="frame-10 btn btn-success mt-2" type="submit">Sign In</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <footer class="frame-wrapper">
+    <div class="frame-11"><p class="p">Copyright @2022 BA Warrior. All right reserved</p></div>
+  </footer>
+</div>
+</body>
+<script>
+  const passwordInput = document.getElementById("password");
+  const passwordToggle = document.getElementById("password-toggle");
+
+  passwordToggle.addEventListener("click", () => {
+    if (passwordInput.type === "password") {
+      passwordInput.type = "text"; // Hiện mật khẩu
+    } else {
+      passwordInput.type = "password"; // Ẩn mật khẩu
+    }
+  });
+</script>
+</html>

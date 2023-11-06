@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login form</title>
+  <link rel="stylesheet" href="css/login.css" />
+  <link
+          rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+          integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+          crossorigin="anonymous"
+          referrerpolicy="no-referrer"
+  />
+</head>
+<body>
+<div class="container" id="container">
+  <div class="form-container register-container">
+    <form>
+      <h1>Register Here</h1>
+      <div class="form-control">
+        <input type="text" id="username" placeholder="Name" />
+        <small id="username-error"></small>
+        <span></span>
+      </div>
+      <div class="form-control">
+        <input type="email" id="email" placeholder="Email" />
+        <small id="email-error"></small>
+        <span></span>
+      </div>
+      <div class="form-control">
+        <input type="password" id="password" placeholder="Password" />
+        <small id="password-error"></small>
+        <span></span>
+      </div>
+      <button type="submit" value="submit">Register</button>
+      <span>or use your account</span>
+      <div class="social-container">
+
+        <a href="#" class="social"><i class="fa-brands fa-google"></i></a>
+
+      </div>
+    </form>
+  </div>
+
+  <div class="form-container login-container">
+    <form th:action="@{/login}" method="post"
+          th:object="${LOGINREQUEST}" class="form-lg">
+      <h1>Login Here</h1>
+      <div class="form-control2">
+        <input th:field="*{email}" type="email" class="email-2" placeholder="Email" />
+        <small class="email-error-2"></small>
+        <span></span>
+      </div>
+      <div class="form-control2">
+        <input th:field="*{password}"  type="password" class="password-2" placeholder="Password" />
+        <small class="password-error-2"></small>
+        <span></span>
+      </div>
+
+      <div class="content">
+        <div class="checkbox">
+          <input type="checkbox" name="checkbox" id="checkbox" />
+          <label for="">Remember me</label>
+        </div>
+        <div class="pass-link">
+          <a href="#">Forgot password</a>
+        </div>
+      </div>
+      <button type="submit">Login</button>
+      <span>Or use your account</span>
+      <div class="social-container">
+
+        <a href="#" class="social"><i class="fa-brands fa-google"></i></a>
+
+      </div>
+    </form>
+  </div>
+
+  <div class="overlay-container">
+    <div class="overlay">
+      <div class="overlay-panel overlay-left">
+        <h1 class="title">
+          Hello <br />
+          <img style ="width: 100%;"src= "img/FPT_logo_2010.svg.png">
+
+        </h1>
+        <p>If you have an account, login here and have fun</p>
+        <button class="ghost" id="login">
+          Login
+          <i class="fa-solid fa-arrow-left"></i>
+        </button>
+      </div>
+
+      <div class="overlay-panel overlay-right">
+        <h1 class="title">
+          <img style= "width: 100%;"src="img/FPT_logo_2010.svg.png">
+        </h1>
+        <p>
+          If you don'n have an account yet, join us and start your journey
+        </p>
+        <button class="ghost" id="register">
+          Register
+          <i class="fa-solid fa-arrow-right"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+<script src="js/login.js"></script>
+</html>
