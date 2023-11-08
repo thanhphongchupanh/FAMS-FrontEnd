@@ -54,6 +54,11 @@
 	  <version>6.0.12</version>
 	  <type>jar</type>
 	 </dependency>
+		<dependency>
+			<groupId>org.webjars.npm</groupId>
+			<artifactId>tinymce</artifactId>
+			<version>5.10.3</version>
+		</dependency>
 	</dependencies>
 
 	<build>
