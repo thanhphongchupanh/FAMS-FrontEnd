@@ -117,23 +117,7 @@
                         <div class="content">
                             <div class="day-3">
                                 <div class="frame-1193"></div>
-                                <div class="frame-54">
-<!--                                    <div class="frame-108">-->
-<!--                                        <div class="unit-7">Unit 7</div>-->
-<!--                                    </div>-->
-<!--                                    <div class="frame-1199">-->
-<!--                                        <div class="program-name">-->
-<!--                                            <div class="unit-name">Unit name</div>-->
-<!--                                            <div class="frame-84">-->
-<!--                                                    <input class="type-unit-name styled-input" placeholder="Type unit name" type="text" id="unitNameInput">-->
-<!--&lt;!&ndash;                                                    <input type="hidden" id="unitCode">&ndash;&gt;-->
-<!--                                                <div class="frame-66">-->
-<!--                                                    <button class="create">Create</button>-->
-<!--                                                </div>-->
-<!--                                            </div>-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-                                </div>
+<!--                                <div class="frame-54"></div>-->
                                 <div class="add-unit-button">
                                     <div class="add-day-button2">
                                         <svg
@@ -278,7 +262,7 @@
     var api2;
     var selectedDay;
     var unitCodedata;
-
+    var apiUrl2;
 
     $(document).ready(function() {
         // Event listener for the input field
@@ -303,11 +287,11 @@
 
         // Event listener for adding a TrainingUnit
 
-
-        $('.add-unit').click(function() {
-            alert('add unit nè :)))');
-            addUnitCode();
-        });
+        // $('.add-unit').click(function() {
+        //     alert('add unit nè :)))');
+        //     addUnitCode();
+        //     // updateUnitNames(data);
+        // });
 
     });
     function updateUnitNames(data) {
@@ -316,10 +300,13 @@
         console.log(unitCodes);
         const lastestUnitCode = unitCodes[unitCodes.length - 1];
         unitCodedata = lastestUnitCode;
-        var unitNamefield = $('.frame-54');
-        unitNamefield.empty();
+        // var unitNamefield = $('.frame-54');
+        // unitNamefield.empty();
 
-        $.each(unitNames, function (index, unitName) {      QW3E4
+        $.each(unitNames, function (index, unitName) {
+            var unitNamefield = $('<div>',{
+                class : 'frame-54'
+            });
             var unitContainer = $('<div>', {
                 class: 'frame-108'
             });
@@ -374,11 +361,15 @@
             // unitContainer.append(programContainer);
             unitNamefield.append(unitContainer);
             unitNamefield.append(programContainer);
+            $('.frame-1193').append(unitNamefield);
 
+            // unitNamefield.append(addbtnAddunit());
             typeUnitName.on('change', function () {
                 var typedUnitName = $(this).val();
                 create.click(function () {
                     createUnitName(data,typedUnitName);
+                    addUnitCode();
+                    loadTrainingUnit(data);
                 });
             });
 
@@ -416,13 +407,9 @@
             })
 
     }
-
     // Define a function to load data based on the syllabus name
     function loadData(syllabusName) {
-        var day = null;
         var apiUrl = 'http://localhost:8080/api/v1/syllabus/OutlineScreen/' + syllabusName;
-        api2 = 'http://localhost:8080/api/v1/syllabus/OutlineScreen/' + syllabusName + '/';
-
         // First AJAX request to load syllabus data
         $.ajax({
             url: apiUrl,
@@ -431,12 +418,13 @@
                 console.log(data);
                 // Handle the successful response and update the HTML elements
                 updateSyllabusData(data);
-
+                api2 = 'http://localhost:8080/api/v1/syllabus/OutlineScreen/' + data.topicCode + '/';
             },
             error: function (error) {
                 console.log('Error:', error);
             }
         });
+
 
     }
     function addUnitCode(){
@@ -484,54 +472,64 @@
             });
         }
     }
-    // Function to update the HTML elements with syllabus data
     function updateSyllabusData(data) {
         topicCodedata = data.topicCode;
         var versiondata = data.version;
-        var day = data.dayNumber;
+        var days = data.dayNumber; // Assuming this is an array of days
+
+        // Create an array to keep track of added days
+        var addedDays = [];
 
         // Update the day labels and other elements based on data
         var dayContainer = $('.frame-1193');
         dayContainer.empty();
 
-        for (var i = 0; i < day.length; i++) {
-            var dayfield = $('<button>').addClass('day').text('Day ' + day[i]);
-            var clickableIcon = createClickableRemoveIcon(); // Create the clickable icon
-            dayfield.append(clickableIcon);
+        for (var i = 0; i < days.length; i++) {
+            var day = days[i];
 
-            var addclass1 = $('<button>').addClass('frame-48');
-            var addclass2 = $('<div>').addClass('frame-512');
-            var addclass3 = $('<div>').addClass('frame-513');
+            // Check if the day has already been added
+            if (!addedDays.includes(day)) {
+                addedDays.push(day); // Add the day to the list of added days
 
-            addclass3.append(dayfield);
-            addclass2.append(addclass3);
-            addclass1.append(addclass2);
+                var dayfield = $('<button>').addClass('day').text('Day ' + day);
+                var clickableIcon = createClickableRemoveIcon(); // Create the clickable icon
+                dayfield.append(clickableIcon);
 
-            dayContainer.append(addclass1);
+                var addclass1 = $('<button>').addClass('frame-48');
+                var addclass2 = $('<div>').addClass('frame-512');
+                var addclass3 = $('<div>').addClass('frame-513');
 
-            // Attach the click event to the newly created day buttons
-            dayfield.click(function () {
-                selectedDay = $(this).text().replace('Day ', '');
+                addclass3.append(dayfield);
+                addclass2.append(addclass3);
+                addclass1.append(addclass2);
 
-                // Update the API URL for the second request with the selected day
-                var updatedApi2 = api2 + selectedDay;
+                dayContainer.append(addclass1);
 
-                console.log("hôm nay tôi ngu: "+selectedDay);
-                alert('Clicked on Day: ' + $(this).text());
-                // Second AJAX request to load unit names for the selected day
-                $.ajax({
-                    url: updatedApi2,
-                    type: 'GET',
-                    success: function (data) {
-                        // Handle the successful response and update the HTML elements
-                        updateUnitNames(data);
-                        // createTrainingUnit(data);
-                    },
-                    error: function (error) {
-                        console.log('Error:', error);
-                    }
+                // Attach the click event to the newly created day buttons
+                dayfield.click(function () {
+                    selectedDay = $(this).text().replace('Day ', '');
+
+                    // Update the API URL for the second request with the selected day
+                    var updatedApi2 = api2 + selectedDay;
+                    apiUrl2 = 'http://localhost:8080/api/v1/syllabus/OutlineScreen/' + data.topicCode + '/' + selectedDay ;
+                    console.log("hôm nay tôi ngu: " + selectedDay);
+                    alert('Clicked on Day: ' + $(this).text());
+                    // Second AJAX request to load unit names for the selected day
+                    $.ajax({
+                        url: updatedApi2,
+                        type: 'GET',
+                        success: function (data) {
+                            // Handle the successful response and update the HTML elements
+                            updateUnitNames(data);
+                            loadTrainingUnit(data)
+                            // createTrainingUnit(data);
+                        },
+                        error: function (error) {
+                            console.log('Error:', error);
+                        }
+                    });
                 });
-            });
+            }
         }
 
         var topicCodefield = $('.npl');
@@ -575,6 +573,64 @@
         });
 
         return svgElement;
+    }
+    function loadTrainingUnit(data) {
+        var unitNames1 = data.unitName;
+        var unitCodes1 = data.unitCode;
+        // var duration = data.
+        alert(unitNames1);
+        console.log(unitCodes1);
+        // const lastestUnitCode1 = unitCodes1[unitCodes1.length - 1];
+        // unitCodedata = lastestUnitCode;
+        var unitNamefield = $('.frame-54');
+        unitNamefield.empty();
+
+        $.each(unitNames1, function (index, unitName1) {
+            var unitNamefield = $('<div>', {
+                class: 'frame-54'
+            });
+            var unitContainer = $('<div>', {
+                class: 'frame-108'
+            });
+            var unitLabel = $('<div>', {
+                class: 'unit-7',
+                text: 'Unit ' + (index + 1)
+            });
+
+            var programContainer = $('<div>', {
+                class: 'frame-1199'
+            });
+            var programName = $('<div>', {
+                class: 'program-name'
+            });
+            var unitNameElement = $('<div>', {
+                class: 'unit-7',
+                text: unitName1 // Display the unit name
+            });
+            // var transferunitCode = $('<input>', {
+            //     type: 'hidden',
+            //     // id:'unitCode',
+            //     class: 'unitCodee',
+            //     value: unitCodes[index]
+            // });
+
+            // Assemble the structure
+            programName.append(unitNameElement);
+            programContainer.append(programName);
+            unitContainer.append(unitLabel);
+            unitNamefield.append(unitContainer);
+            unitNamefield.append(programContainer);
+            $('.frame-1193').append(unitNamefield);
+        });
+        $('.add-unit').click(function() {
+            alert('add unit nè :)))');
+            updateUnitNames(data);
+
+        });
+
+        // var apiUrl3 = apiUrl2 + transferunitCode;
+
+            // alert(apiUrl3);
     }
 </script>
 
