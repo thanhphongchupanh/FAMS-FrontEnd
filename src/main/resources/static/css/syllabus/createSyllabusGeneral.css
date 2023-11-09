@@ -81,9 +81,14 @@
     position: relative;
     overflow: hidden;
 }
-
 .progress-bar2 {
-    background: var(--main, #2d3748);
+    background: var(--bluemain, #285d9a);
+    flex: 1;
+    height: 12px;
+    position: relative;
+}
+.progress-bar1 {
+    background: var(--bluemain, #cccccc);
     flex: 1;
     height: 12px;
     position: relative;
