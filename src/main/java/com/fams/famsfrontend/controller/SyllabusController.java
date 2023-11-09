@@ -13,8 +13,13 @@ public class SyllabusController {
     public String createSyllabus(){
         return "syllabus/ListTrainingUnit";
     }
+
     @GetMapping("/createSyllabusGeneral")
-    public String createSyllabusGeneral(){
+    public String createSyllabusGeneral() {
         return "syllabus/CreateSyllabusGeneral";
+    }
+    @GetMapping("/createSyllabusOtherScreen")
+    public String createSyllabusOtherScreen(){
+        return "syllabus/CreateSyllabusOtherScreen";
     }
 }

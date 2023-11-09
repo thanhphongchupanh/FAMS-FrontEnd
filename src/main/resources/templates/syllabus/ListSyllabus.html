@@ -89,18 +89,18 @@
           <div class="col text-end" style="padding-right: 28px">
             <button class="btn btn-dark">
               <a style="text-decoration: none; color: #eeeaea" th:href="@{/createSyllabusGeneral}">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <g clip-path="url(#clip0_487_2486)">
-                  <path
-                          d="M13 7H11V11H7V13H11V17H13V13H17V11H13V7ZM12 2C6.49 2 2 6.49 2 12C2 17.51 6.49 22 12 22C17.51 22 22 17.51 22 12C22 6.49 17.51 2 12 2ZM12 20C7.59 20 4 16.41 4 12C4 7.59 7.59 4 12 4C16.41 4 20 7.59 20 12C20 16.41 16.41 20 12 20Z"
-                          fill="#DFDEDE" />
-                </g>
-                <defs>
-                  <clipPath id="clip0_487_2486">
-                    <rect width="24" height="24" fill="white" />
-                  </clipPath>
-                </defs>
-              </svg>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <g clip-path="url(#clip0_487_2486)">
+                    <path
+                            d="M13 7H11V11H7V13H11V17H13V13H17V11H13V7ZM12 2C6.49 2 2 6.49 2 12C2 17.51 6.49 22 12 22C17.51 22 22 17.51 22 12C22 6.49 17.51 2 12 2ZM12 20C7.59 20 4 16.41 4 12C4 7.59 7.59 4 12 4C16.41 4 20 7.59 20 12C20 16.41 16.41 20 12 20Z"
+                            fill="#DFDEDE" />
+                  </g>
+                  <defs>
+                    <clipPath id="clip0_487_2486">
+                      <rect width="24" height="24" fill="white" />
+                    </clipPath>
+                  </defs>
+                </svg>
                 Add Syllabus
               </a>
             </button>
@@ -255,7 +255,7 @@
         </table>
       </div>
 
-<!--      === PAGING BAR ===-->
+      <!--      === PAGING BAR ===-->
       <div class="navigation-dot">
         <div class="navi-dot">
           <svg
@@ -278,18 +278,18 @@
               </clipPath>
             </defs>
           </svg>
-            <div class="group-6" id="group-6">
-              <div class="ellipse-2-1"></div>
-              <div class="_1">1</div>
-            </div>
-            <div class="group-5" id="group-5">
-              <div class="ellipse-2"></div>
-              <div class="_2">2</div>
-            </div>
-            <div class="group-7" id="group-7">
-              <div class="ellipse-2-2"></div>
-              <div class="_3">3</div>
-            </div>
+          <div class="group-6" id="group-6">
+            <div class="ellipse-2-1"></div>
+            <div class="_1">1</div>
+          </div>
+          <div class="group-5" id="group-5">
+            <div class="ellipse-2"></div>
+            <div class="_2">2</div>
+          </div>
+          <div class="group-7" id="group-7">
+            <div class="ellipse-2-2"></div>
+            <div class="_3">3</div>
+          </div>
 
 
           <div style="position: absolute; top: 0px">
@@ -480,7 +480,7 @@
               </div>
             </div>
           </form>
-          </div>
+        </div>
       </dialog>
     </div>
   </div>
@@ -499,7 +499,7 @@
   <!-- Optional Plugin -->
   <script src="https://cdn.jsdelivr.net/npm/react-multi-date-picker@latest/build/date_picker_header.browser.js"></script>
 
-<!--  LISTING SYLLABUS-->
+  <!--  LISTING SYLLABUS-->
   <script>
     var mode = 1;
     var myVar = 1;
@@ -517,36 +517,36 @@
             console.log("Chưa chọn tùy chọn");
           }
         });
-            var page1 = document.getElementById("group-6");
-            var page2 = document.getElementById("group-5");
-            var page3 = document.getElementById("group-7");
-            var page10 = document.getElementById("group-8");
+        var page1 = document.getElementById("group-6");
+        var page2 = document.getElementById("group-5");
+        var page3 = document.getElementById("group-7");
+        var page10 = document.getElementById("group-8");
+        performAjaxRequest();
+        page1.addEventListener("click", function () {
+          myVar = 1;
+          if(mode == 1) {
             performAjaxRequest();
-            page1.addEventListener("click", function () {
-              myVar = 1;
-              if(mode == 1) {
-                performAjaxRequest();
-              }
-            });
-            page2.addEventListener("click", function () {
-              myVar = 2;
-              if(mode == 1) {
-                performAjaxRequest();
-              }
-            });
-            page3.addEventListener("click", function () {
-              myVar = 3;
-              if(mode == 1) {
-                performAjaxRequest();
-              }
-            });
-            page10.addEventListener("click", function () {
-              myVar = 10;
-              if(mode === 1) {
-                performAjaxRequest();
-              }
-              dataTable.empty();
-            });
+          }
+        });
+        page2.addEventListener("click", function () {
+          myVar = 2;
+          if(mode == 1) {
+            performAjaxRequest();
+          }
+        });
+        page3.addEventListener("click", function () {
+          myVar = 3;
+          if(mode == 1) {
+            performAjaxRequest();
+          }
+        });
+        page10.addEventListener("click", function () {
+          myVar = 10;
+          if(mode === 1) {
+            performAjaxRequest();
+          }
+          dataTable.empty();
+        });
 
 
 
@@ -591,17 +591,17 @@
           mode = 2;
           console.log(mode+" là mode hiện tại");
           if(mode === 2) {
-          let search = document.getElementById("search-keyword");
-          let item = document.createElement("div");
-          item.className = "search-item";
-          const keyword = input.value.trim();
-          item.innerHTML += `
+            let search = document.getElementById("search-keyword");
+            let item = document.createElement("div");
+            item.className = "search-item";
+            const keyword = input.value.trim();
+            item.innerHTML += `
                 ${keyword}
                 <span>&#10005;</span>
             `
-          search.appendChild(item);
-          searchedKeywords.push(keyword);
-          // Gọi hàm sendSearchRequest để gửi yêu cầu AJAX
+            search.appendChild(item);
+            searchedKeywords.push(keyword);
+            // Gọi hàm sendSearchRequest để gửi yêu cầu AJAX
             var combo1 = document.getElementById("rowPerPage");
             combo1.addEventListener("change", function () {
               selectedValue = combo1.value; // Lấy giá trị đã chọn
@@ -613,28 +613,28 @@
                 console.log("Chưa chọn tùy chọn");
               }
             });
-              var page1 = document.getElementById("group-6");
-              var page2 = document.getElementById("group-5");
-              var page3 = document.getElementById("group-7");
-              var page10 = document.getElementById("group-8");
+            var page1 = document.getElementById("group-6");
+            var page2 = document.getElementById("group-5");
+            var page3 = document.getElementById("group-7");
+            var page10 = document.getElementById("group-8");
+            sendSearchRequest(searchedKeywords);
+            page1.addEventListener("click", function () {
+              myVar = 1;
               sendSearchRequest(searchedKeywords);
-              page1.addEventListener("click", function () {
-                myVar = 1;
-                sendSearchRequest(searchedKeywords);
-              });
-              page2.addEventListener("click", function () {
-                myVar = 2;
-                sendSearchRequest(searchedKeywords);
-              });
-              page3.addEventListener("click", function () {
-                myVar = 3;
-                sendSearchRequest(searchedKeywords);
-              });
-              page10.addEventListener("click", function () {
-                myVar = 10;
-                sendSearchRequest(searchedKeywords);
-                dataTable.empty();
-              });
+            });
+            page2.addEventListener("click", function () {
+              myVar = 2;
+              sendSearchRequest(searchedKeywords);
+            });
+            page3.addEventListener("click", function () {
+              myVar = 3;
+              sendSearchRequest(searchedKeywords);
+            });
+            page10.addEventListener("click", function () {
+              myVar = 10;
+              sendSearchRequest(searchedKeywords);
+              dataTable.empty();
+            });
 
             // XÓA TỪ KHÓA
             let deleteButton = item.getElementsByTagName("span")[0];
@@ -651,45 +651,45 @@
             });
           }
 
-            sendSearchRequest(searchedKeywords);
+          sendSearchRequest(searchedKeywords);
           // input.value = searchedKeywords;
 
-            console.log("mode "+mode);
-            // Hàm gửi yêu cầu AJAX với từ khóa tìm kiếm
-            function sendSearchRequest(searchKeywords) {
-              var url = "";
-              if (searchKeywords.length > 0) {
-                url = `http://localhost:8080/api/v1/syllabus/search-syllabus/` + selectedValue + `?key=` + searchKeywords + '&page=' + myVar;
-              }
-              $.ajax({
-                url: url,
-                method: "GET",
-                success: function (data) {
-                  console.log("DATA 2: " +data);
-                  // Xử lý dữ liệu và cập nhật bảng
-                  var dataTable = $('#data-table');
-                  dataTable.empty();
-                  // Lặp qua dữ liệu và thêm từng dòng vào bảng
-                  $.each(data, function (index, item) {
-                    var durationText = item.duration + " days";
-                    var row = '<tr>' +
-                            '<td>' + item.topicName + '</td>' +
-                            '<td>' + item.topicCode + '</td>' +
-                            '<td>' + item.createdDate + '</td>' +
-                            '<td>' + item.createdBy + '</td>' +
-                            '<td>' + durationText + '</td>' +
-                            '<td>' + item.outputStandardArr + '</td>' +
-                            '<td id="' + item.syllabusStatus + '">' + item.syllabusStatus + '</td>' +
-                            // Thêm các ô khác ở đây
-                            '</tr>';
-                    dataTable.append(row);
-                  });
-                },
-                error: function (error) {
-                  console.log(error)
-                }
-              });
+          console.log("mode "+mode);
+          // Hàm gửi yêu cầu AJAX với từ khóa tìm kiếm
+          function sendSearchRequest(searchKeywords) {
+            var url = "";
+            if (searchKeywords.length > 0) {
+              url = `http://localhost:8080/api/v1/syllabus/search-syllabus/` + selectedValue + `?key=` + searchKeywords + '&page=' + myVar;
             }
+            $.ajax({
+              url: url,
+              method: "GET",
+              success: function (data) {
+                console.log("DATA 2: " +data);
+                // Xử lý dữ liệu và cập nhật bảng
+                var dataTable = $('#data-table');
+                dataTable.empty();
+                // Lặp qua dữ liệu và thêm từng dòng vào bảng
+                $.each(data, function (index, item) {
+                  var durationText = item.duration + " days";
+                  var row = '<tr>' +
+                          '<td>' + item.topicName + '</td>' +
+                          '<td>' + item.topicCode + '</td>' +
+                          '<td>' + item.createdDate + '</td>' +
+                          '<td>' + item.createdBy + '</td>' +
+                          '<td>' + durationText + '</td>' +
+                          '<td>' + item.outputStandardArr + '</td>' +
+                          '<td id="' + item.syllabusStatus + '">' + item.syllabusStatus + '</td>' +
+                          // Thêm các ô khác ở đây
+                          '</tr>';
+                  dataTable.append(row);
+                });
+              },
+              error: function (error) {
+                console.log(error)
+              }
+            });
+          }
         }//mode
       });
 
@@ -785,7 +785,7 @@
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="/js/common.js"></script>
 
-<!--   Pop-up window-->
+  <!--   Pop-up window-->
   <script>
     function getUserTableData(){
       $.ajax({

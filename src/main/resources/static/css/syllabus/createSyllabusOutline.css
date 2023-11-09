@@ -91,6 +91,12 @@
     height: 12px;
     position: relative;
 }
+.progress-bar1 {
+    background: var(--bluemain, #cccccc);
+    flex: 1;
+    height: 12px;
+    position: relative;
+}
 .padding {
     padding: 0px 10px 0px 10px;
     display: flex;
@@ -380,19 +386,41 @@
     height: 766px;
     position: relative;
     box-shadow: 0px 20px 40px 0px rgba(0, 0, 0, 0.16);
-    overflow: hidden;
+    overflow-x: auto;
+    overflow-y: auto;
 }
 .frame-1193 {
+    flex: 1;
     display: flex;
     flex-direction: column;
     gap: 0px;
     align-items: flex-start;
-    justify-content: flex-end;
     flex-shrink: 0;
     height: 104px;
-    position: relative;
-    overflow: hidden;
+    overflow-y: auto; /* Add this line to enable vertical scrolling */
+
+    /* Scrollbar styles */
+    scrollbar-width: thin; /* Enable scrollbar */
+    scrollbar-color: #2d3748 var(--un-modified, #8b8b8b); /* Set the scrollbar color */
+
+    /* Other styles for .frame-1193 container */
+    /* ... (your existing styles) */
 }
+
+/* Style the thumb and track of the scrollbar */
+.frame-1193::-webkit-scrollbar {
+    width: 10px; /* Set the width of the scrollbar */
+}
+
+.frame-1193::-webkit-scrollbar-thumb {
+    background-color: #2d3748; /* Set the color of the scrollbar thumb */
+    border-radius: 10px; /* Add rounded corners to the scrollbar thumb */
+}
+
+.frame-1193::-webkit-scrollbar-track {
+    background-color: var(--un-modified, #8b8b8b); /* Set the color of the scrollbar track */
+}
+
 .frame-48 {
     background: #2d3748;
     border-style: solid;
@@ -426,11 +454,25 @@
     flex-shrink: 0;
     position: relative;
 }
-.day-1 {
-    color: #ffffff;
-    text-align: left;
+/*.day {*/
+/*    color: #ffffff;*/
+/*    text-align: left;*/
+/*    font: 700 16px "Inter", sans-serif;*/
+/*    position: relative;*/
+/*}*/
+.day {
+    background-color: #2d3748; /* Button background color */
+    color: #ffffff; /* Button text color */
+    text-align: center;
     font: 700 16px "Inter", sans-serif;
-    position: relative;
+    padding: 10px 20px; /* Padding for the button */
+    border: none; /* Remove the default button border */
+    cursor: pointer; /* Show a pointer cursor on hover */
+}
+
+/* Add a hover effect when hovering over the button */
+.day:hover {
+    background-color: #2d3748; /* Button background color on hover */
 }
 .remove-circle-outline {
     flex-shrink: 0;
@@ -518,7 +560,7 @@
 .frame-54 {
     padding: 0px 0px 0px 30px;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     gap: 53px;
     align-items: flex-start;
     justify-content: flex-start;
@@ -528,7 +570,7 @@
     position: relative;
 }
 .frame-108 {
-    display: flex;
+    display: inline-block;
     flex-direction: column;
     gap: 5px;
     align-items: center;
@@ -605,10 +647,27 @@
     position: relative;
 }
 .create {
+    background-color: #2d3748;
+    color: #ffffff;
+    border-radius: 10px;
+    border-style: solid;
+    border-color: #2d3748;
+    border-width: 1px;
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
     flex-shrink: 0;
+    height: 30px;
     position: relative;
     overflow: visible;
 }
+
+/*.create:hover {*/
+/*    background-color: #2d3748; !* Button background color on hover *!*/
+/*}*/
 .frame-53 {
     display: flex;
     flex-direction: row;
@@ -1180,7 +1239,9 @@
     text-align: left;
     font: 400 italic 14px "Inter", sans-serif;
     position: relative;
+    border: none;
 }
+
 .frame-66 {
     background: var(--main, #2d3748);
     border-radius: 10px;
@@ -1214,8 +1275,9 @@
     position: relative;
     overflow: visible;
 }
+
 .add-unit-button {
-    padding: 0px 30px 0px 30px;
+    padding: 0px 20px 0px 20px;
     display: flex;
     flex-direction: row;
     gap: 20px;
@@ -1226,7 +1288,7 @@
     position: relative;
 }
 .add-day-button2 {
-    background: var(--subinfo, #474747);
+    background: var(--main, #2d3748);
     border-radius: 10px;
     padding: 7px 10px 7px 10px;
     display: flex;
@@ -1243,10 +1305,22 @@
     overflow: visible;
 }
 .add-unit {
+    background-color: #2d3748;
     color: #ffffff;
-    text-align: left;
-    font: 700 14px "Inter", sans-serif;
+    border-radius: 10px;
+    border-style: solid;
+    border-color: #2d3748;
+    border-width: 1px;
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    height: 30px;
     position: relative;
+    overflow: visible;
 }
 .add-day-button-2 {
     padding: 0px 30px 0px 30px;
@@ -1257,6 +1331,8 @@
     justify-content: flex-start;
     flex-shrink: 0;
     position: relative;
+    border: none;
+    background: none;
 }
 .add-day-button3 {
     background: var(--main, #2d3748);
@@ -1678,6 +1754,70 @@
     position: relative;
 }
 .next {
+    color: #ffffff;
+    text-align: left;
+    font: 700 14px "Inter", sans-serif;
+    position: relative;
+}
+
+.frame-65 {
+    background: #ffffff;
+    border-radius: 10px;
+    border-style: solid;
+    border-color: #000000;
+    border-width: 1px;
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+    justify-content: flex-start;
+    flex-shrink: 0;
+    width: 281px;
+    height: 30px;
+    position: relative;
+}
+.type-unit-name {
+    color: #000000;
+    text-align: left;
+    font: 400 italic 14px "Inter", sans-serif;
+    position: relative;
+}
+.styled-input {
+    background: #ffffff;
+    border-radius: 10px;
+    border: 1px solid #000000;
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+    justify-content: flex-start;
+    flex-shrink: 0;
+    width: 281px;
+    height: 30px;
+    position: relative;
+    color: #000000;
+    text-align: left;
+    font: 400 italic 14px "Inter", sans-serif;
+}
+.frame-66 {
+    background: var(--main, #2d3748);
+    border-radius: 10px;
+    border-style: solid;
+    border-color: var(--main, #2d3748);
+    border-width: 1px;
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    height: 30px;
+    position: relative;
+}
+.create {
     color: #ffffff;
     text-align: left;
     font: 700 14px "Inter", sans-serif;
