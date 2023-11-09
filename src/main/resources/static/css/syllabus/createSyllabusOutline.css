@@ -420,7 +420,14 @@
 .frame-1193::-webkit-scrollbar-track {
     background-color: var(--un-modified, #8b8b8b); /* Set the color of the scrollbar track */
 }
-
+.day-container {
+    width: 100%; /* Chiều rộng 100% */
+    height: auto; /* Chiều cao tự động, để phù hợp với nội dung */
+}
+.TrainingUnit-container {
+    width: 100%; /* Chiều rộng 100% */
+    height: auto; /* Chiều cao tự động, để phù hợp với nội dung */
+}
 .frame-48 {
     background: #2d3748;
     border-style: solid;
@@ -558,15 +565,27 @@
     position: relative;
 }
 .frame-54 {
-    padding: 0px 0px 0px 30px;
+    padding: 0px 0px 0px 0px;
     display: flex;
     flex-direction: column;
+    /*gap: 53px;*/
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-shrink: 0;
+    width: 100%;
+    height: auto;
+    position: relative;
+}
+.unit-names-container{
+    padding: 20px 20px 20px 20px;
+    display: flex;
+    flex-direction: row;
     gap: 53px;
     align-items: flex-start;
     justify-content: flex-start;
     flex-shrink: 0;
     width: 717px;
-    height: 39px;
+    height: auto;
     position: relative;
 }
 .frame-108 {
