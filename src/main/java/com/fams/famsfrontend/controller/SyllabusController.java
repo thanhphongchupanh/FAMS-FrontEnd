@@ -13,4 +13,9 @@ public class SyllabusController {
     public String createSyllabus(){
         return "syllabus/ListTrainingUnit";
     }
+
+    @GetMapping("/createSyllabusOtherScreen")
+    public String createSyllabusOtherScreen(){
+        return "syllabus/CreateSyllabusOtherScreen";
+    }
 }
