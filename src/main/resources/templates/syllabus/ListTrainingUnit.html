@@ -118,6 +118,7 @@
                             <div class="day-3">
                                 <div class="frame-1193"></div>
 <!--                                <div class="frame-54"></div>-->
+
                                 <div class="add-unit-button">
                                     <div class="add-day-button2">
                                         <svg
@@ -300,50 +301,51 @@
         console.log(unitCodes);
         const lastestUnitCode = unitCodes[unitCodes.length - 1];
         unitCodedata = lastestUnitCode;
-        // var unitNamefield = $('.frame-54');
-        // unitNamefield.empty();
+        const lastestUnit = unitNames.length;
 
-        $.each(unitNames, function (index, unitName) {
-            var unitNamefield = $('<div>',{
-                class : 'frame-54'
+        var dayContainer = $('.frame-54');
+        // $.each(unitNames, function (index, unitName) {
+            var unitNameContainer = $('<div>',{
+                class: 'unit-names-container',
+                id: 'unit-names-container-' + selectedDay
             });
-            var unitContainer = $('<div>', {
-                class: 'frame-108'
-            });
+
+            // var unitNamefield = $('<div>').addClass('frame-54');
+
+            var unitContainer = $('<div>').addClass('frame-108');
+
             var unitLabel = $('<div>', {
                 class: 'unit-7',
-                text: 'Unit ' + (index + 1) // You may need to adjust the index accordingly
+                text: 'Unit ' + lastestUnit // You may need to adjust the index accordingly
             });
 
-            var programContainer = $('<div>', {
-                class: 'frame-1199'
-            });
-            var programName = $('<div>', {
-                class: 'program-name'
-            });
+            var programContainer = $('<div>').addClass('frame-1199');
+
+            var programName = $('<div>').addClass('program-name');
+
             var unitNameElement = $('<div>', {
                 class: 'unit-name',
                 text:'Unit Name'
             });
-            var frame84 = $('<div>', {
-                class: 'frame-84'
-            });
+            var frame84 = $('<div>').addClass('frame-84');
+
             var typeUnitName = $('<input>', {
                 class: 'type-unit-name styled-input',
                 type: 'text',
                 id: 'unitNameInput',
                 placeholder: 'Type unit name',
-                value: unitName
+                // value: unitName
             });
+
             var transferunitCode = $('<input>', {
                 type: 'text',
                 // id:'unitCode',
                 class: 'unitCodee',
-                value: unitCodes[index]
+                // value: unitCodes[index]
             });
-            var frame66 = $('<div>', {
-                class: 'frame-66'
-            });
+
+            var frame66 = $('<div>').addClass('frame-66');
+
             var create = $('<button>', {
                 class: 'create',
                 text: 'Create'
@@ -359,17 +361,18 @@
             programContainer.append(programName);
             unitContainer.append(unitLabel);
             // unitContainer.append(programContainer);
-            unitNamefield.append(unitContainer);
-            unitNamefield.append(programContainer);
-            $('.frame-1193').append(unitNamefield);
+            unitNameContainer.append(unitContainer);
+            unitNameContainer.append(programContainer);
+            dayContainer.append(unitNameContainer);
 
             // unitNamefield.append(addbtnAddunit());
             typeUnitName.on('change', function () {
                 var typedUnitName = $(this).val();
                 create.click(function () {
+                    // $('.frame-1193').empty();
                     createUnitName(data,typedUnitName);
-                    addUnitCode();
-                    loadTrainingUnit(data);
+                    location.reload();
+                    // loadTrainingUnit(data);
                 });
             });
 
@@ -383,7 +386,7 @@
                     const lastestUnitCode = unitCodes1[unitCodes1.length - 1];
                     unitCodedata = lastestUnitCode;
 
-                    console.log("hôm nay tôi ngu: "+selectedDay);
+                    console.log("create: "+selectedDay);
                     // alert('Clicked on Day: ' + $(this).text());
                     // Second AJAX request to load unit names for the selected day
                     var apiUrl = 'http://localhost:8080/api/v1/syllabus/OutlineScreen/createTrainingUnit/' + topicCode + '/' + dayNumber + '/' + lastestUnitCode;
@@ -404,7 +407,7 @@
                         }
                     });
                 }
-            })
+            // })
 
     }
     // Define a function to load data based on the syllabus name
@@ -442,7 +445,7 @@
                     console.log(response);
 
                     // Reload the page after a successful request
-                    location.reload();
+                    // location.reload();
                 },
                 error: function(error) {
                     // Handle the error or any error-specific actions
@@ -450,6 +453,7 @@
                 }
             }
         )
+        // alert("added unit code");
     }
     function  addDay(){
         if (topicCodedata) {
@@ -472,71 +476,47 @@
             });
         }
     }
-    function updateSyllabusData(data) {
-        topicCodedata = data.topicCode;
-        var versiondata = data.version;
-        var days = data.dayNumber; // Assuming this is an array of days
 
-        // Create an array to keep track of added days
-        var addedDays = [];
-
-        // Update the day labels and other elements based on data
-        var dayContainer = $('.frame-1193');
-        dayContainer.empty();
-
-        for (var i = 0; i < days.length; i++) {
-            var day = days[i];
-
-            // Check if the day has already been added
-            if (!addedDays.includes(day)) {
-                addedDays.push(day); // Add the day to the list of added days
-
-                var dayfield = $('<button>').addClass('day').text('Day ' + day);
-                var clickableIcon = createClickableRemoveIcon(); // Create the clickable icon
-                dayfield.append(clickableIcon);
-
-                var addclass1 = $('<button>').addClass('frame-48');
-                var addclass2 = $('<div>').addClass('frame-512');
-                var addclass3 = $('<div>').addClass('frame-513');
-
-                addclass3.append(dayfield);
-                addclass2.append(addclass3);
-                addclass1.append(addclass2);
-
-                dayContainer.append(addclass1);
-
-                // Attach the click event to the newly created day buttons
-                dayfield.click(function () {
-                    selectedDay = $(this).text().replace('Day ', '');
-
-                    // Update the API URL for the second request with the selected day
-                    var updatedApi2 = api2 + selectedDay;
-                    apiUrl2 = 'http://localhost:8080/api/v1/syllabus/OutlineScreen/' + data.topicCode + '/' + selectedDay ;
-                    console.log("hôm nay tôi ngu: " + selectedDay);
-                    alert('Clicked on Day: ' + $(this).text());
-                    // Second AJAX request to load unit names for the selected day
-                    $.ajax({
-                        url: updatedApi2,
-                        type: 'GET',
-                        success: function (data) {
-                            // Handle the successful response and update the HTML elements
-                            updateUnitNames(data);
-                            loadTrainingUnit(data)
-                            // createTrainingUnit(data);
-                        },
-                        error: function (error) {
-                            console.log('Error:', error);
-                        }
-                    });
-                });
+    // Cập nhật ngày được chọn và thực hiện AJAX request
+    function updateSelectedDay(selectedDay, data) {
+        var updatedApi2 = api2 + selectedDay;
+        apiUrl2 = 'http://localhost:8080/api/v1/syllabus/OutlineScreen/' + data.topicCode + '/' + selectedDay;
+        console.log("update: " + selectedDay);
+        // alert('Clicked on Day: ' + selectedDay);
+        // Second AJAX request to load unit names for the selected day
+        $.ajax({
+            url: updatedApi2,
+            type: 'GET',
+            success: function (data) {
+                // Handle the successful response and update the HTML elements
+                // updateUnitNames(data);
+                loadTrainingUnit(data);
+                // createTrainingUnit(data);
+            },
+            error: function (error) {
+                console.log('Error:', error);
             }
-        }
-
-        var topicCodefield = $('.npl');
-        var versionfield = $('._1-0');
-
-        topicCodefield.empty().text(topicCodedata);
-        versionfield.empty().text(versiondata);
+        });
+    }
+    // Get again the unitCode when add unit
+    function getGeneratedCode(selectedDay, data) {
+        var updatedApi2 = api2 + selectedDay;
+        apiUrl2 = 'http://localhost:8080/api/v1/syllabus/OutlineScreen/' + data.topicCode + '/' + selectedDay;
+        console.log("get unit code: " + selectedDay);
+        // alert('Clicked on Day: ' + selectedDay);
+        // Second AJAX request to load unit names for the selected day
+        $.ajax({
+            url: updatedApi2,
+            type: 'GET',
+            success: function (data) {
+                // Handle the successful response and update the HTML elements
+                updateUnitNames(data);
+                // createTrainingUnit(data);
+            },
+            error: function (error) {
+                console.log('Error:', error);
+            }
+        });
     }
     // Function to update the unit names
     function createClickableRemoveIcon() {
@@ -574,58 +554,145 @@
 
         return svgElement;
     }
+    function updateSyllabusData(data) {
+        topicCodedata = data.topicCode;
+        var versiondata = data.version;
+        var days = data.dayNumber; // Assuming this is an array of days
+
+        // Loại bỏ các giá trị ngày trùng lặp
+        var uniqueDays = Array.from(new Set(days.flat()));
+
+        // Sử dụng mảng không trùng lặp
+        var addedDays = [];
+
+        // Xóa tất cả nút "Day" cũ trước khi thêm nút mới
+        var daymainField = $('.frame-1193');
+        daymainField.empty();
+
+        for (var i = 0; i < uniqueDays.length; i++) {
+            var day = uniqueDays[i];
+
+            // Kiểm tra xem ngày đã được thêm chưa
+            if (!addedDays.includes(day)) {
+                addedDays.push(day); // Thêm ngày vào mảng
+
+                var dayfield = $('<button>').addClass('day num'+ day).text('Day ' + day);
+                var clickableIcon = createClickableRemoveIcon(); // Create the clickable icon
+                dayfield.append(clickableIcon);
+                var dayContainer = $('<div>').addClass('day-container day-'+ day);
+                var addclass1 = $('<button>').addClass('frame-48');
+                var addclass2 = $('<div>').addClass('frame-512');
+                var addclass3 = $('<div>').addClass('frame-513');
+
+                addclass3.append(dayfield);
+                addclass2.append(addclass3);
+                addclass1.append(addclass2);
+                dayContainer.append(addclass1);
+                // dayContainer.append(unitNamefield);
+                daymainField.append(dayContainer);
+
+
+                // Biến để theo dõi "Day" đang được hiển thị
+                // var currentDay = null;
+                // if ($('.frame-54').length === 1) {
+                //     $('.frame-54:first').empty();
+                // }
+
+                // Attach the click event to the newly created day buttons
+                dayfield.click(function () {
+                    $('.frame-54').remove();
+                    selectedDay = $(this).text().replace('Day ', '');
+                    updateSelectedDay(selectedDay, data);
+                    $('.unit-names-container').hide();
+                    var unitNamefield = $('<div>').addClass('frame-54 uday'+selectedDay);
+                    day = selectedDay;
+                    // dayContainer = $('<div>').addClass('day-container day-'+ day);
+                    // Ẩn tất cả các ngày trước
+                    // console.log($('.uday' + day));
+                    if($('.uday' + day).length === 0){
+                        var link = $('.day-'+ day);
+                        console.log(unitNamefield);
+                        link.append(unitNamefield);
+                        console.log("append dc");
+                    }
+
+
+
+                    // dayContainer.append(unitNamefield);
+                    $('.day').each(function () {
+                        var dayNumber = $(this).text().replace('Day ', '');
+                        if (dayNumber !== selectedDay) {
+                            // Ẩn ngày
+                            // $('.day-container').hide();
+                            // $('.frame-54').hide();
+                        }
+                    });
+                    // Cập nhật biến "currentDay"
+                    currentDay = selectedDay;
+                });
+            }
+        }
+
+        var topicCodefield = $('.npl');
+        var versionfield = $('._1-0');
+
+        topicCodefield.empty().text(topicCodedata);
+        versionfield.empty().text(versiondata);
+    }
     function loadTrainingUnit(data) {
         var unitNames1 = data.unitName;
         var unitCodes1 = data.unitCode;
         // var duration = data.
-        alert(unitNames1);
+        // alert(unitNames1);
         console.log(unitCodes1);
         // const lastestUnitCode1 = unitCodes1[unitCodes1.length - 1];
         // unitCodedata = lastestUnitCode;
-        var unitNamefield = $('.frame-54');
-        unitNamefield.empty();
-
+        // var unitNamefield = $('.frame-54');
+        // unitNamefield.empty();
+        var dayContainer = $('.frame-54');
+        dayContainer.empty();
         $.each(unitNames1, function (index, unitName1) {
-            var unitNamefield = $('<div>', {
-                class: 'frame-54'
+            var unitNameContainer = $('<div>',{
+                class: 'unit-names-container',
+                id: 'unit-names-container-' + selectedDay
             });
-            var unitContainer = $('<div>', {
-                class: 'frame-108'
-            });
+            var unitContainer = $('<div>').addClass('frame-108');
             var unitLabel = $('<div>', {
                 class: 'unit-7',
                 text: 'Unit ' + (index + 1)
             });
 
-            var programContainer = $('<div>', {
-                class: 'frame-1199'
-            });
-            var programName = $('<div>', {
-                class: 'program-name'
+            var programContainer = $('<div>').addClass('frame-1199');
+            var programName = $('<div>').addClass('program-name');
+            var unitNameElement1 = $('<div>', {
+                class: 'unit-name',
+                text:'Unit Name'
             });
             var unitNameElement = $('<div>', {
                 class: 'unit-7',
                 text: unitName1 // Display the unit name
             });
             // var transferunitCode = $('<input>', {
-            //     type: 'hidden',
+            //     type: 'div',
             //     // id:'unitCode',
             //     class: 'unitCodee',
-            //     value: unitCodes[index]
+            //     text: unitCodes1[index]
             // });
 
             // Assemble the structure
             programName.append(unitNameElement);
             programContainer.append(programName);
             unitContainer.append(unitLabel);
-            unitNamefield.append(unitContainer);
-            unitNamefield.append(programContainer);
-            $('.frame-1193').append(unitNamefield);
+            unitNameContainer.append(unitContainer);
+            unitNameContainer.append(programContainer);
+            // unitNamefield.append(unitNameContainer);
+            dayContainer.append(unitNameContainer)
+            // $('.frame-1193').append(dayContainer);
         });
         $('.add-unit').click(function() {
-            alert('add unit nè :)))');
-            updateUnitNames(data);
-
+            // alert('add unit nè :)))');
+            addUnitCode();
+            getGeneratedCode(selectedDay,data);
         });
 
         // var apiUrl3 = apiUrl2 + transferunitCode;
