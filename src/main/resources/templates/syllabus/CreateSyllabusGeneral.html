@@ -77,7 +77,7 @@
                 <div class="req-text-box">
                     <div class="text3">Syllabus Name*</div>
                     <div class="input">
-                        <input type="text" id="syllabus-name" class="input-syllabus-name" placeholder=" C# Language Program" style="width: 100%; border: none; outline: none">
+                        <input type="text" id="syllabus-name" class="input-syllabus-name" style="width: 100%; border: none; outline: none">
                     </div>
                 </div>
                 <div class="req-text-box">
@@ -290,7 +290,7 @@
                 learningObjectiveName: learningObjname,
                 version: version1,
             };
-            console.log(data.version);
+            console.log(data.level);
             // Sử dụng $.ajax để gửi POST request
             $.ajax({
                 url: 'http://localhost:8080/api/v1/syllabus/create-general-syllabus',
