@@ -306,16 +306,15 @@
         const lastestUnitCode = unitCodes[unitCodes.length - 1];
         unitCodedata = lastestUnitCode;
         const lastestUnit = unitNames.length;
-
-        var dayContainer = $('.frame-54');
+        var day1 = selectedDay;
+        // var dayContainer = $('.frame-54');
         // $.each(unitNames, function (index, unitName) {
             var unitNameContainer = $('<div>',{
                 class: 'unit-names-container',
-                id: 'unit-names-container-' + selectedDay
+                id: 'unit-names-container-' + day1
             });
 
-            // var unitNamefield = $('<div>').addClass('frame-54');
-
+            // var unitNamefield = $('<div>').
             var unitContainer = $('<div>').addClass('frame-108');
 
             var unitLabel = $('<div>', {
@@ -345,7 +344,7 @@
                 type: 'text',
                 // id:'unitCode',
                 class: 'unitCodee',
-                // value: unitCodes[index]
+                value: lastestUnitCode
             });
 
             var frame66 = $('<div>').addClass('frame-66');
@@ -354,7 +353,7 @@
                 class: 'create',
                 text: 'Create'
             });
-
+            var unitNamefield = $('<div>').addClass('frame-54 uday'+day1);
             // Assemble the structure
             frame66.append(create);
             frame84.append(typeUnitName);
@@ -367,8 +366,17 @@
             // unitContainer.append(programContainer);
             unitNameContainer.append(unitContainer);
             unitNameContainer.append(programContainer);
-            dayContainer.append(unitNameContainer);
+            unitNamefield.append(unitNameContainer);
 
+            // dayContainer = $('<div>').addClass('day-container day-'+ day);
+            // Ẩn tất cả các ngày trước
+            // console.log($('.uday' + day));
+            if($('.uday' + day1).length === 1){
+                var link = $('.day-'+ day1);
+                console.log(unitNamefield);
+                link.append(unitNamefield);
+                console.log("append dc");
+            }
             // unitNamefield.append(addbtnAddunit());
             typeUnitName.on('change', function () {
                 var typedUnitName = $(this).val();
@@ -486,6 +494,7 @@
         var updatedApi2 = api2 + selectedDay;
         apiUrl2 = 'http://localhost:8080/api/v1/syllabus/OutlineScreen/' + data.topicCode + '/' + selectedDay;
         console.log("update: " + selectedDay);
+        // alert(data.topicCode);
         // alert('Clicked on Day: ' + selectedDay);
         // Second AJAX request to load unit names for the selected day
         $.ajax({
@@ -494,6 +503,7 @@
             success: function (data) {
                 // Handle the successful response and update the HTML elements
                 // updateUnitNames(data);
+                
                 loadTrainingUnit(data);
                 // createTrainingUnit(data);
             },
@@ -506,7 +516,8 @@
     function getGeneratedCode(selectedDay, data) {
         var updatedApi2 = api2 + selectedDay;
         apiUrl2 = 'http://localhost:8080/api/v1/syllabus/OutlineScreen/' + data.topicCode + '/' + selectedDay;
-        console.log("get unit code: " + selectedDay);
+        console.log("get day: " + selectedDay);
+        console.log("unitCode: "+data.topicCode);
         // alert('Clicked on Day: ' + selectedDay);
         // Second AJAX request to load unit names for the selected day
         $.ajax({
@@ -649,12 +660,16 @@
         // var duration = data.
         // alert(unitNames1);
         console.log(unitCodes1);
+        var day = selectedDay;
         // const lastestUnitCode1 = unitCodes1[unitCodes1.length - 1];
         // unitCodedata = lastestUnitCode;
-        // var unitNamefield = $('.frame-54');
+        var unitNamefield = $('.uday'+day);
         // unitNamefield.empty();
-        var dayContainer = $('.frame-54');
-        dayContainer.empty();
+        $('.unit-names-container').hide();
+        $
+
+        // var dayContainer = $('.frame-54');
+        // dayContainer.empty();
         $.each(unitNames1, function (index, unitName1) {
             var unitNameContainer = $('<div>',{
                 class: 'unit-names-container',
@@ -690,7 +705,7 @@
             unitNameContainer.append(unitContainer);
             unitNameContainer.append(programContainer);
             // unitNamefield.append(unitNameContainer);
-            dayContainer.append(unitNameContainer)
+            unitNamefield.append(unitNameContainer)
             // $('.frame-1193').append(dayContainer);
         });
         $('.add-unit').click(function() {
