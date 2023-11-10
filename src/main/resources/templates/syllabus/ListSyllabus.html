@@ -248,7 +248,8 @@
           </svg>
           </th>
           <th style="width: 12%;">Output Standard</th>
-          <th style=" border-top-right-radius: 10px">Status</th>
+          <th>Status</th>
+          <th style=" border-top-right-radius: 10px;">Export Action</th>
           </thead>
           <tbody id="data-table">
           </tbody>
@@ -292,58 +293,58 @@
           </div>
 
 
-          <div style="position: absolute; top: 0px">
-            <div style="border-radius: 50px; width: 3px; height: 3px; left: 11px; top: 11px; position: absolute; background: #2D3748"></div>
-            <div style="border-radius: 50px; width: 3px; height: 3px; left: 18px; top: 11px; position: absolute; background: #2D3748"></div>
-            <div style="border-radius: 50px; width: 3px; height: 3px; left: 4px; top: 11px; position: absolute; background: #2D3748"></div>
-          </div>
+<!--          <div style="position: absolute; top: 0px">-->
+<!--            <div style="border-radius: 50px; width: 3px; height: 3px; left: 11px; top: 11px; position: absolute; background: #2D3748"></div>-->
+<!--            <div style="border-radius: 50px; width: 3px; height: 3px; left: 18px; top: 11px; position: absolute; background: #2D3748"></div>-->
+<!--            <div style="border-radius: 50px; width: 3px; height: 3px; left: 4px; top: 11px; position: absolute; background: #2D3748"></div>-->
+<!--          </div>-->
 
-          <div class="group-8" id="group-8">
-            <div class="ellipse-2-22"></div>
-            <div class="_10">10</div>
-          </div>
+<!--          <div class="group-8" id="group-8">-->
+<!--            <div class="ellipse-2-22"></div>-->
+<!--            <div class="_10">10</div>-->
+<!--          </div>-->
 
-          <svg
-                  class="arrow-forward-ios"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-          >
-            <g clip-path="url(#clip0_2189_1613)">
-              <path
-                      d="M9 16.8149L10.0617 17.8766L16 11.9383L10.0617 6L9 7.0617L13.8766 11.9383L9 16.8149Z"
-                      fill="#2D3748"
-              />
-            </g>
-            <defs>
-              <clipPath id="clip0_2189_1613">
-                <rect width="24" height="24" fill="white" />
-              </clipPath>
-            </defs>
-          </svg>
+<!--          <svg-->
+<!--                  class="arrow-forward-ios"-->
+<!--                  width="24"-->
+<!--                  height="24"-->
+<!--                  viewBox="0 0 24 24"-->
+<!--                  fill="none"-->
+<!--                  xmlns="http://www.w3.org/2000/svg"-->
+<!--          >-->
+<!--            <g clip-path="url(#clip0_2189_1613)">-->
+<!--              <path-->
+<!--                      d="M9 16.8149L10.0617 17.8766L16 11.9383L10.0617 6L9 7.0617L13.8766 11.9383L9 16.8149Z"-->
+<!--                      fill="#2D3748"-->
+<!--              />-->
+<!--            </g>-->
+<!--            <defs>-->
+<!--              <clipPath id="clip0_2189_1613">-->
+<!--                <rect width="24" height="24" fill="white" />-->
+<!--              </clipPath>-->
+<!--            </defs>-->
+<!--          </svg>-->
 
-          <svg
-                  class="last-page"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-          >
-            <g clip-path="url(#clip0_2189_1616)">
-              <path
-                      d="M5.59 7.41L10.18 12L5.59 16.59L7 18L13 12L7 6L5.59 7.41ZM16 6H18V18H16V6Z"
-                      fill="#2D3748"
-              />
-            </g>
-            <defs>
-              <clipPath id="clip0_2189_1616">
-                <rect width="24" height="24" fill="white" />
-              </clipPath>
-            </defs>
-          </svg>
+<!--          <svg-->
+<!--                  class="last-page"-->
+<!--                  width="24"-->
+<!--                  height="24"-->
+<!--                  viewBox="0 0 24 24"-->
+<!--                  fill="none"-->
+<!--                  xmlns="http://www.w3.org/2000/svg"-->
+<!--          >-->
+<!--            <g clip-path="url(#clip0_2189_1616)">-->
+<!--              <path-->
+<!--                      d="M5.59 7.41L10.18 12L5.59 16.59L7 18L13 12L7 6L5.59 7.41ZM16 6H18V18H16V6Z"-->
+<!--                      fill="#2D3748"-->
+<!--              />-->
+<!--            </g>-->
+<!--            <defs>-->
+<!--              <clipPath id="clip0_2189_1616">-->
+<!--                <rect width="24" height="24" fill="white" />-->
+<!--              </clipPath>-->
+<!--            </defs>-->
+<!--          </svg>-->
           <div style="display: flex; justify-content: center; position: absolute; right: 0; align-items: center">
             <label style="margin-right: 50px">Rows per page</label>
             <select id="rowPerPage" name="colors" class="combo-box" style="border: none; outline: none">
@@ -505,6 +506,21 @@
     var myVar = 1;
     var selectedValue = 5;
     $(document).ready(function () {
+      var topicCode;
+      //get dữ liệu
+      // Assuming you have a table with the class "data-table"
+      $('.excel-button').on('click', function () {
+        console.log("click succ");
+        // Find the closest row to the clicked button
+        var row = $(this).closest('tr');
+        // Access data in each column of the row
+        topicCode = row.find('td:eq(1)').text();
+        console.log('Topic Code: ' + topicCode);
+
+        exportExcel(topicCode);
+        // Perform your CSV export or Excel export here.
+      });
+
       // MODE 1
       if(mode === 1) {
         var combo = document.getElementById("rowPerPage");
@@ -520,7 +536,7 @@
         var page1 = document.getElementById("group-6");
         var page2 = document.getElementById("group-5");
         var page3 = document.getElementById("group-7");
-        var page10 = document.getElementById("group-8");
+        // var page10 = document.getElementById("group-8");
         performAjaxRequest();
         page1.addEventListener("click", function () {
           myVar = 1;
@@ -540,13 +556,13 @@
             performAjaxRequest();
           }
         });
-        page10.addEventListener("click", function () {
-          myVar = 10;
-          if(mode === 1) {
-            performAjaxRequest();
-          }
-          dataTable.empty();
-        });
+        // page10.addEventListener("click", function () {
+        //   myVar = 10;
+        //   if(mode === 1) {
+        //     performAjaxRequest();
+        //   }
+        //   dataTable.empty();
+        // });
 
 
 
@@ -571,7 +587,17 @@
                         '<td>' + durationText + '</td>' +
                         '<td>' + item.outputStandardArr + '</td>' +
                         '<td id="' + item.syllabusStatus + '">' + item.syllabusStatus + '</td>' +
-                        // Thêm các ô khác ở đây
+                        '<td>' +
+                        '<div style="display: flex; justify-content: center">' +
+                        '<button class="button-action">' +
+                        '<a style="text-decoration: none; color: white" class="csv-button" href="http://localhost:8080/api/v1/syllabus/exportCSV/' + item.topicCode + '">Export CSV</a>'+
+                        '</button>'+
+                        '<button class="button-action">' +
+                        '<a style="text-decoration: none; color: white" class="excel-button" href="http://localhost:8080/api/v1/syllabus/exportExcel/' + item.topicCode + '">Export Excel</a>' +
+                        '</button>'+
+                        '</div>' +
+                        '</td>' +
+                        // Add other columns here
                         '</tr>';
                 dataTable.append(row);
               });
@@ -781,7 +807,26 @@
         }//mode
       });
     });
+
+    //Export
+
+    function exportExcel(topicCode) {
+      var url = `http://localhost:8080/api/v1/syllabus/exportExcel/`+topicCode;
+      $.ajax({
+        url: url,
+        method: "GET",
+        success: function (response) {
+          console.log(response);
+        },
+        error: function (error) {
+          console.log(error)
+        }
+      });
+    }
   </script>
+
+
+
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="/js/common.js"></script>
 

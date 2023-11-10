@@ -628,6 +628,26 @@ span.selection {
     margin-right: 10px;
     cursor: pointer;
 }
+
+.button-action {
+    background: var(--orange, #2D3748);
+    border-radius: 8px;
+    padding: 7px 10px 7px 10px;
+    gap: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    height: 32px;
+    position: relative;
+    box-shadow: var(
+            --m-3-elevation-light-1-box-shadow,
+            0px 1px 3px 1px rgba(0, 0, 0, 0.15),
+            0px 1px 2px 0px rgba(0, 0, 0, 0.3)
+    );
+    margin-right: 10px;
+    cursor: pointer;
+}
 .upload {
     flex-shrink: 0;
     position: relative;
