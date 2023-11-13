@@ -227,8 +227,8 @@
                 </div>
             </div>
             <div class="frame-5119">
-                <div class="button">
-                    <div class="filter">Cancel</div>
+                <div class="button" style="cursor: pointer">
+                    <div class="filter cancel-btn">Cancel</div>
                 </div>
                 <div class="button2">
                     <div class="filter2">Save as draft</div>
@@ -276,13 +276,17 @@
                     e.preventDefault();
                 }
             });
+
+            $('.cancel-btn').click(function (e) {
+                clearAllFields();
+            });
         })
 
         function areAllFieldFilled(){
             var requiredFields = [
                 $('#syllabus-name'),
                 $('#tech-reqs'),
-                $('#LearningObjectiveName'),
+                $('#course-obj'),
                 $('#attendee-number')
             ];
             var allFieldsFilled = true;
@@ -297,6 +301,17 @@
 
         }
 
+        function clearAllFields(){
+            var requiredFields = [
+                $('#syllabus-name'),
+                $('#tech-reqs'),
+                $('#course-obj'),
+                $('#attendee-number')
+            ];
+            for (var i = 0; i < requiredFields.length; i++) {
+                requiredFields[i].val('');
+            }
+        }
         function createSyllabusGeneral() {
             var combo = document.getElementById("level");
             combo.selectedIndex = 0;
