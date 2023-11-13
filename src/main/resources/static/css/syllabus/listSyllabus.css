@@ -327,6 +327,10 @@ span.selection {
     flex-shrink: 0;
     position: relative;
 }
+
+.rowPerPage {
+    margin-right: 100px;
+}
 .navi-dot {
     display: flex;
     flex-direction: row;
@@ -343,7 +347,7 @@ span.selection {
     position: relative;
     overflow: visible;
 }
-.group-6 {
+/*.group-6 {
     flex-shrink: 0;
     width: 24px;
     height: 24px;
@@ -429,7 +433,7 @@ span.selection {
     display: flex;
     align-items: center;
     justify-content: center;
-}
+}*/
 
 .more-horizontal {
     padding: 10px 3px 10px 3px;
@@ -476,6 +480,7 @@ span.selection {
     position: relative;
     overflow: visible;
 }
+
 .last-page {
     flex-shrink: 0;
     position: relative;
@@ -638,4 +643,28 @@ span.selection {
     text-align: left;
     font: 700 14px/24px "Inter", sans-serif;
     position: relative;
+}
+
+.common-container {
+    position: absolute;
+}
+
+.common-ellipse {
+    background: var(--_300, #e2e8f0);
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    user-select: none;
+}
+.common-ellipse:hover {
+    background-color: #c4ccd7;
+    color: #475670;
+}
+
+.common-group {
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    position: static;
+    cursor: pointer;
 }

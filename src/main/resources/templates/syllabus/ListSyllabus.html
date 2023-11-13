@@ -257,74 +257,58 @@
 
       <!--      === PAGING BAR ===-->
       <div class="navigation-dot">
-        <div class="navi-dot">
-          <svg
-                  class="arrow-back-ios"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-          >
-            <g clip-path="url(#clip0_2189_1594)">
-              <path
-                      d="M16 7.16212L14.9323 6L9 12.5L14.9383 19L16 17.8379L11.1234 12.5L16 7.16212Z"
-                      fill="#2D3748"
-              />
-            </g>
-            <defs>
-              <clipPath id="clip0_2189_1594">
-                <rect width="24" height="24" fill="white" />
-              </clipPath>
-            </defs>
-          </svg>
-          <div class="group-6" id="group-6">
+        <div class="navi-dot" id="navi-dot">
+<!--          <svg-->
+<!--                  class="arrow-back-ios"-->
+<!--                  width="24"-->
+<!--                  height="24"-->
+<!--                  viewBox="0 0 24 24"-->
+<!--                  fill="none"-->
+<!--                  xmlns="http://www.w3.org/2000/svg"-->
+<!--          >-->
+<!--            <g clip-path="url(#clip0_2189_1594)">-->
+<!--              <path-->
+<!--                      d="M16 7.16212L14.9323 6L9 12.5L14.9383 19L16 17.8379L11.1234 12.5L16 7.16212Z"-->
+<!--                      fill="#2D3748"-->
+<!--              />-->
+<!--            </g>-->
+<!--            <defs>-->
+<!--              <clipPath id="clip0_2189_1594">-->
+<!--                <rect width="24" height="24" fill="white" />-->
+<!--              </clipPath>-->
+<!--            </defs>-->
+<!--          </svg>-->
+      <!--    <div class="group-6" id="group-6">
             <div class="ellipse-2-1"></div>
             <div class="_1">1</div>
-          </div>
-          <div class="group-5" id="group-5">
-            <div class="ellipse-2"></div>
-            <div class="_2">2</div>
-          </div>
-          <div class="group-7" id="group-7">
-            <div class="ellipse-2-2"></div>
-            <div class="_3">3</div>
-          </div>
-
-
-          <div style="position: absolute; top: 0px">
+          </div>-->
+         <!-- <div style="position: absolute; top: 0px">
             <div style="border-radius: 50px; width: 3px; height: 3px; left: 11px; top: 11px; position: absolute; background: #2D3748"></div>
             <div style="border-radius: 50px; width: 3px; height: 3px; left: 18px; top: 11px; position: absolute; background: #2D3748"></div>
             <div style="border-radius: 50px; width: 3px; height: 3px; left: 4px; top: 11px; position: absolute; background: #2D3748"></div>
-          </div>
+          </div>-->
+<!--          <svg-->
+<!--                  class="arrow-forward-ios"-->
+<!--                  width="24"-->
+<!--                  height="24"-->
+<!--                  viewBox="0 0 24 24"-->
+<!--                  fill="none"-->
+<!--                  xmlns="http://www.w3.org/2000/svg"-->
+<!--          >-->
+<!--            <g clip-path="url(#clip0_2189_1613)">-->
+<!--              <path-->
+<!--                      d="M9 16.8149L10.0617 17.8766L16 11.9383L10.0617 6L9 7.0617L13.8766 11.9383L9 16.8149Z"-->
+<!--                      fill="#2D3748"-->
+<!--              />-->
+<!--            </g>-->
+<!--            <defs>-->
+<!--              <clipPath id="clip0_2189_1613">-->
+<!--                <rect width="24" height="24" fill="white" />-->
+<!--              </clipPath>-->
+<!--            </defs>-->
+<!--          </svg>-->
 
-          <div class="group-8" id="group-8">
-            <div class="ellipse-2-22"></div>
-            <div class="_10">10</div>
-          </div>
-
-          <svg
-                  class="arrow-forward-ios"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-          >
-            <g clip-path="url(#clip0_2189_1613)">
-              <path
-                      d="M9 16.8149L10.0617 17.8766L16 11.9383L10.0617 6L9 7.0617L13.8766 11.9383L9 16.8149Z"
-                      fill="#2D3748"
-              />
-            </g>
-            <defs>
-              <clipPath id="clip0_2189_1613">
-                <rect width="24" height="24" fill="white" />
-              </clipPath>
-            </defs>
-          </svg>
-
-          <svg
+         <!-- <svg
                   class="last-page"
                   width="24"
                   height="24"
@@ -343,16 +327,16 @@
                 <rect width="24" height="24" fill="white" />
               </clipPath>
             </defs>
-          </svg>
-          <div style="display: flex; justify-content: center; position: absolute; right: 0; align-items: center">
-            <label style="margin-right: 50px">Rows per page</label>
-            <select id="rowPerPage" name="colors" class="combo-box" style="border: none; outline: none">
-              <option value="5" style="font-size: .8em">5</option>
-              <option value="10" style="font-size: .8em">10</option>
-              <option value="15" style="font-size: .8em">15</option>
-              <option value="20" style="font-size: .8em">20</option>
-            </select>
-          </div>
+          </svg>-->
+        </div>
+        <div class="rowPerPage" style="display: flex; justify-content: center; position: absolute; right: 0; align-items: center">
+          <label style="margin-right: 50px">Rows per page</label>
+          <select id="rowPerPage" name="colors" class="combo-box" style="border: none; outline: none">
+            <option value="5" style="font-size: .8em">5</option>
+            <option value="10" style="font-size: .8em">10</option>
+            <option value="15" style="font-size: .8em">15</option>
+            <option value="20" style="font-size: .8em">20</option>
+          </select>
         </div>
       </div>
 
@@ -501,6 +485,7 @@
 
   <!--  LISTING SYLLABUS-->
   <script>
+    var numberOfPage;
     var mode = 1;
     var myVar = 1;
     var selectedValue = 5;
@@ -517,51 +502,34 @@
             console.log("Chưa chọn tùy chọn");
           }
         });
-        var page1 = document.getElementById("group-6");
-        var page2 = document.getElementById("group-5");
-        var page3 = document.getElementById("group-7");
-        var page10 = document.getElementById("group-8");
+
         performAjaxRequest();
-        page1.addEventListener("click", function () {
-          myVar = 1;
+        var navidot = $('#navi-dot');
+        //Lấy đúng phần tử được click vào
+        navidot.on("click", ".common-container", function (event) {
+          var clickedValue = $(event.currentTarget).find('.common-ellipse').next().text();
+          var commonContainer = $(event.currentTarget).find('.common-ellipse');
+          commonContainer.css('background-color', '#c4ccd7');
+          commonContainer.css('color', '#475670');
+          myVar = clickedValue;
           if(mode == 1) {
             performAjaxRequest();
           }
         });
-        page2.addEventListener("click", function () {
-          myVar = 2;
-          if(mode == 1) {
-            performAjaxRequest();
-          }
-        });
-        page3.addEventListener("click", function () {
-          myVar = 3;
-          if(mode == 1) {
-            performAjaxRequest();
-          }
-        });
-        page10.addEventListener("click", function () {
-          myVar = 10;
-          if(mode === 1) {
-            performAjaxRequest();
-          }
-          dataTable.empty();
-        });
-
-
 
         function performAjaxRequest() {
           $.ajax({
             url: 'http://localhost:8080/api/v1/syllabus/list-syllabus/' + selectedValue + '?page=' + myVar,
             type: 'GET',
             success: function (data) {
-              console.log("DATA 1: " +data);
+              console.log("DATA 1: " + data);
               // Xử lý dữ liệu và cập nhật bảng
               var dataTable = $('#data-table');
               dataTable.empty(); // Xóa nội dung hiện có trong bảng
 
               // Lặp qua dữ liệu và thêm từng dòng vào bảng
               $.each(data, function (index, item) {
+                numberOfPage = item.count;
                 var durationText = item.duration + " days";
                 var row = '<tr>' +
                         '<td>' + item.topicName + '</td>' +
@@ -575,10 +543,26 @@
                         '</tr>';
                 dataTable.append(row);
               });
+
+              // Hiển thị nút paging theo số trang
+              var navidot = $('#navi-dot');
+              navidot.empty();
+              var newDiv;
+              for (var i = 1; i <= numberOfPage; i++) {
+                newDiv = $('<div>', {
+                  'class': 'common-group',
+                  'html': '<div class="common-container">' +
+                          '<div class="common-ellipse"></div>' +
+                          '<div class="_' + i + '" ' +
+                          'style="font: 700 12px Inter, sans-serif;' +
+                          'position: absolute; top: 4px; left: 8px">' + i + '</div>' +
+                          '</div>'
+                });
+                navidot.append(newDiv);
+              }
             }
           });
         };
-
       }
 
       // MODE 2
@@ -613,27 +597,16 @@
                 console.log("Chưa chọn tùy chọn");
               }
             });
-            var page1 = document.getElementById("group-6");
-            var page2 = document.getElementById("group-5");
-            var page3 = document.getElementById("group-7");
-            var page10 = document.getElementById("group-8");
             sendSearchRequest(searchedKeywords);
-            page1.addEventListener("click", function () {
-              myVar = 1;
-              sendSearchRequest(searchedKeywords);
-            });
-            page2.addEventListener("click", function () {
-              myVar = 2;
-              sendSearchRequest(searchedKeywords);
-            });
-            page3.addEventListener("click", function () {
-              myVar = 3;
-              sendSearchRequest(searchedKeywords);
-            });
-            page10.addEventListener("click", function () {
-              myVar = 10;
-              sendSearchRequest(searchedKeywords);
-              dataTable.empty();
+            var navidot = $('#navi-dot');
+            //Lấy đúng phần tử được click vào
+            navidot.on("click", ".common-container", function (event) {
+              var clickedValue = $(event.currentTarget).find('.common-ellipse').next().text();
+              console.log("Clicked Value: " + clickedValue);
+              myVar = clickedValue;
+              if(mode == 2) {
+                sendSearchRequest(searchedKeywords);
+              }
             });
 
             // XÓA TỪ KHÓA
@@ -652,7 +625,6 @@
           }
 
           sendSearchRequest(searchedKeywords);
-          // input.value = searchedKeywords;
 
           console.log("mode "+mode);
           // Hàm gửi yêu cầu AJAX với từ khóa tìm kiếm
@@ -671,6 +643,8 @@
                 dataTable.empty();
                 // Lặp qua dữ liệu và thêm từng dòng vào bảng
                 $.each(data, function (index, item) {
+                  numberOfPage = item.count;
+                  console.log("Search page number: "+item.count);
                   var durationText = item.duration + " days";
                   var row = '<tr>' +
                           '<td>' + item.topicName + '</td>' +
@@ -684,6 +658,22 @@
                           '</tr>';
                   dataTable.append(row);
                 });
+                // Hiển thị nút paging theo số trang
+                var navidot = $('#navi-dot');
+                navidot.empty();
+                var newDiv;
+                for (var i = 1; i <= numberOfPage; i++) {
+                  newDiv = $('<div>', {
+                    'class': 'common-group',
+                    'html': '<div class="common-container">' +
+                            '<div class="common-ellipse"></div>' +
+                            '<div class="_' + i + '" ' +
+                            'style="font: 700 12px Inter, sans-serif;' +
+                            'position: absolute; top: 4px; left: 8px">' + i + '</div>' +
+                            '</div>'
+                  });
+                  navidot.append(newDiv);
+                }
               },
               error: function (error) {
                 console.log(error)
@@ -721,33 +711,22 @@
               console.log("Chưa chọn tùy chọn");
             }
           });
-          var page1 = document.getElementById("group-6");
-          var page2 = document.getElementById("group-5");
-          var page3 = document.getElementById("group-7");
-          var page10 = document.getElementById("group-8");
           sendDateRequest(formattedDate);
-          page1.addEventListener("click", function () {
-            myVar = 1;
-            sendDateRequest(formattedDate);
-          });
-          page2.addEventListener("click", function () {
-            myVar = 2;
-            sendDateRequest(formattedDate);
-          });
-          page3.addEventListener("click", function () {
-            myVar = 3;
-            sendDateRequest(formattedDate);
-          });
-          page10.addEventListener("click", function () {
-            myVar = 10;
-            sendDateRequest(formattedDate);
-            dataTable.empty();
-          });
+          if(mode === 3){
+            var navidot = $('#navi-dot');
+            //Lấy đúng phần tử được click vào
+            navidot.on("click", ".common-container", function (event) {
+              var clickedValue = $(event.currentTarget).find('.common-ellipse').next().text();
+              myVar = clickedValue;
+              if(mode == 3) {
+                sendDateRequest(formattedDate);
+              }
+            });
+          } else {
+            console.log("not mode 3");
+          }
 
-          sendDateRequest(formattedDate);
-          console.log("mode " + mode);
-
-          // Hàm gửi yêu cầu AJAX với từ khóa tìm kiếm
+          // Hàm gửi yêu cầu AJAX với ngày tìm kiếm
           function sendDateRequest(formattedDate) {
             var url = `http://localhost:8080/api/v1/syllabus/search-syllabus-byCreatedDate/`+selectedValue+`?page=`+myVar+`&key=`+formattedDate;
             $.ajax({
@@ -760,6 +739,7 @@
                 dataTable.empty();
                 // Lặp qua dữ liệu và thêm từng dòng vào bảng
                 $.each(data, function (index, item) {
+                  numberOfPage = item.count;
                   var durationText = item.duration + " days";
                   var row = '<tr>' +
                           '<td>' + item.topicName + '</td>' +
@@ -772,6 +752,22 @@
                           '</tr>';
                   dataTable.append(row);
                 });
+                // Hiển thị nút paging theo số trang
+                var navidot = $('#navi-dot');
+                navidot.empty();
+                var newDiv;
+                for (var i = 1; i <= numberOfPage; i++) {
+                  newDiv = $('<div>', {
+                    'class': 'common-group',
+                    'html': '<div class="common-container">' +
+                            '<div class="common-ellipse"></div>' +
+                            '<div class="_' + i + '" ' +
+                            'style="font: 700 12px Inter, sans-serif;' +
+                            'position: absolute; top: 4px; left: 8px">' + i + '</div>' +
+                            '</div>'
+                  });
+                  navidot.append(newDiv);
+                }
               },
               error: function (error) {
                 console.log(error)
