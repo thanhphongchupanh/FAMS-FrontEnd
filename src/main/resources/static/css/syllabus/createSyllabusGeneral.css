@@ -378,6 +378,7 @@
     width: 200px;
     height: 30px;
     position: relative;
+    cursor: pointer;
 }
 
 .frame-51 {
@@ -582,9 +583,24 @@
 }
 
 .scrollable-textarea:focus {
-    transform: scale(0.97);
+    transform: scale(1.02);
 }
-
+.text-box {
+    background: #ffffff;
+    border-radius: 10px;
+    border-style: solid;
+    border-color: #000000;
+    border-width: 1px;
+    padding: 5px 12px 5px 5px;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-shrink: 0;
+    width: 200px;
+    position: relative;
+}
 
 .objectives {
     padding: 1px 0px 1px 0px;
