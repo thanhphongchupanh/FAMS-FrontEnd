@@ -278,23 +278,17 @@
         });
 
         // Load data when the page is refreshed
-        var savedSyllabusName = localStorage.getItem('syllabusName');
-
-        if (savedSyllabusName) {
-            $('#syllabusNameInput').val(savedSyllabusName);
-            loadData(savedSyllabusName);
-        }
+        // var savedSyllabusName = localStorage.getItem('syllabusName');
+        // console.log(savedSyllabusName);
+        // if (savedSyllabusName) {
+        //     $('#syllabusNameInput').val(savedSyllabusName);
+        //     loadData(savedSyllabusName);
+        // }
 
         // Event listener for adding a day
         $('.add-day-button-2').click(function() {
            addDay();
         });
-
-        // // Event listener for adding a TrainingContent
-        // $('.add').click(function (){
-        //     alert('clicked');
-        //     addTrainingContent();
-        // });
         $(document).on('click', '.add', function () {
             $('.add').remove();
             getDeliveryType();
@@ -751,43 +745,7 @@
             unitNamefield.append(trainingContentContainer);
         });
     }
-</script>
-<script>
-    // Hàm để lấy giá trị từ query parameter
-    document.addEventListener('DOMContentLoaded', function() {
-        function getQueryParam(parameter) {
-            const urlParams = new URLSearchParams(window.location.search);
-            return urlParams.get(parameter);
-        }
-    });
-
-        function getDeliveryType(){
-            var url = 'http://localhost:8080/api/v1/syllabus/OutlineScreen/showDeliverType';
-            $.ajax({
-                url: url,
-                type: 'GET',
-                success: function (data) {
-                    addTrainingContent(data);
-                },
-                error: function (error) {
-                    console.log('Error:', error);
-                }
-            });
-        }
-        function addTrainingContent(data){
-            const param1Value = getQueryParam('param1');
-            if (param1Value) {
-                document.getElementById('syllabusNameInput').value = param1Value;
-                console.log(param1Value);
-            } else {
-                console.log('Không có giá trị param1 được truyền.');
-            }
-        };
-</script>
-
-<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-<script>
-    function addTrainingContent(){
+    function addTrainingContent(data){
         var day = selectedDay;
         var unitNamefield = $('.uday'+day);
         // Create main container
@@ -804,10 +762,9 @@
         var deliveryType = $('<div>').addClass('delivery-type');
         var frame111 = $('<div>').addClass('frame-111');
         var deliveryType2 = $('<select>').addClass('delivery-type2').attr('id', 'output-standard');
-        console.log("delivertype: "+data);
 // Adding options to the select element
-        $.each(data, function (index) {
-            var option = $('<option>').val(data[index]).text(data[index]);
+        data.forEach(function (contentType) {
+            var option = $('<option>').val(contentType).text(contentType);
             deliveryType2.append(option);
         });
 
@@ -873,9 +830,9 @@
             case 'OFFLINE':
                 return $('<div>').addClass('offline').append(
                     $('<div>', {
-                    class: 'offline2',
-                    text: trimmedFormat
-                }));
+                        class: 'offline2',
+                        text: trimmedFormat
+                    }));
                 break;
         }
     }
@@ -902,11 +859,42 @@
                 svg = $('<svg class="assignment-lab" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g clip-path="url(#clip0_750_12248)"><path d="M12 5C8.13 5 5 8.13 5 12H7C7 9.24 9.24 7 12 7C14.76 7 17 9.24 17 12H19C19 8.13 15.87 5 12 5ZM13 14.29C13.88 13.9 14.5 13.03 14.5 12C14.5 10.62 13.38 9.5 12 9.5C10.62 9.5 9.5 10.62 9.5 12C9.5 13.02 10.12 13.9 11 14.29V17.59L7.59 21L9 22.41L12 19.41L15 22.41L16.41 21L13 17.59V14.29ZM12 1C5.93 1 1 5.93 1 12H3C3 7.03 7.03 3 12 3C16.97 3 21 7.03 21 12H23C23 5.93 18.07 1 12 1Z" fill="#285D9A"/></g><defs><clipPath id="clip0_750_12248"><rect width="24" height="24" fill="white"/></clipPath></defs></svg>');
                 break;
         }
-    return svg ;
+        return svg ;
     }
+    function getDeliveryType(){
+        var url = 'http://localhost:8080/api/v1/syllabus/OutlineScreen/showDeliverType';
+        $.ajax({
+            url: url,
+            type: 'GET',
+            success: function (data) {
+                addTrainingContent(data);
+            },
+            error: function (error) {
+                console.log('Error:', error);
+            }
+        });
+    }
+</script>
+<script>
+    // Hàm để lấy giá trị từ query parameter
+    document.addEventListener('DOMContentLoaded', function() {
+        function getQueryParam(parameter) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(parameter);
 
+        }
+        const param1Value = getQueryParam('param1');
+        if (param1Value) {
+            document.getElementById('syllabusNameInput').value = param1Value;
+            console.log(param1Value);
+        } else {
+            console.log('Không có giá trị param1 được truyền.');
+        }
+    });
 
 </script>
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
 </body>
 
