@@ -271,6 +271,8 @@
                 if(areAllFieldFilled()){
                     createSyllabusGeneral();
                     passInputValue();
+                    window.location.href = "http://localhost:8081/createSyllabus";
+                    console.log("click");
                 } else {
                     alert("All fields are required!");
                     e.preventDefault();
@@ -356,14 +358,10 @@
 
         //Đưa giá trị của ô syllabus name sang CreateOutline
         function passInputValue() {
-            // Get the value from the input field
-            var inputValue1 = document.getElementById('syllabus-name').value;
-
-            // Construct the URL with the input value
-            var url = '/createSyllabus?param1=' + encodeURIComponent(inputValue1);
-
-            // Navigate to the destination page
-            window.location.href = url;
+                var inputValue1 = document.getElementById('syllabus-name').value;
+                console.log(inputValue1);
+                localStorage.clear();
+                localStorage.setItem('syllabusName', inputValue1);
         }
 </script>
 

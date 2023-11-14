@@ -79,7 +79,7 @@
                 <div class="syllabus-name-code">
                     <div class="req-text-box">
                         <div class="text3">Syllabus Name*</div>
-                        <input type="text" id="syllabusNameInput" name="" value="" class="text-box" readonly>
+                        <input type="text" id="syllabusNameInput" name="" value="" class="text-box" >
                     </div>
                     <div class="req-text-box">
                         <div class="text3">Code:</div>
@@ -270,20 +270,14 @@
     var apiUrl2;
 
     $(document).ready(function() {
-        // Event listener for the input field
-        $('#syllabusNameInput').on('input', function() {
-            var syllabusName = $(this).val();
-            localStorage.setItem('syllabusName', syllabusName);
-             loadData(syllabusName);
-        });
 
         // Load data when the page is refreshed
-        // var savedSyllabusName = localStorage.getItem('syllabusName');
-        // console.log(savedSyllabusName);
-        // if (savedSyllabusName) {
-        //     $('#syllabusNameInput').val(savedSyllabusName);
-        //     loadData(savedSyllabusName);
-        // }
+        var savedSyllabusName = localStorage.getItem('syllabusName');
+        console.log(savedSyllabusName);
+        if (savedSyllabusName) {
+            $('#syllabusNameInput').val(savedSyllabusName);
+            loadData(savedSyllabusName);
+        }
 
         // Event listener for adding a day
         $('.add-day-button-2').click(function() {
@@ -877,20 +871,20 @@
 </script>
 <script>
     // Hàm để lấy giá trị từ query parameter
-    document.addEventListener('DOMContentLoaded', function() {
-        function getQueryParam(parameter) {
-            const urlParams = new URLSearchParams(window.location.search);
-            return urlParams.get(parameter);
-
-        }
-        const param1Value = getQueryParam('param1');
-        if (param1Value) {
-            document.getElementById('syllabusNameInput').value = param1Value;
-            console.log(param1Value);
-        } else {
-            console.log('Không có giá trị param1 được truyền.');
-        }
-    });
+    // document.addEventListener('DOMContentLoaded', function() {
+    //     function getQueryParam(parameter) {
+    //         const urlParams = new URLSearchParams(window.location.search);
+    //         return urlParams.get(parameter);
+    //
+    //     }
+    //     const param1Value = getQueryParam('param1');
+    //     if (param1Value) {
+    //         document.getElementById('syllabusNameInput').value = param1Value;
+    //         console.log(param1Value);
+    //     } else {
+    //         console.log('Không có giá trị param1 được truyền.');
+    //     }
+    // });
 
 </script>
 
