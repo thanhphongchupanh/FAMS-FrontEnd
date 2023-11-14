@@ -290,15 +290,14 @@
            addDay();
         });
 
-        // Event listener for adding a TrainingContent
-        $('.add').click(function (){
-            alert('clicked');
-            addTrainingContent();
-        });
+        // // Event listener for adding a TrainingContent
+        // $('.add').click(function (){
+        //     alert('clicked');
+        //     addTrainingContent();
+        // });
         $(document).on('click', '.add', function () {
-            alert('clicked');
             $('.add').remove();
-            addTrainingContent();
+            getDeliveryType();
         });
     });
     function updateUnitNames(data) {
@@ -753,7 +752,20 @@
         });
     }
 
-    function addTrainingContent(){
+    function getDeliveryType(){
+        var url = 'http://localhost:8080/api/v1/syllabus/OutlineScreen/showDeliverType';
+        $.ajax({
+            url: url,
+            type: 'GET',
+            success: function (data) {
+                addTrainingContent(data);
+            },
+            error: function (error) {
+                console.log('Error:', error);
+            }
+        });
+    }
+    function addTrainingContent(data){
         var day = selectedDay;
         var unitNamefield = $('.uday'+day);
         // Create main container
@@ -761,15 +773,23 @@
 
         // Create nested containers
         var frame1197 = $('<div>').addClass('frame-1197');
-        var practiceTime = $('<div>').addClass('practice-time').text('Practice Time |');
+        var practiceTime = $('<input>').addClass('practice-time').attr('placeholder','Training Content Name').attr('id','Content-Name');
         frame1197.append(practiceTime);
 
-        var frame40 = $('<div>').addClass('frame-40');
+        // var frame40 = $('<div>').addClass('frame-40');
 
 // Create delivery type container
         var deliveryType = $('<div>').addClass('delivery-type');
         var frame111 = $('<div>').addClass('frame-111');
-        var deliveryType2 = $('<div>').addClass('delivery-type2').text('Output standard');
+        var deliveryType2 = $('<select>').addClass('delivery-type2').attr('id', 'output-standard');
+        console.log("delivertype: "+data);
+// Adding options to the select element
+        $.each(data, function (index) {
+            var option = $('<option>').val(data[index]).text(data[index]);
+            deliveryType2.append(option);
+        });
+
+// Appending options to the select element
         var arrowBackIos = $('<svg>').addClass('arrow-back-ios')
             .attr({
                 width: '24',
@@ -790,7 +810,7 @@
 
         var toggleOnline = $('<div>').addClass('toggle-online');
         var ellipse19 = $('<div>').addClass('ellipse-19');
-        var online = $('<div>').addClass('online').text('Online');
+        var online = $('<div>').addClass('online-add').text('Online');
         toggleOnline.append(ellipse19, online);
 
 // Another delivery type container
@@ -812,8 +832,8 @@
         var addfolder = $('<button>').addClass('folder-btn');
 
 // Append everything to the main container
-        frame40.append(deliveryType, frame1198, toggleOnline, deliveryType2, addfolder);
-        mainContainer.append(frame1197, frame40);
+//         frame40.append(deliveryType, frame1198, toggleOnline, deliveryType2, addfolder);
+        mainContainer.append(frame1197, deliveryType, frame1198, toggleOnline, deliveryType2, addfolder);
 // Append main container to the body or any other parent element
         unitNamefield.append(mainContainer);
         var addDiv = $('<button>').addClass('add');
