@@ -79,7 +79,7 @@
                 <div class="syllabus-name-code">
                     <div class="req-text-box">
                         <div class="text3">Syllabus Name*</div>
-                        <input type="text" id="syllabusNameInput" name="" value="" class="text-box">
+                        <input type="text" id="syllabusNameInput" name="" value="" class="text-box" readonly>
                     </div>
                     <div class="req-text-box">
                         <div class="text3">Code:</div>
@@ -751,21 +751,43 @@
             unitNamefield.append(trainingContentContainer);
         });
     }
+</script>
+<script>
+    // Hàm để lấy giá trị từ query parameter
+    document.addEventListener('DOMContentLoaded', function() {
+        function getQueryParam(parameter) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(parameter);
+        }
+    });
 
-    function getDeliveryType(){
-        var url = 'http://localhost:8080/api/v1/syllabus/OutlineScreen/showDeliverType';
-        $.ajax({
-            url: url,
-            type: 'GET',
-            success: function (data) {
-                addTrainingContent(data);
-            },
-            error: function (error) {
-                console.log('Error:', error);
+        function getDeliveryType(){
+            var url = 'http://localhost:8080/api/v1/syllabus/OutlineScreen/showDeliverType';
+            $.ajax({
+                url: url,
+                type: 'GET',
+                success: function (data) {
+                    addTrainingContent(data);
+                },
+                error: function (error) {
+                    console.log('Error:', error);
+                }
+            });
+        }
+        function addTrainingContent(data){
+            const param1Value = getQueryParam('param1');
+            if (param1Value) {
+                document.getElementById('syllabusNameInput').value = param1Value;
+                console.log(param1Value);
+            } else {
+                console.log('Không có giá trị param1 được truyền.');
             }
-        });
-    }
-    function addTrainingContent(data){
+        };
+</script>
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+    function addTrainingContent(){
         var day = selectedDay;
         var unitNamefield = $('.uday'+day);
         // Create main container
@@ -885,6 +907,7 @@
 
 
 </script>
+
 </body>
 
 </html>
