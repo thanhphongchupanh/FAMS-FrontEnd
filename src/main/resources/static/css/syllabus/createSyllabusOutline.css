@@ -372,7 +372,7 @@
     height: 948px;
     position: relative;
 }
-.day-3 {
+.daye-3 {
     background: #ffffff;
     border-radius: 0px 0px 20px 20px;
     padding: 0px 0px 20px 0px;
@@ -839,6 +839,7 @@
     width: 24px;
     height: 24px;
     border: none;
+    outline: none;
     background: url('data:image/svg+xml;utf8,%3Csvg%20class%3D%22folder%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22%23285D9A%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M20%206H12L10%204H4C2.9%204%202.01%204.9%202.01%206L2%2018C2%2019.1%202.9%2020%204%2020H20C21.1%2020%2022%2019.1%2022%2018V8C22%206.9%2021.1%206%2020%206ZM20%2018H4V6H9.17L11.17%208H20V18ZM17.5%2012.12V15.5H14.5V10.5H15.88L17.5%2012.12ZM13%209V17H19V11.5L16.5%209H13Z%22%3E%3C%2Fpath%3E%3C%2Fsvg%3E') center/contain no-repeat;
 }
 
@@ -966,6 +967,7 @@
     font: 400 italic 12px "Inter", sans-serif;
     position: relative;
     border: none;
+    outline: none;
 }
 .arrow-back-ios {
     flex-shrink: 0;
@@ -976,14 +978,15 @@
 .frame-1198 {
     background: #ffffff;
     border-radius: 10px;
-    padding: 0px 10px 0px 10px;
+    padding: 0px 3px 0px 3px;
     display: flex;
     flex-direction: row;
-    gap: 10px;
+    /*gap: 10px;*/
     align-items: center;
     justify-content: flex-start;
     flex-shrink: 0;
     height: 30px;
+    width: 60px;
     position: relative;
     box-shadow: 0px 5px 40px 0px rgba(0, 0, 0, 0.16);
 }
@@ -992,6 +995,9 @@
     text-align: left;
     font: 400 12px "Inter", sans-serif;
     position: relative;
+    outline: none;
+    border: none;
+    width: 55px;
 }
 .toggle-online {
     background: var(--orangemain, #d45b13);
@@ -1892,7 +1898,7 @@
     position: relative;
 }
 
-..toggle {
+.toggle {
     --width: 50px;
     --height: calc(var(--width) / 2);
     --border-radius: calc(var(--height) / 2);

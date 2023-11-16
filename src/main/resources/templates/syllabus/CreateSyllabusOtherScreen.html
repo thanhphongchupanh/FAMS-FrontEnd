@@ -39,8 +39,10 @@
     });
 
     function loadData() {
+      var topicCode = localStorage.getItem('topicCode');
+      alert(topicCode);
       $.ajax({
-        url: 'http://localhost:8080/api/v1/syllabus/showOtherScreenById/A01'
+        url: 'http://localhost:8080/api/v1/syllabus/showOtherScreenById/'+topicCode
         ,type: 'GET',
         success: function (rs) {
           console.log(rs);
