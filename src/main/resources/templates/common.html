@@ -110,9 +110,16 @@
                 <a class="btn btn-nav-sub" th:href="@{/viewSyllabus}">
                     View Syllabus
                 </a>
-                <a class="btn btn-nav-sub" th:href="@{/createSyllabusGeneral}">
+                <a id="createSyllabusBtn" class="btn btn-nav-sub" th:href="@{/createSyllabusGeneral}">
                     Create Syllabus
                 </a>
+                <script>
+                    $(document).ready(function () {
+                        $('#createSyllabusBtn').click(function () {
+                            localStorage.clear();
+                        });
+                    });
+                </script>
             </div>
         </li>
         <li class="mb-1">

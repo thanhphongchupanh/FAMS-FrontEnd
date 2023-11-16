@@ -88,7 +88,7 @@
           </div>
           <div class="col text-end" style="padding-right: 28px">
             <button class="btn btn-dark">
-              <a style="text-decoration: none; color: #eeeaea" th:href="@{/createSyllabusGeneral}">
+              <a id="createSyllabusBtn" style="text-decoration: none; color: #eeeaea" th:href="@{/createSyllabusGeneral}">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <g clip-path="url(#clip0_487_2486)">
                     <path
@@ -103,6 +103,13 @@
                 </svg>
                 Add Syllabus
               </a>
+              <script>
+                $(document).ready(function () {
+                  $('#createSyllabusBtn').click(function () {
+                    localStorage.clear();
+                  });
+                });
+              </script>
             </button>
           </div>
         </div>
@@ -579,7 +586,7 @@
 
                 <div class="add-training-program">Add training program</div>
               </div>
-              <div class="frame-88">
+              <a th:href="@{/createSyllabusGeneral}" class="frame-88">
                 <svg
                         class="create"
                         width="24"
@@ -602,7 +609,7 @@
                 </svg>
 
                 <div class="edit-syllabus">Edit syllabus</div>
-              </div>
+              </a>
               <div class="frame-85">
                 <svg
                         class="copy"
@@ -678,6 +685,32 @@
     var mode = 1;
     var myVar = 1;
     var selectedValue = 5;
+
+    // Tạo dấu 3 chấm
+    var divContainer = document.createElement("div");
+    divContainer.classList.add('threeDot');
+    divContainer.id = "threeDot";
+    var div1 = createChildDiv(11);
+    var div2 = createChildDiv(18);
+    var div3 = createChildDiv(4);
+    div1.style.borderRadius = "10px";
+    div2.style.borderRadius = "10px";
+    div3.style.borderRadius = "10px";
+    divContainer.appendChild(div1);
+    divContainer.appendChild(div2);
+    divContainer.appendChild(div3);
+    function createChildDiv(leftValue) {
+      var childDiv = document.createElement("div");
+      childDiv.style.width = "4px";
+      childDiv.style.height = "4px";
+      childDiv.style.left = leftValue + "px";
+      childDiv.style.top = "11px";
+      childDiv.style.position = "absolute";
+      childDiv.style.background = "#2D3748";
+      return childDiv;
+    }
+
+
     $(document).ready(function () {
       var topicCode;
       //get dữ liệu
@@ -736,20 +769,6 @@
                 numberOfPage = item.count;
                 var durationText = item.duration + " days";
 
-                // Tạo dấu 3 chấm
-                var divContainer = document.createElement("div");
-                divContainer.classList.add('threeDot');
-                divContainer.id = "threeDot";
-                var div1 = createChildDiv(11);
-                var div2 = createChildDiv(18);
-                var div3 = createChildDiv(4);
-                div1.style.borderRadius = "10px";
-                div2.style.borderRadius = "10px";
-                div3.style.borderRadius = "10px";
-                divContainer.appendChild(div1);
-                divContainer.appendChild(div2);
-                divContainer.appendChild(div3);
-
                 var row = '<tr>' +
                         '<td>' + item.topicName + '</td>' +
                         '<td>' + item.topicCode + '</td>' +
@@ -766,36 +785,47 @@
                         '<button class="button-action">' +
                         '<a style="text-decoration: none; color: white" class="excel-button" href="http://localhost:8080/api/v1/syllabus/exportExcel/' + item.topicCode + '">Export Excel</a>' +
                         '</button>'+
-                        '<div>' + divContainer.outerHTML + '</div>' +
+                        '<div data-topic-name="'+item.topicName+'" data-topic-code="'+item.topicCode+'">' + divContainer.outerHTML + '</div>' +
                         '</div>' +
                         '</td>' +
                         // Add other columns here
                         '</tr>';
                 dataTable.append(row);
               });
+
+              // Click 3dot
               $(".threeDot").click(function () {
+                // Retrieve topicCode from the closest ancestor with data-topic-code
+                var topicCode = $(this).closest('[data-topic-code]').data('topic-code');
+                // Show modal dialog
                 $("#dialog-backdrop").css("display", "block");
                 $("#menu-syllabus-function-dialog")[0].showModal();
-                console.log("click 3dot succe");
+                $("#menu-syllabus-function-dialog").attr("topicCode", topicCode);
+
+                var topicCode1 = $("#menu-syllabus-function-dialog").attr("topicCode");
+                console.log("TopicCode:", topicCode1);
+
+                var toolBar = document.querySelector(".pop-up-header-text");
+                toolBar.textContent = "";
+                var newTopicName = $(this).data('topic-name');
+                console.log(newTopicName);
+                toolBar.textContent = newTopicName;
               });
+              //Click close
               $(".close-menu-syllabus-dialog-button").click(function (event) {
                 event.preventDefault();
                 $("#menu-syllabus-function-dialog")[0].close();
                 hideBackdrop();
               });
+              // Click edit in syllabus menu dialog
+              $(".frame-88").click(function (event) {
+                var topicCode1 = $("#menu-syllabus-function-dialog").attr("topicCode");
+                localStorage.setItem('topicCode', topicCode1);
+              });
               function hideBackdrop() {
                 $("#dialog-backdrop").css("display", "none");
               }
-              function createChildDiv(leftValue) {
-                var childDiv = document.createElement("div");
-                childDiv.style.width = "4px";
-                childDiv.style.height = "4px";
-                childDiv.style.left = leftValue + "px";
-                childDiv.style.top = "11px";
-                childDiv.style.position = "absolute";
-                childDiv.style.background = "#2D3748";
-                return childDiv;
-              }
+
               // Hiển thị nút paging theo số trang
               var navidot = $('#navi-dot');
               navidot.empty();
@@ -898,6 +928,7 @@
                   numberOfPage = item.count;
                   console.log("Search page number: "+item.count);
                   var durationText = item.duration + " days";
+
                   var row = '<tr>' +
                           '<td>' + item.topicName + '</td>' +
                           '<td>' + item.topicCode + '</td>' +
@@ -906,10 +937,55 @@
                           '<td>' + durationText + '</td>' +
                           '<td>' + item.outputStandardArr + '</td>' +
                           '<td id="' + item.syllabusStatus + '">' + item.syllabusStatus + '</td>' +
-                          // Thêm các ô khác ở đây
+                          '<td>' +
+                          '<div style="display: flex; justify-content: center">' +
+                          '<button class="button-action">' +
+                          '<a style="text-decoration: none; color: white" class="csv-button" href="http://localhost:8080/api/v1/syllabus/exportCSV/' + item.topicCode + '">Export CSV</a>'+
+                          '</button>'+
+                          '<button class="button-action">' +
+                          '<a style="text-decoration: none; color: white" class="excel-button" href="http://localhost:8080/api/v1/syllabus/exportExcel/' + item.topicCode + '">Export Excel</a>' +
+                          '</button>'+
+                          '<div data-topic-code="'+item.topicCode+'">' + divContainer.outerHTML + '</div>' +
+                          '</div>' +
+                          '</td>' +
+                          // Add other columns here
                           '</tr>';
                   dataTable.append(row);
                 });
+
+                // Click 3dot
+                $(".threeDot").click(function () {
+                  // Retrieve topicCode from the closest ancestor with data-topic-code
+                  var topicCode = $(this).closest('[data-topic-code]').data('topic-code');
+                  // Show modal dialog
+                  $("#dialog-backdrop").css("display", "block");
+                  $("#menu-syllabus-function-dialog")[0].showModal();
+                  $("#menu-syllabus-function-dialog").attr("topicCode", topicCode);
+
+                  var topicCode1 = $("#menu-syllabus-function-dialog").attr("topicCode");
+                  console.log("TopicCode:", topicCode1);
+
+                  var toolBar = document.querySelector(".pop-up-header-text");
+                  toolBar.textContent = "";
+                  var newTopicName = $(this).data('topic-name');
+                  console.log(newTopicName);
+                  toolBar.textContent = newTopicName;
+                });
+                //Click close
+                $(".close-menu-syllabus-dialog-button").click(function (event) {
+                  event.preventDefault();
+                  $("#menu-syllabus-function-dialog")[0].close();
+                  hideBackdrop();
+                });
+                // Click edit in syllabus menu dialog
+                $(".frame-88").click(function (event) {
+                  var topicCode1 = $("#menu-syllabus-function-dialog").attr("topicCode");
+
+                });
+                function hideBackdrop() {
+                  $("#dialog-backdrop").css("display", "none");
+                }
+
                 // Hiển thị nút paging theo số trang
                 var navidot = $('#navi-dot');
                 navidot.empty();
@@ -1001,9 +1077,55 @@
                           '<td>' + durationText + '</td>' +
                           '<td>' + item.outputStandardArr + '</td>' +
                           '<td id="' + item.syllabusStatus + '">' + item.syllabusStatus + '</td>' +
+                          '<td>' +
+                          '<div style="display: flex; justify-content: center">' +
+                          '<button class="button-action">' +
+                          '<a style="text-decoration: none; color: white" class="csv-button" href="http://localhost:8080/api/v1/syllabus/exportCSV/' + item.topicCode + '">Export CSV</a>'+
+                          '</button>'+
+                          '<button class="button-action">' +
+                          '<a style="text-decoration: none; color: white" class="excel-button" href="http://localhost:8080/api/v1/syllabus/exportExcel/' + item.topicCode + '">Export Excel</a>' +
+                          '</button>'+
+                          '<div data-topic-code="'+item.topicCode+'">' + divContainer.outerHTML + '</div>' +
+                          '</div>' +
+                          '</td>' +
+                          // Add other columns here
                           '</tr>';
                   dataTable.append(row);
                 });
+
+                // Click 3dot
+                $(".threeDot").click(function () {
+                  // Retrieve topicCode from the closest ancestor with data-topic-code
+                  var topicCode = $(this).closest('[data-topic-code]').data('topic-code');
+                  // Show modal dialog
+                  $("#dialog-backdrop").css("display", "block");
+                  $("#menu-syllabus-function-dialog")[0].showModal();
+                  $("#menu-syllabus-function-dialog").attr("topicCode", topicCode);
+
+                  var topicCode1 = $("#menu-syllabus-function-dialog").attr("topicCode");
+                  console.log("TopicCode:", topicCode1);
+
+                  var toolBar = document.querySelector(".pop-up-header-text");
+                  toolBar.textContent = "";
+                  var newTopicName = $(this).data('topic-name');
+                  console.log(newTopicName);
+                  toolBar.textContent = newTopicName;
+                });
+                //Click close
+                $(".close-menu-syllabus-dialog-button").click(function (event) {
+                  event.preventDefault();
+                  $("#menu-syllabus-function-dialog")[0].close();
+                  hideBackdrop();
+                });
+                // Click edit in syllabus menu dialog
+                $(".frame-88").click(function (event) {
+                  var topicCode1 = $("#menu-syllabus-function-dialog").attr("topicCode");
+
+                });
+                function hideBackdrop() {
+                  $("#dialog-backdrop").css("display", "none");
+                }
+
                 // Hiển thị nút paging theo số trang
                 var navidot = $('#navi-dot');
                 navidot.empty();
@@ -1111,10 +1233,6 @@
     $("#open-import-syllabus-dialog-button").click(() => {
       $("#dialog-backdrop").css("display", "block");
       $("#import-syllabus-dialog")[0].showModal();
-    });
-    $("#search-input").click(() => {
-      $("#dialog-backdrop").css("display", "block");
-      $("#menu-syllabus-function-dialog")[0].showModal();
     });
     $("#toggle-user-status").click(function () {
       $(this).prop("disabled", true);
