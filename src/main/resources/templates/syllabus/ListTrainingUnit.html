@@ -296,6 +296,7 @@
         var day1 = selectedDay;
         // var dayContainer = $('.frame-54');
         // $.each(unitNames, function (index, unitName) {
+        if(data.content != null || unitNames == ""){
             var unitNameContainer = $('<div>',{
                 class: 'unit-names-container',
                 id: 'unit-names-container-' + day1
@@ -368,7 +369,11 @@
                 create.click(function () {
                     // $('.frame-1193').empty();
                     createUnitName(data,typedUnitName);
-                    loadday(topicCodedata);
+                    location.reload();
+                    setTimeout(()=>{
+                        loadday(topicCodedata);
+                        },50)
+
                     // loadTrainingUnit(data);
                 });
             });
@@ -404,6 +409,10 @@
                 }
             // })
 
+    }else {
+            alert('Has not added Training Content yet ');
+
+        }
     }
     // Define a function to load data based on the syllabus name
     function loadData(topicCode) {
@@ -439,6 +448,22 @@
             }
         });
     }
+    function getTrainingContent(unitCode1) {
+        var day = selectedDay;
+        var unitCode2 = unitCode1;
+        apiUrl2 = 'http://localhost:8080/api/v1/syllabus/OutlineScreen/' + topicCodedata + '/' + day + '/' + unitCode2;
+        // Second AJAX request to load unit names for the selected day
+        $.ajax({
+            url: apiUrl2,
+            type: 'GET',
+            success: function (data) {
+
+            },
+            error: function (error) {
+                console.log('Error:', error);
+            }
+        });
+    }
     function addUnitCode(){
         var topicCode1 = topicCodedata;
         var dayNumber1 = selectedDay;
@@ -452,7 +477,7 @@
                 success: function(response) {
                     // Handle the successful response or any additional actions
                     console.log(response);
-
+                    // getTrainingContentforadd(response.topicCode);
                     // Reload the page after a successful request
                     // location.reload();
                 },
@@ -514,7 +539,8 @@
             url: apiUrl2,
             type: 'GET',
             success: function (data) {
-                updateUnitNames(data);
+                getTrainingContentforadd(data)
+                // updateUnitNames(data);
             },
             error: function (error) {
                 console.log('Error:', error);
@@ -679,16 +705,19 @@
             unitNamefield.append(addDiv);
         },20);
     }
-    function getTrainingContent(unitCode1) {
+    function getTrainingContentforadd(data) {
         var day = selectedDay;
-        var unitCode2 = unitCode1
-        apiUrl2 = 'http://localhost:8080/api/v1/syllabus/OutlineScreen/' + topicCodedata + '/' + day + '/' + unitCode2;
+        var unitCode2 = data.unitCode;
+        var topicCodene = topicCodedata;
+        console.log(unitCode2);
+        apiUrl2 = 'http://localhost:8080/api/v1/syllabus/OutlineScreen/' + topicCodene + '/' + day + '/' + unitCode2;
         // Second AJAX request to load unit names for the selected day
         $.ajax({
             url: apiUrl2,
             type: 'GET',
             success: function (data) {
-                updateTrainingContent(data);
+                // console.log(data);
+                updateUnitNames(data);
             },
             error: function (error) {
                 console.log('Error:', error);
