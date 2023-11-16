@@ -34,13 +34,17 @@
 
 
   <script>
+    var topicCode = localStorage.getItem("topicCode");
+    // localStorage.setItem("topicCode", topicCode);
+
     $(document).ready(function () {
       loadData();
+      console.log(topicCode);
     });
 
     function loadData() {
       $.ajax({
-        url: 'http://localhost:8080/api/v1/syllabus/showOtherScreenById/A01'
+        url: 'http://localhost:8080/api/v1/syllabus/showOtherScreenById/' + topicCode
         ,type: 'GET',
         success: function (rs) {
           console.log(rs);
@@ -61,7 +65,14 @@
       document.getElementById('final_theory').value = rs.finalTheory;
       document.getElementById('final_practice').value = rs.finalPractice;
       document.getElementById('gpa').value = rs.gpa;
-      document.getElementById('textarea1').value = rs.trainingPrincipal;
+      document.getElementById('training_principle').value = rs.trainingPrincipal;
+
+      document.getElementById('assignment_pie').innerHTML = rs.assignment + "%";
+      document.getElementById('quiz_pie').innerHTML = rs.quiz + "%";
+      document.getElementById('final_pie').innerHTML = rs.finalTest + "%";
+      document.getElementById('final_theory_pie').innerHTML = rs.finalTheory + "%";
+      document.getElementById('final_practice_pie').innerHTML = rs.finalPractice + "%";
+      document.getElementById('gpa_pie').innerHTML = rs.gpa + "%";
     };
 
   </script>
@@ -137,14 +148,14 @@
     <div class="frame-1192">
       <div class="content">
         <div class="syllabus-tab">
-          <a th:href="@{/viewSyllabusOther}" style="text-decoration: none">
+          <a th:href="@{/viewSyllabusOutline}" style="text-decoration: none">
             <div class="tab-2">
               <div class="frame-51">
                 <div class="tab-22">Outline</div>
               </div>
             </div>
           </a>
-          <a th:href="@{/viewSyllabusOther}" style="text-decoration: none">
+          <a th:href="@{/viewSyllabusGeneral}" style="text-decoration: none">
             <div class="tab-1">
               <div class="frame-51">
                 <div class="general">General</div>
@@ -180,42 +191,62 @@
                           <div class="bullet">
                             <div class="rectangle-644"></div>
                           </div>
-                          <div class="assignment-lab">Assignment/Lab</div>
-                          <div class="_54">(54%)</div>
+                          <div class="frame-5116">
+                            <div class="assignment-lab">Assignment: </div><a class="text" id="assignment_pie"></a>
+<!--                            <div class="text" id="assignment_pie"></div>-->
+                          </div>
                         </div>
-                        <div class="frame-109">
+                        <div class="frame-113">
                           <div class="bullet">
                             <div class="rectangle-6442"></div>
                           </div>
-                          <div class="concept-lecture">Concept/Lecture</div>
-                          <div class="_29">(29%)</div>
+                          <div class="frame-51162">
+                            <div class="concept-lecture">Quiz</div>
+                            <div class="text" id="quiz_pie"></div>
+                          </div>
                         </div>
-                        <div class="frame-110">
+                        <div class="frame-114">
                           <div class="bullet">
                             <div class="rectangle-6443"></div>
                           </div>
-                          <div class="guide-review">Guide/Review</div>
-                          <div class="_9">(9%)</div>
+                          <div class="frame-51162">
+                            <div class="guide-review">Final</div>
+                            <div class="text" id="final_pie"></div>
+                          </div>
                         </div>
-                        <div class="frame-111">
+                        <div class="frame-115">
                           <div class="bullet">
                             <div class="rectangle-6444"></div>
                           </div>
-                          <div class="test-quiz">Test/Quiz</div>
-                          <div class="_1">(1%)</div>
+                          <div class="frame-51162">
+                            <div class="test-quiz">Final Theory</div>
+                            <div class="text" id="final_theory_pie"></div>
+                          </div>
                         </div>
-                        <div class="frame-112">
+                        <div class="frame-116">
                           <div class="bullet">
                             <div class="rectangle-6445"></div>
                           </div>
-                          <div class="exam">Exam</div>
-                          <div class="_6">(6%)</div>
+                          <div class="frame-51162">
+                            <div class="exam">Final Practice</div>
+                            <div class="text" id="final_practice_pie"></div>
+                          </div>
+                        </div>
+                        <div class="frame-116">
+                          <div class="bullet">
+                            <div class="rectangle-6445"></div>
+                          </div>
+                          <div class="frame-51162">
+                            <div class="exam">GPA</div>
+                            <div class="text" id="gpa_pie"></div>
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
+
               <div class="col-xxl-6">
                 <div class="frame-113">
                   <form method="post" >
@@ -228,28 +259,28 @@
                     <div class="input-percent">
                       <div class="input-percent-1">
                         <div class="block" >
-                          <label>Quiz*</label> <input type="number" style="font-size: .8rem" name="quiz" id = "quiz">
+                          <label>Quiz*</label> <input disabled type="number" style="font-size: .8rem" name="quiz" id = "quiz">
                         </div>
                         <div class="block">
-                          <label>Assignment*</label> <input type="number" style="font-size: .8rem" name="assignment" id = "assignment">
+                          <label>Assignment*</label> <input disabled type="number" style="font-size: .8rem" name="assignment" id = "assignment">
                         </div>
                       </div>
                       <div class="input-percent-2">
                         <div class="block">
-                          <label>Final*</label> <input type="number" style="font-size: .8rem" name="final" id="final">
+                          <label>Final*</label> <input disabled type="number" style="font-size: .8rem" name="final" id="final">
                         </div>
 
                         <div class="block">
-                          <label>Final Theory*</label> <input type="number" style="font-size: .8rem" name="final_theory" id="final_theory">
+                          <label>Final Theory*</label> <input disabled type="number" style="font-size: .8rem" name="final_theory" id="final_theory">
                         </div>
 
                         <div class="block">
-                          <label>Final Practice*</label> <input type="number" style="font-size: .8rem" name="final_practice" id = "final_practice">
+                          <label>Final Practice*</label> <input disabled type="number" style="font-size: .8rem" name="final_practice" id = "final_practice">
                         </div>
                       </div>
                       <div class="input-percent-3">
                         <div class="block">
-                          <label>GPA*</label> <input type="number" style="font-size: .8rem" name="gpa" id="gpa">
+                          <label>GPA*</label> <input disabled type="number" style="font-size: .8rem" name="gpa" id="gpa">
                         </div>
                       </div>
 
@@ -554,7 +585,7 @@
                               <!--                                  <textarea name="textarea" id="default"  ></textarea>-->
                               <!--                                  <input type="submit" value="submit">-->
                               <!--                                </form>-->
-                              <textarea id="textarea1" placeholder="Your text here " name="training_principle" cols="40" rows="10"></textarea>
+                              <textarea disabled id="training_principle" placeholder="Your text here " cols="40" rows="10"></textarea>
                             </div>
                           </div>
                         </div>
@@ -566,9 +597,11 @@
               </div>
             </div>
             <div class="saving-button">
-              <div class="button">
-                <div class="filter"><button style="color: white" onclick="showToast()" id="">Previous</button></div>
-              </div>
+              <a th:href="@{/viewSyllabusOutline}" style="text-decoration: none">
+                <div class="button">
+                  <div class="filter">Previous</div>
+                </div>
+              </a>
               <div class="frame-5119">
                 <div class="button2">
                   <div class="filter2">Cancel</div>
@@ -576,74 +609,23 @@
                 <div class="button3">
                   <div class="filter">Save as draft</div>
                 </div>
-                <div class="button">
-                  <div class="filter" id="SaveSyllabus" ><button style="color: white;">Save</button></div>
-                </div>
+                <a th:href="@{/viewSyllabus}" style="text-decoration: none">
+                  <div class="button">
+                    <div class="filter" id="SaveSyllabus" >Back To Syllabus</div>
+                  </div>
+                </a>
               </div>
             </div>
+
             <script>
-              $(document).ready(function () {
-                let toastBox = $('#toastBox');
-
-                function showToast() {
-                  let toast = $('<div>').addClass('toast').text('success');
-                  toastBox.append(toast);
-                }
-
-                $('#show').click(function () {
-                  showToast();
-                });
-              });
 
 
-              $(document).ready(function () {
-
-                $('#SaveSyllabus').click(function () {
-                  saveToDB();
-                })
 
 
-              })
-
-              function saveToDB() {
-                const topicCode = $('#topicCode').text();
-                console.log(topicCode);
-                const syllabusData = {
-                  topicName : $('#syllabusNameInput').val(),
-                  topicCode : $('#topicCode').text(),
-                  trainingPrincipal : $('#textarea1').val(),
-                  quiz : $('#quiz').val(),
-                  assignment : $('#assignment').val(),
-                  finalTest : $('#final').val(),
-                  finalTheory : $('#final_theory').val(),
-                  finalPractice : $('#final_practice').val(),
-                  gpa : $('#gpa').val()
-                };
-
-                $.ajax({
-                  url: 'http://localhost:8080/api/v1/syllabus/createSyllabusOtherScreen/' + topicCode,
-                  type: 'POST',
-                  contentType: 'application/json',
-                  data: JSON.stringify(syllabusData),
-                  success: function(data) {
-                    // Handle the response data if needed
-                    console.log('New syllabus created:', data);
-                  },
-                  error: function(error) {
-                    // Handle any errors that occurred during the request
-                    console.error('Error creating syllabus:', error);
-                  }
-                });
-              }
 
             </script>
           </div>
 
-          <button id="show">Show Notification</button>
-          <div id="notification" class="hide">
-            <span id="message">Success!</span>
-            <span id="close">&#x2715;</span>
-          </div>
 
 
 

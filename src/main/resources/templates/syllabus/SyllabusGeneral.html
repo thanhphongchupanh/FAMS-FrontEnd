@@ -1,0 +1,372 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/css/Bootstrap%205/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <script src="/js/Bootstrap%205/bootstrap.bundle.min.js"></script>
+    <script src="/js/JQuery/jquery-3.7.1.js"></script>
+    <link href="/css/select2/select2.css" rel="stylesheet" />
+    <script src="/js/select2/select2.min.js"></script>
+    <link href="/css/DataTable/jquery.dataTables.css" rel="stylesheet">
+    <script src="/js/DataTable/jquery.dataTables.js"></script>
+    <link href="/css/user.css" rel="stylesheet" >
+    <!--    <script src="/js/user.js"></script>-->
+    <link rel="shortcut icon" type="image/png" href="img/FPT_logo.png"/>
+    <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
+    <link rel="stylesheet" href="/css/syllabus/general.css">
+
+    <title>Document</title>
+</head>
+<body>
+<header class="bg-main text-white px-5 py-1" >
+    <div th:replace="~{common :: header}"></div>
+</header>
+
+<script>
+
+    var topicCode = localStorage.getItem("topicCode");
+
+    $(document).ready(function() {
+
+        console.log(localStorage.getItem("topicCode"));
+        loadData();
+
+
+    });
+
+    function loadData() {
+        $.ajax({
+            url: 'http://localhost:8080/api/v1/syllabus/' + topicCode
+            ,type: 'GET',
+            success: function (rs) {
+                console.log(rs);
+                loadSyllabus(rs);
+                $('#topicCode').html(rs.topicCode);
+                $('#version').html(rs.version);
+                console.log(rs.level)
+                console.log(rs.assignment)
+                document.getElementById('activeField').innerHTML = rs.syllabusStatus;
+                document.getElementById('syllabusName').innerHTML = rs.topicName;
+                document.getElementById('code-version').innerHTML = rs.topicCode + " v" + rs.version;
+                document.getElementById('level').innerHTML = rs.userLevel;
+                document.getElementById('attendee').innerHTML = rs.trainingAudience;
+            }
+
+
+
+        });
+
+
+
+        function loadSyllabus(rs){
+            // // document.getElementById('syllabus-name').value = rs.topicName;
+            // const levelSelect = document.getElementById('level');
+            // const options = levelSelect.getElementsByTagName('option');
+            //
+            // document.getElementById('activeField').value = rs.syllabusStatus;
+            // document.getElementById('attendee-number').value = rs.trainingAudience;
+            // document.getElementById('tech-reqs').value = rs.technicalGroup;
+            // document.getElementById('assignment').innerHTML = rs.assignment + "%";
+            // document.getElementById('quiz').innerHTML = rs.quiz + "%";
+            // document.getElementById('final').innerHTML = rs.finalTest + "%";
+            // document.getElementById('final_theory').innerHTML = rs.finalTheory + "%";
+            // document.getElementById('final_practice').innerHTML = rs.finalPractice + "%";
+            // document.getElementById('gpa').innerHTML = rs.gpa + "%";
+
+
+
+        }
+
+
+
+
+
+
+    }
+
+
+
+
+</script>
+
+
+<div class="d-flex flex-grow-1 flex-row">
+    <div th:replace="~{common :: menu}"></div>
+
+    <div class="frame-1195">
+        <div class="program-detail">
+            <div class="program-header">
+                <div class="syllabus">Syllabus</div>
+                <div class="frame-1194">
+                    <div class="program-name">
+                        <div class="frame-98">
+                            <div class="c-programming-language" id="syllabusName"></div>
+                            <div class="chip">
+                                <div class="active" id="activeField"></div>
+                            </div>
+                        </div>
+                        <svg
+                                class="more-horizontal"
+                                width="48"
+                                height="48"
+                                viewBox="0 0 48 48"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                        >
+                            <path
+                                    d="M26 30C28.2091 30 30 28.2091 30 26C30 23.7909 28.2091 22 26 22C23.7909 22 22 23.7909 22 26C22 28.2091 23.7909 30 26 30Z"
+                                    fill="#2D3748"
+                            />
+                            <path
+                                    d="M40 30C42.2091 30 44 28.2091 44 26C44 23.7909 42.2091 22 40 22C37.7909 22 36 23.7909 36 26C36 28.2091 37.7909 30 40 30Z"
+                                    fill="#2D3748"
+                            />
+                            <path
+                                    d="M12 30C14.2091 30 16 28.2091 16 26C16 23.7909 14.2091 22 12 22C9.79086 22 8 23.7909 8 26C8 28.2091 9.79086 30 12 30Z"
+                                    fill="#2D3748"
+                            />
+                        </svg>
+                    </div>
+                    <div class="npl-v-4-0" id="code-version"></div>
+                </div>
+            </div>
+            <div class="program-meta-data">
+                <div class="frame-87">
+                    <div class="frame-77">
+                        <div class="_8">8</div>
+                        <div class="days">days</div>
+                    </div>
+                    <div class="frame-78">
+                        <div class="_68-hours" id="duration"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="frame-1184">
+            <div class="syllabus-tab">
+                <div class="frame-5115">
+                    <div class="tab-1">
+                        <div class="general">General</div>
+                    </div>
+                    <div class="tab-2">
+                        <div class="frame-51">
+                            <div class="tab-22">Outline</div>
+                        </div>
+                    </div>
+                    <div class="tab-3">
+                        <div class="frame-51">
+                            <div class="tab-22">Others</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="line-4"></div>
+            </div>
+            <div class="frame-99">
+                <div class="req">
+                    <div class="syllabus-req">
+                        <div class="eligibility">
+                            <div class="eligibility2">
+                                <svg
+                                        class="grade"
+                                        width="24"
+                                        height="25"
+                                        viewBox="0 0 24 25"
+                                        fill="none"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                >
+                                    <g clip-path="url(#clip0_252_20124)">
+                                        <path
+                                                d="M12 7.63L12.97 9.92L13.44 11.03L14.64 11.13L17.11 11.34L15.23 12.97L14.32 13.76L14.59 14.94L15.15 17.35L13.03 16.07L12 15.43L10.97 16.05L8.85 17.33L9.41 14.92L9.68 13.74L8.77 12.95L6.89 11.32L9.36 11.11L10.56 11.01L11.03 9.9L12 7.63ZM12 2.5L9.19 9.13L2 9.74L7.46 14.47L5.82 21.5L12 17.77L18.18 21.5L16.54 14.47L22 9.74L14.81 9.13L12 2.5Z"
+                                                fill="#2D3748"
+                                        />
+                                    </g>
+                                    <defs>
+                                        <clipPath id="clip0_252_20124">
+                                            <rect
+                                                    width="24"
+                                                    height="24"
+                                                    fill="white"
+                                                    transform="translate(0 0.5)"
+                                            />
+                                        </clipPath>
+                                    </defs>
+                                </svg>
+
+                                <div class="eligibility3">Level</div>
+                            </div>
+                            <div class="all-levels" id="level"></div>
+                        </div>
+                        <div class="attendee-no">
+                            <div class="attendee-no2">
+                                <svg
+                                        class="group"
+                                        width="24"
+                                        height="25"
+                                        viewBox="0 0 24 25"
+                                        fill="none"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                >
+                                    <g clip-path="url(#clip0_252_20129)">
+                                        <path
+                                                d="M9 14.25C6.66 14.25 2 15.42 2 17.75V19.5H16V17.75C16 15.42 11.34 14.25 9 14.25ZM4.34 17.5C5.18 16.92 7.21 16.25 9 16.25C10.79 16.25 12.82 16.92 13.66 17.5H4.34ZM9 12.5C10.93 12.5 12.5 10.93 12.5 9C12.5 7.07 10.93 5.5 9 5.5C7.07 5.5 5.5 7.07 5.5 9C5.5 10.93 7.07 12.5 9 12.5ZM9 7.5C9.83 7.5 10.5 8.17 10.5 9C10.5 9.83 9.83 10.5 9 10.5C8.17 10.5 7.5 9.83 7.5 9C7.5 8.17 8.17 7.5 9 7.5ZM16.04 14.31C17.2 15.15 18 16.27 18 17.75V19.5H22V17.75C22 15.73 18.5 14.58 16.04 14.31ZM15 12.5C16.93 12.5 18.5 10.93 18.5 9C18.5 7.07 16.93 5.5 15 5.5C14.46 5.5 13.96 5.63 13.5 5.85C14.13 6.74 14.5 7.83 14.5 9C14.5 10.17 14.13 11.26 13.5 12.15C13.96 12.37 14.46 12.5 15 12.5Z"
+                                                fill="#2D3748"
+                                        />
+                                    </g>
+                                    <defs>
+                                        <clipPath id="clip0_252_20129">
+                                            <rect
+                                                    width="24"
+                                                    height="24"
+                                                    fill="white"
+                                                    transform="translate(0 0.5)"
+                                            />
+                                        </clipPath>
+                                    </defs>
+                                </svg>
+
+                                <div class="eligibility3">Attendee number</div>
+                            </div>
+                            <div class="_20" id="attendee"></div>
+                        </div>
+                        <div class="outputs">
+                            <div class="output">
+                                <svg
+                                        class="verified-user"
+                                        width="24"
+                                        height="24"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                >
+                                    <g clip-path="url(#clip0_252_20134)">
+                                        <path
+                                                d="M12 1L3 5V11C3 16.55 6.84 21.74 12 23C17.16 21.74 21 16.55 21 11V5L12 1ZM19 11C19 15.52 16.02 19.69 12 20.93C7.98 19.69 5 15.52 5 11V6.3L12 3.19L19 6.3V11ZM7.41 11.59L6 13L10 17L18 9L16.59 7.58L10 14.17L7.41 11.59Z"
+                                                fill="#2D3748"
+                                        />
+                                    </g>
+                                    <defs>
+                                        <clipPath id="clip0_252_20134">
+                                            <rect width="24" height="24" fill="white" />
+                                        </clipPath>
+                                    </defs>
+                                </svg>
+
+                                <div class="eligibility3">Output standard</div>
+                            </div>
+                            <div class="outputs2">
+                                <div class="chip2">
+                                    <div class="active">H4SD</div>
+                                </div>
+                                <div class="chip2">
+                                    <div class="active">K6SD</div>
+                                </div>
+                                <div class="chip2">
+                                    <div class="active">H6SD</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="req-text-box">
+                        <div class="frame-1183">
+                            <svg
+                                    class="settings"
+                                    width="24"
+                                    height="24"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                            >
+                                <g clip-path="url(#clip0_252_20142)">
+                                    <path
+                                            d="M19.43 12.98C19.47 12.66 19.5 12.34 19.5 12C19.5 11.66 19.47 11.34 19.43 11.02L21.54 9.37C21.73 9.22 21.78 8.95 21.66 8.73L19.66 5.27C19.57 5.11 19.4 5.02 19.22 5.02C19.16 5.02 19.1 5.03 19.05 5.05L16.56 6.05C16.04 5.65 15.48 5.32 14.87 5.07L14.49 2.42C14.46 2.18 14.25 2 14 2H9.99996C9.74996 2 9.53996 2.18 9.50996 2.42L9.12996 5.07C8.51996 5.32 7.95996 5.66 7.43996 6.05L4.94996 5.05C4.88996 5.03 4.82996 5.02 4.76996 5.02C4.59996 5.02 4.42996 5.11 4.33996 5.27L2.33996 8.73C2.20996 8.95 2.26996 9.22 2.45996 9.37L4.56996 11.02C4.52996 11.34 4.49996 11.67 4.49996 12C4.49996 12.33 4.52996 12.66 4.56996 12.98L2.45996 14.63C2.26996 14.78 2.21996 15.05 2.33996 15.27L4.33996 18.73C4.42996 18.89 4.59996 18.98 4.77996 18.98C4.83996 18.98 4.89996 18.97 4.94996 18.95L7.43996 17.95C7.95996 18.35 8.51996 18.68 9.12996 18.93L9.50996 21.58C9.53996 21.82 9.74996 22 9.99996 22H14C14.25 22 14.46 21.82 14.49 21.58L14.87 18.93C15.48 18.68 16.04 18.34 16.56 17.95L19.05 18.95C19.11 18.97 19.17 18.98 19.23 18.98C19.4 18.98 19.57 18.89 19.66 18.73L21.66 15.27C21.78 15.05 21.73 14.78 21.54 14.63L19.43 12.98ZM17.45 11.27C17.49 11.58 17.5 11.79 17.5 12C17.5 12.21 17.48 12.43 17.45 12.73L17.31 13.86L18.2 14.56L19.28 15.4L18.58 16.61L17.31 16.1L16.27 15.68L15.37 16.36C14.94 16.68 14.53 16.92 14.12 17.09L13.06 17.52L12.9 18.65L12.7 20H11.3L11.11 18.65L10.95 17.52L9.88996 17.09C9.45996 16.91 9.05996 16.68 8.65996 16.38L7.74996 15.68L6.68996 16.11L5.41996 16.62L4.71996 15.41L5.79996 14.57L6.68996 13.87L6.54996 12.74C6.51996 12.43 6.49996 12.2 6.49996 12C6.49996 11.8 6.51996 11.57 6.54996 11.27L6.68996 10.14L5.79996 9.44L4.71996 8.6L5.41996 7.39L6.68996 7.9L7.72996 8.32L8.62996 7.64C9.05996 7.32 9.46996 7.08 9.87996 6.91L10.94 6.48L11.1 5.35L11.3 4H12.69L12.88 5.35L13.04 6.48L14.1 6.91C14.53 7.09 14.93 7.32 15.33 7.62L16.24 8.32L17.3 7.89L18.57 7.38L19.27 8.59L18.2 9.44L17.31 10.14L17.45 11.27ZM12 8C9.78996 8 7.99996 9.79 7.99996 12C7.99996 14.21 9.78996 16 12 16C14.21 16 16 14.21 16 12C16 9.79 14.21 8 12 8ZM12 14C10.9 14 9.99996 13.1 9.99996 12C9.99996 10.9 10.9 10 12 10C13.1 10 14 10.9 14 12C14 13.1 13.1 14 12 14Z"
+                                            fill="#2D3748"
+                                    />
+                                </g>
+                                <defs>
+                                    <clipPath id="clip0_252_20142">
+                                        <rect width="24" height="24" fill="white" />
+                                    </clipPath>
+                                </defs>
+                            </svg>
+
+                            <div class="tech-rreq">Technical Requirement(s)</div>
+                        </div>
+                        <div class="text-box">
+                            <div
+                                    class="trainees-p-cs-need-to-have-following-software-installed-run-without-any-issues-microsoft-sql-server-2005-express-microsoft-visual-studio-2017-microsoft-office-2007-visio-word-power-point"
+                            >
+                                Trainees’ PCs need to have following software installed &amp; run
+                                without any issues:
+                                <br />• Microsoft SQL Server 2005 Express<br />• Microsoft Visual
+                                Studio 2017 <br />• Microsoft Office 2007 (Visio, Word,
+                                PowerPoint)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="frame-982">
+                    <div class="frame-97">
+                        <div class="frame-90">
+                            <svg
+                                    class="filter-center-focus"
+                                    width="24"
+                                    height="24"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                            >
+                                <g clip-path="url(#clip0_252_20149)">
+                                    <path
+                                            d="M5 15H3V19C3 20.1 3.9 21 5 21H9V19H5V15ZM5 5H9V3H5C3.9 3 3 3.9 3 5V9H5V5ZM19 3H15V5H19V9H21V5C21 3.9 20.1 3 19 3ZM19 19H15V21H19C20.1 21 21 20.1 21 19V15H19V19ZM12 9C10.34 9 9 10.34 9 12C9 13.66 10.34 15 12 15C13.66 15 15 13.66 15 12C15 10.34 13.66 9 12 9Z"
+                                            fill="#2D3748"
+                                    />
+                                </g>
+                                <defs>
+                                    <clipPath id="clip0_252_20149">
+                                        <rect width="24" height="24" fill="white" />
+                                    </clipPath>
+                                </defs>
+                            </svg>
+
+                            <div class="course-objectives">Course objectives</div>
+                        </div>
+                        <div
+                                class="this-topic-is-to-introduce-about-c-programming-language-knowledge-adapt-trainees-with-skills-lessons-and-practices-which-is-specifically-used-in-the-fsoft-projects-in-details-after-completing-the-topic-trainees-will-understand-basic-concepts-of-high-level-programming-languages-keyword-statement-operator-control-of-flow-understand-and-distinguish-two-concepts-class-class-and-object-object-understand-and-apply-object-oriented-programming-knowledge-to-resolve-simple-problems-inheritance-encapsulation-abstraction-polymorphism-working-with-some-of-the-existing-data-structures-in-c-list-array-list-hash-table-dictionary-know-how-to-control-program-errors-use-try-catch-finally-throw-throws-be-able-to-working-with-concurrency-and-multi-thread-in-c-be-able-to-working-with-common-classes-in-ado-net-sql-connection-sql-command-sql-parameter-sql-data-adapter-sql-data-reader-be-able-to-manipulate-sql-data-from-window-form-application-via-4-basic-commands-add-update-delete-select-know-how-to-design-ui-screen-in-window-form-application-know-how-to-use-approciate-controls-for-each-field-data-type-textbox-label-combobox-radio-date-time-picker-numeric-up-down-rich-text-box"
+                        >
+                            This topic is to introduce about C# programming language knowledge;
+                            adapt trainees with skills, lessons and practices which is
+                            specifically used in the Fsoft projects. <br />In details, after
+                            completing the topic, trainees will: <br />- Understand basic
+                            concepts of high-level programming languages (keyword, statement,
+                            operator, control-of-flow) <br />- Understand and distinguish two
+                            concepts: class (Class) and object (Object) <br />- Understand and
+                            apply object-oriented programming knowledge to resolve simple
+                            problems (Inheritance, Encapsulation, Abstraction, Polymorphism)
+                            <br />- Working with some of the existing data structures in C#
+                            (List, ArrayList, HashTable, Dictionary) <br />- Know how to control
+                            program errors (use try ... catch..finally, throw, throws) <br />-
+                            Be able to working with concurrency and multi-thread in C# <br />-
+                            Be able to working with common classes in ADO.net: SqlConnection,
+                            SqlCommand, SqlParameter, SqlDataAdapter, SqlDataReader <br />- Be
+                            able to manipulate SQL data from Window Form Application via 4 basic
+                            commands: Add, Update, Delete, Select <br />- Know how to design UI
+                            screen in Window Form Application <br />- Know how to use approciate
+                            controls for each field/data type: Textbox, Label, Combobox, Radio,
+                            DateTimePicker, NumericUpDown, RichTextBox
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div th:replace="~{common :: footer}"></div>
+
+<script src="/js/common.js"></script>
+</body>
+
+</html>

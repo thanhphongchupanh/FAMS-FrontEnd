@@ -659,3 +659,13 @@ span.selection {
     font: 700 14px/24px "Inter", sans-serif;
     position: relative;
 }
+
+a {
+    text-decoration: none;
+    color: #0B2136;
+}
+
+.linkDetails:hover{
+    cursor: pointer;
+    color: #7fa7be;
+}

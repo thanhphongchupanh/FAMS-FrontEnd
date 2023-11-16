@@ -26,4 +26,18 @@ public class SyllabusController {
     public String viewSyllabusGeneral(){
         return "syllabus/viewSyllabusGeneral";
     }
+    @GetMapping("/viewSyllabusOutline")
+    public String viewSyllabusOutline(){
+        return "syllabus/viewSyllabusOutline";
+    }
+    @GetMapping("/viewSyllabusOther")
+    public String viewSyllabusOther(){
+        return "syllabus/viewSyllabusOther";
+    }
+
+    @GetMapping("/general")
+    public String general(){
+        return "syllabus/SyllabusGeneral";
+    }
+
 }
