@@ -688,3 +688,17 @@ span.selection {
     position: static;
     cursor: pointer;
 }
+
+.threeDot {
+    width : 100%;
+    width: 20px;
+    height : 100%;
+    margin : 0 8px 0 0;
+    margin : 0 8px 0 0;
+    position : relative;
+    cursor: pointer;
+}
+
+.threeDotDiv {
+    border-radius: 10px;
+}
