@@ -45,15 +45,10 @@
                 loadSyllabus(rs);
                 $('#topicCode').html(rs.topicCode);
                 $('#version').html(rs.version);
-                console.log(rs.level)
-                console.log(rs.assignment)
-                document.getElementById('activeField').innerHTML = rs.syllabusStatus;
-                document.getElementById('syllabusName').innerHTML = rs.topicName;
-                document.getElementById('code-version').innerHTML = rs.topicCode + " v" + rs.version;
-                document.getElementById('level').innerHTML = rs.userLevel;
-                document.getElementById('attendee').innerHTML = rs.trainingAudience;
-            }
+                console.log(rs.level);
+                console.log(rs.assignment);
 
+            }
 
 
         });
@@ -61,20 +56,28 @@
 
 
         function loadSyllabus(rs){
-            // // document.getElementById('syllabus-name').value = rs.topicName;
-            // const levelSelect = document.getElementById('level');
-            // const options = levelSelect.getElementsByTagName('option');
-            //
-            // document.getElementById('activeField').value = rs.syllabusStatus;
-            // document.getElementById('attendee-number').value = rs.trainingAudience;
-            // document.getElementById('tech-reqs').value = rs.technicalGroup;
-            // document.getElementById('assignment').innerHTML = rs.assignment + "%";
-            // document.getElementById('quiz').innerHTML = rs.quiz + "%";
-            // document.getElementById('final').innerHTML = rs.finalTest + "%";
-            // document.getElementById('final_theory').innerHTML = rs.finalTheory + "%";
-            // document.getElementById('final_practice').innerHTML = rs.finalPractice + "%";
-            // document.getElementById('gpa').innerHTML = rs.gpa + "%";
-
+            document.getElementById('activeField').innerHTML = rs.syllabusStatus;
+            document.getElementById('syllabusName').innerHTML = rs.topicName;
+            document.getElementById('code-version').innerHTML = rs.topicCode + " v" + rs.version;
+            document.getElementById('level').innerHTML = rs.userLevel;
+            document.getElementById('attendee').innerHTML = rs.trainingAudience;
+            document.getElementById('technicalRequirement').innerHTML = rs.technicalGroup;
+            const modifiedDate = rs.modifiedDate;
+            const formattedDate = new Date(modifiedDate).toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' });
+            document.getElementById('modifiedDate').append(formattedDate);
+            document.getElementById('modifiedBy').append(rs.modifiedBy);
+            document.getElementById('courseObj').innerHTML = rs.courseObjective;
+            document.getElementById('duration').innerHTML = rs.durationArr;
+            var outputStandardArr = rs.outputStandardArr;
+            console.log(outputStandardArr);
+            console.log(rs.outputStandardArr)
+            var $outputContainer = $("#outputs2");
+            $.each(outputStandardArr, function(index, item) {
+                var $chipContainer = $("<div>").addClass("chip2");
+                var $chip = $("<div>").addClass("active").text(item[0]);
+                $chipContainer.append($chip);
+                $outputContainer.append($chipContainer);
+            });
 
 
         }
@@ -135,31 +138,41 @@
             <div class="program-meta-data">
                 <div class="frame-87">
                     <div class="frame-77">
-                        <div class="_8">8</div>
+                        <div class="_8" id="duration"></div>
                         <div class="days">days</div>
                     </div>
                     <div class="frame-78">
-                        <div class="_68-hours" id="duration"></div>
                     </div>
+                    <div >
+                        <div class="_68-hours" id="modifiedDate">Modified on </div>
+                    </div>
+                    <div class="_68-hours" id="modifiedBy">By </div>
                 </div>
             </div>
         </div>
         <div class="frame-1184">
             <div class="syllabus-tab">
                 <div class="frame-5115">
-                    <div class="tab-1">
-                        <div class="general">General</div>
-                    </div>
-                    <div class="tab-2">
-                        <div class="frame-51">
-                            <div class="tab-22">Outline</div>
+                    <a th:href="@{/general}"  style="text-decoration: none">
+                        <div class="tab-1">
+                            <div class="general">General</div>
                         </div>
-                    </div>
-                    <div class="tab-3">
-                        <div class="frame-51">
-                            <div class="tab-22">Others</div>
+                    </a>
+                    <a th:href="@{/outline}" style="text-decoration: none">
+                        <div class="tab-2">
+                            <div class="frame-51">
+                                <div class="tab-22">Outline</div>
+                            </div>
                         </div>
-                    </div>
+                    </a>
+                    <a th:href="@{/viewSyllabusOther}" style="text-decoration: none">
+                        <div class="tab-3">
+                            <div class="frame-51">
+                                <div class="tab-22">Other</div>
+                            </div>
+                        </div>
+                    </a>
+
                 </div>
                 <div class="line-4"></div>
             </div>
@@ -255,16 +268,8 @@
 
                                 <div class="eligibility3">Output standard</div>
                             </div>
-                            <div class="outputs2">
-                                <div class="chip2">
-                                    <div class="active">H4SD</div>
-                                </div>
-                                <div class="chip2">
-                                    <div class="active">K6SD</div>
-                                </div>
-                                <div class="chip2">
-                                    <div class="active">H6SD</div>
-                                </div>
+                            <div class="outputs2" id="outputs2">
+
                             </div>
                         </div>
                     </div>
@@ -296,12 +301,8 @@
                         <div class="text-box">
                             <div
                                     class="trainees-p-cs-need-to-have-following-software-installed-run-without-any-issues-microsoft-sql-server-2005-express-microsoft-visual-studio-2017-microsoft-office-2007-visio-word-power-point"
-                            >
-                                Trainees’ PCs need to have following software installed &amp; run
-                                without any issues:
-                                <br />• Microsoft SQL Server 2005 Express<br />• Microsoft Visual
-                                Studio 2017 <br />• Microsoft Office 2007 (Visio, Word,
-                                PowerPoint)
+                             id="technicalRequirement">
+
                             </div>
                         </div>
                     </div>
@@ -334,27 +335,7 @@
                         </div>
                         <div
                                 class="this-topic-is-to-introduce-about-c-programming-language-knowledge-adapt-trainees-with-skills-lessons-and-practices-which-is-specifically-used-in-the-fsoft-projects-in-details-after-completing-the-topic-trainees-will-understand-basic-concepts-of-high-level-programming-languages-keyword-statement-operator-control-of-flow-understand-and-distinguish-two-concepts-class-class-and-object-object-understand-and-apply-object-oriented-programming-knowledge-to-resolve-simple-problems-inheritance-encapsulation-abstraction-polymorphism-working-with-some-of-the-existing-data-structures-in-c-list-array-list-hash-table-dictionary-know-how-to-control-program-errors-use-try-catch-finally-throw-throws-be-able-to-working-with-concurrency-and-multi-thread-in-c-be-able-to-working-with-common-classes-in-ado-net-sql-connection-sql-command-sql-parameter-sql-data-adapter-sql-data-reader-be-able-to-manipulate-sql-data-from-window-form-application-via-4-basic-commands-add-update-delete-select-know-how-to-design-ui-screen-in-window-form-application-know-how-to-use-approciate-controls-for-each-field-data-type-textbox-label-combobox-radio-date-time-picker-numeric-up-down-rich-text-box"
-                        >
-                            This topic is to introduce about C# programming language knowledge;
-                            adapt trainees with skills, lessons and practices which is
-                            specifically used in the Fsoft projects. <br />In details, after
-                            completing the topic, trainees will: <br />- Understand basic
-                            concepts of high-level programming languages (keyword, statement,
-                            operator, control-of-flow) <br />- Understand and distinguish two
-                            concepts: class (Class) and object (Object) <br />- Understand and
-                            apply object-oriented programming knowledge to resolve simple
-                            problems (Inheritance, Encapsulation, Abstraction, Polymorphism)
-                            <br />- Working with some of the existing data structures in C#
-                            (List, ArrayList, HashTable, Dictionary) <br />- Know how to control
-                            program errors (use try ... catch..finally, throw, throws) <br />-
-                            Be able to working with concurrency and multi-thread in C# <br />-
-                            Be able to working with common classes in ADO.net: SqlConnection,
-                            SqlCommand, SqlParameter, SqlDataAdapter, SqlDataReader <br />- Be
-                            able to manipulate SQL data from Window Form Application via 4 basic
-                            commands: Add, Update, Delete, Select <br />- Know how to design UI
-                            screen in Window Form Application <br />- Know how to use approciate
-                            controls for each field/data type: Textbox, Label, Combobox, Radio,
-                            DateTimePicker, NumericUpDown, RichTextBox
+                         id="courseObj">
                         </div>
                     </div>
                 </div>

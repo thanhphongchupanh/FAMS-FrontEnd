@@ -40,4 +40,13 @@ public class SyllabusController {
         return "syllabus/SyllabusGeneral";
     }
 
+    @GetMapping("/outline")
+    public String outline(){
+        return "syllabus/SyllabusOutline";
+    }
+    @GetMapping("/other")
+    public String other(){
+        return "syllabus/SyllabusOther";
+    }
+
 }
