@@ -115,7 +115,7 @@
                 <div class="frame-1207">
                     <div class="frame-1192">
                         <div class="content">
-                            <div class="day-3">
+                            <div class="daye-3">
                                 <div class="frame-1193"></div>
 <!--                                <div class="frame-54"></div>-->
 
@@ -263,20 +263,19 @@
 <script src="/js/common.js"></script>
 
 <script>
-    var topicCodedata;
+    const topicCodedata = localStorage.getItem("topicCode");
     var api2;
     var selectedDay;
     var unitCodedata;
     var apiUrl2;
-
+    const savedSyllabusCode = localStorage.getItem("topicCode");
     $(document).ready(function() {
 
         // Load data when the page is refreshed
-        var savedSyllabusName = localStorage.getItem('syllabusName');
-        console.log(savedSyllabusName);
-        if (savedSyllabusName) {
-            $('#syllabusNameInput').val(savedSyllabusName);
-            loadData(savedSyllabusName);
+
+        console.log(savedSyllabusCode);
+        if (savedSyllabusCode) {
+            loadData(savedSyllabusCode);
         }
 
         // Event listener for adding a day
@@ -369,7 +368,7 @@
                 create.click(function () {
                     // $('.frame-1193').empty();
                     createUnitName(data,typedUnitName);
-                    location.reload();
+                    loadday(topicCodedata);
                     // loadTrainingUnit(data);
                 });
             });
@@ -407,8 +406,8 @@
 
     }
     // Define a function to load data based on the syllabus name
-    function loadData(syllabusName) {
-        var apiUrl = 'http://localhost:8080/api/v1/syllabus/OutlineScreen/' + syllabusName;
+    function loadData(topicCode) {
+        var apiUrl = 'http://localhost:8080/api/v1/syllabus/OutlineScreen/syllabus/' + topicCode;
         // First AJAX request to load syllabus data
         $.ajax({
             url: apiUrl,
@@ -416,15 +415,29 @@
             success: function (data) {
                 console.log(data);
                 // Handle the successful response and update the HTML elements
-                updateSyllabusData(data);
+                loadSyllabus(data);
+                loadday(data.topicCode)
                 api2 = 'http://localhost:8080/api/v1/syllabus/OutlineScreen/' + data.topicCode + '/';
             },
             error: function (error) {
                 console.log('Error:', error);
             }
         });
-
-
+    }
+    function loadday(topicCode){
+        var apiUrl = 'http://localhost:8080/api/v1/syllabus/OutlineScreen/' + topicCode;
+        $.ajax({
+            url: apiUrl,
+            type: 'GET',
+            success: function (data) {
+                console.log(data);
+                // Handle the successful response and update the HTML elements
+                updateSyllabusData(data);
+            },
+            error: function (error) {
+                console.log('Error:', error);
+            }
+        });
     }
     function addUnitCode(){
         var topicCode1 = topicCodedata;
@@ -460,9 +473,9 @@
                 success: function(response) {
                     // Handle the successful response or any additional actions
                     console.log(response);
-
+                    loadday(syllabusCode);
                     // Reload the page after a successful request
-                    location.reload();
+                    // location.reload();
                 },
                 error: function(error) {
                     // Handle the error or any error-specific actions
@@ -473,9 +486,9 @@
     }
 
     // Cập nhật ngày được chọn và thực hiện AJAX request
-    function updateSelectedDay(selectedDay, data) {
+    function updateSelectedDay(selectedDay) {
         var updatedApi2 = api2 + selectedDay;
-        apiUrl2 = 'http://localhost:8080/api/v1/syllabus/OutlineScreen/' + data.topicCode + '/' + selectedDay;
+        apiUrl2 = 'http://localhost:8080/api/v1/syllabus/OutlineScreen/' + topicCodedata + '/' + selectedDay;
         // Second AJAX request to load unit names for the selected day
         $.ajax({
             url: updatedApi2,
@@ -544,9 +557,20 @@
 
         return svgElement;
     }
-    function updateSyllabusData(data) {
-        topicCodedata = data.topicCode;
+    function loadSyllabus(data){
+        var topicName = data.topicName;
         var versiondata = data.version;
+
+        var topicNamefield = $('#syllabusNameInput');
+        var topicCodefield = $('.npl');
+        var versionfield = $('._1-0');
+
+        topicNamefield.val(topicName);
+        topicCodefield.text(topicCodedata);
+        versionfield.text(versiondata);
+    }
+    function updateSyllabusData(data) {
+
         var days = data.dayNumber; // Assuming this is an array of days
 
         // Loại bỏ các giá trị ngày trùng lặp
@@ -578,21 +602,12 @@
                 addclass2.append(addclass3);
                 addclass1.append(addclass2);
                 dayContainer.append(addclass1);
-                // dayContainer.append(unitNamefield);
                 daymainField.append(dayContainer);
-
-
-                // Biến để theo dõi "Day" đang được hiển thị
-                // var currentDay = null;
-                // if ($('.frame-54').length === 1) {
-                //     $('.frame-54:first').empty();
-                // }
-
                 // Attach the click event to the newly created day buttons
                 dayfield.click(function () {
                     $('.frame-54').remove();
                     selectedDay = $(this).text().replace('Day ', '');
-                    updateSelectedDay(selectedDay, data);
+                    updateSelectedDay(selectedDay);
                     $('.unit-names-container').hide();
                     var unitNamefield = $('<div>').addClass('frame-54 uday'+selectedDay);
                     day = selectedDay;
@@ -603,27 +618,10 @@
                         link.append(unitNamefield);
                         console.log("append dc");
                     }
-
-
-
-                    // dayContainer.append(unitNamefield);
-                    // $('.day').each(function () {
-                    //     var dayNumber = $(this).text().replace('Day ', '');
-                    //     if (dayNumber !== selectedDay) {
-                    //         // Ẩn ngày
-                    //     }
-                    // });
-                    // Cập nhật biến "currentDay"
                     currentDay = selectedDay;
                 });
             }
         }
-
-        var topicCodefield = $('.npl');
-        var versionfield = $('._1-0');
-
-        topicCodefield.empty().text(topicCodedata);
-        versionfield.empty().text(versiondata);
     }
     function loadTrainingUnit(data) {
         var unitNames1 = data.unitName;
@@ -682,10 +680,9 @@
         },20);
     }
     function getTrainingContent(unitCode1) {
-        var topicCode = topicCodedata;
         var day = selectedDay;
         var unitCode2 = unitCode1
-        apiUrl2 = 'http://localhost:8080/api/v1/syllabus/OutlineScreen/' + topicCode + '/' + day + '/' + unitCode2;
+        apiUrl2 = 'http://localhost:8080/api/v1/syllabus/OutlineScreen/' + topicCodedata + '/' + day + '/' + unitCode2;
         // Second AJAX request to load unit names for the selected day
         $.ajax({
             url: apiUrl2,
@@ -757,10 +754,10 @@
         var frame111 = $('<div>').addClass('frame-111');
         var deliveryType2 = $('<select>').addClass('delivery-type2').attr('id', 'output-standard');
 // Adding options to the select element
-        data.forEach(function (contentType) {
-            var option = $('<option>').val(contentType).text(contentType);
-            deliveryType2.append(option);
-        });
+//         data.forEach(function (contentType) {
+//             var option = $('<option>').val(contentType).text(contentType);
+//             deliveryType2.append(option);
+//         });
 
 // Appending options to the select element
         var arrowBackIos = $('<svg>').addClass('arrow-back-ios')
@@ -778,7 +775,8 @@
 
 // Other elements in frame40
         var frame1198 = $('<div>').addClass('frame-1198');
-        var _15 = $('<div>').addClass('_15').text('15');
+        // var _15 = $('<div>').addClass('_15').text('15');
+        var _15 = $('<input>').addClass('_15').attr('id','duration_add').attr('placeholder','duration').attr('type', 'number').attr('pattern', '[0-9]*');
         frame1198.append(_15);
 
         var toggleOnline = $('<div>').addClass('toggle-online');
@@ -787,26 +785,34 @@
         toggleOnline.append(ellipse19, online);
 
 // Another delivery type container
-        var deliveryType2 = $('<div>').addClass('delivery-type');
+        // Create delivery type container
+        var deliveryType_2 = $('<div>').addClass('delivery-type');
         var frame111_2 = $('<div>').addClass('frame-111');
-        var deliveryType2_2 = $('<div>').addClass('delivery-type2').text('Delivery type');
-        var arrowBackIos2 = $('<svg>').addClass('arrow-back-ios2')
+        var deliveryType2_2 = $('<select>').addClass('delivery-type2').attr('id', 'output-standard');
+// Adding options to the select element
+        data.forEach(function (contentType) {
+            var option_2 = $('<option>').val(contentType).text(contentType);
+            deliveryType2_2.append(option_2);
+        });
+
+// Appending options to the select element
+        var arrowBackIos_2 = $('<svg>').addClass('arrow-back-ios')
             .attr({
-                width: '25',
+                width: '24',
                 height: '24',
-                viewBox: '0 0 25 24',
+                viewBox: '0 0 24 24',
                 fill: 'none',
                 xmlns: 'http://www.w3.org/2000/svg'
             });
-        var arrowBackIosPath2 = $('<path>').attr('d', 'M7.91212 8L6.75 9.0677L13.25 15L19.75 9.0617L18.5879 8L13.25 12.8766L7.91212 8Z').attr('fill', '#285D9A');
-        arrowBackIos2.append(arrowBackIosPath2);
-        frame111_2.append(deliveryType2_2, arrowBackIos2);
-        deliveryType2.append(frame111_2);
+        var arrowBackIosPath_2 = $('<path>').attr('d', 'M7.16212 8L6 9.0677L12.5 15L19 9.0617L17.8379 8L12.5 12.8766L7.16212 8Z').attr('fill', '#285D9A');
+        arrowBackIos_2.append(arrowBackIosPath_2);
+        frame111_2.append(deliveryType2_2, arrowBackIos_2);
+        deliveryType_2.append(frame111_2);
         var addfolder = $('<button>').addClass('folder-btn');
 
 // Append everything to the main container
 //         frame40.append(deliveryType, frame1198, toggleOnline, deliveryType2, addfolder);
-        mainContainer.append(frame1197, deliveryType, frame1198, toggleOnline, deliveryType2, addfolder);
+        mainContainer.append(frame1197, deliveryType, frame1198, toggleOnline, deliveryType_2, addfolder);
 // Append main container to the body or any other parent element
         unitNamefield.append(mainContainer);
         var addDiv = $('<button>').addClass('add');

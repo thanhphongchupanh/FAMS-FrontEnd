@@ -269,9 +269,12 @@
         $(document).ready(function () {
             $('.save-btn').click(function (e) {
                 if(areAllFieldFilled()){
+                    localStorage.clear();
                     createSyllabusGeneral();
-                    passInputValue();
-                    window.location.href = "http://localhost:8081/createSyllabus";
+                    setTimeout(() => {
+                        window.location.href = "http://localhost:8081/createSyllabus";
+                    }, 600);
+
                     console.log("click");
                 } else {
                     alert("All fields are required!");
@@ -346,22 +349,15 @@
                 data: JSON.stringify(data),
                 contentType: 'application/json',
                 success: function (response) {
-                    console.log('Syllabus created:', response);
+                    console.log('Syllabus created:', response.topicCode);
+                    localStorage.clear();
+                    localStorage.setItem("topicCode",response.topicCode)
                 },
                 error: function (err) {
                     console.error('Ngooooo:', err);
                 }
             });
         };
-
-
-        //Đưa giá trị của ô syllabus name sang CreateOutline
-        function passInputValue() {
-                var inputValue1 = document.getElementById('syllabus-name').value;
-                console.log(inputValue1);
-                localStorage.clear();
-                localStorage.setItem('syllabusName', inputValue1);
-        }
 </script>
 
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
