@@ -392,7 +392,27 @@
 
                     var version = data.version;
                     var ver = $("#version");
-                    ver.text(topicCode);
+                    ver.text(version);
+
+                    var level = data.level;
+                    var le = $("#level");
+                    le.val(level);
+
+                    var trainingAudience = data.trainingAudience;
+                    var attendee = $("#attendee-number");
+                    attendee.val(trainingAudience);
+
+                    var des = data.technicalGroup;
+                    var techGr = $("#tech-reqs");
+                    techGr.text(des);
+
+                    var courseObjName = data.objectiveName;
+                    var courseName = $("#LearningObjectiveName");
+                    courseName.val(courseObjName);
+
+                    var description = data.description;
+                    var courseDes = $("#course-obj");
+                    courseDes.text(description);
                 },
                 error: function (xhr, status, error) {
                     console.error("Error: " + error);
