@@ -543,7 +543,7 @@
       <dialog id="menu-syllabus-function-dialog" class="p-0" style="border-radius: 20px; border: none; width: 200px">
         <div class="popup-container">
           <div class="popup-header">
-            <div class="pop-up-header-text">Tool bar</div>
+            <div class="pop-up-header-text1">Tool bar</div>
             <button style="position: absolute; right: 0;" class="btn close-menu-syllabus-dialog-button">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                    xmlns="http://www.w3.org/2000/svg">
@@ -785,8 +785,11 @@
                         '<button class="button-action">' +
                         '<a style="text-decoration: none; color: white" class="excel-button" href="http://localhost:8080/api/v1/syllabus/exportExcel/' + item.topicCode + '">Export Excel</a>' +
                         '</button>'+
-                        '<div data-topic-name="'+item.topicName+'" data-topic-code="'+item.topicCode+'">' + divContainer.outerHTML + '</div>' +
-                        '</div>' +
+                        '<div data-topic-code="'+item.topicCode+'">' +
+                         divContainer.outerHTML +
+                        '<input type="hidden" id="topicName3dot" name="topicName" value="'+item.topicName+'">' +
+                        '</div>'+
+                '</div>' +
                         '</td>' +
                         // Add other columns here
                         '</tr>';
@@ -805,11 +808,16 @@
                 var topicCode1 = $("#menu-syllabus-function-dialog").attr("topicCode");
                 console.log("TopicCode:", topicCode1);
 
-                var toolBar = document.querySelector(".pop-up-header-text");
-                toolBar.textContent = "";
-                var newTopicName = $(this).data('topic-name');
+                var toolBar = document.querySelector(".pop-up-header-text1");
+                var newTopicName = document.getElementById("topicName3dot").value;
+
                 console.log(newTopicName);
-                toolBar.textContent = newTopicName;
+                toolBar.innerText = newTopicName;
+                toolBar.style.color = "white";
+                toolBar.style.weight = "bold";
+                toolBar.style.font = "Inter";
+                toolBar.style.margin = "0 40px 0 40px";
+                toolBar.style.whiteSpace = "nowrap";
               });
               //Click close
               $(".close-menu-syllabus-dialog-button").click(function (event) {
@@ -852,163 +860,170 @@
       var searchedKeywords = [];
       // Lắng nghe sự kiện khi người dùng nhấn Enter trong ô tìm kiếm
       var input = document.getElementById("search-input");
+      var tagNum = 0;
       input.addEventListener("keypress", function (event) {
-        if (event.key === "Enter" && input.value.trim() !== "") {
-          mode = 2;
-          console.log(mode+" là mode hiện tại");
-          if(mode === 2) {
-            let search = document.getElementById("search-keyword");
-            let item = document.createElement("div");
-            item.className = "search-item";
-            const keyword = input.value.trim();
-            item.innerHTML += `
+        if(tagNum <= 3) {
+          if (event.key === "Enter" && input.value.trim() !== "") {
+            tagNum++;
+            mode = 2;
+            console.log(mode + " là mode hiện tại");
+            if (mode === 2) {
+              let search = document.getElementById("search-keyword");
+              let item = document.createElement("div");
+              item.className = "search-item";
+              const keyword = input.value.trim();
+              item.innerHTML += `
                 ${keyword}
                 <span>&#10005;</span>
             `
-            search.appendChild(item);
-            searchedKeywords.push(keyword);
-            // Gọi hàm sendSearchRequest để gửi yêu cầu AJAX
-            var combo1 = document.getElementById("rowPerPage");
-            combo1.addEventListener("change", function () {
-              selectedValue = combo1.value; // Lấy giá trị đã chọn
-              if (selectedValue !== "" && !combo1.disabled) {
-                console.log("Giá trị đã chọn mode 2: " + selectedValue);
-                console.log("Giá trị searchKey mode 2: " + searchedKeywords);
-                sendSearchRequest(searchedKeywords);
-              } else {
-                console.log("Chưa chọn tùy chọn");
-              }
-            });
-            sendSearchRequest(searchedKeywords);
-            var navidot = $('#navi-dot');
-            //Lấy đúng phần tử được click vào
-            navidot.on("click", ".common-container", function (event) {
-              var clickedValue = $(event.currentTarget).find('.common-ellipse').next().text();
-              console.log("Clicked Value: " + clickedValue);
-              myVar = clickedValue;
-              if(mode == 2) {
-                sendSearchRequest(searchedKeywords);
-              }
-            });
-
-            // XÓA TỪ KHÓA
-            let deleteButton = item.getElementsByTagName("span")[0];
-            deleteButton.addEventListener("click", () => {
-              // Xóa từ khóa khỏi mảng searchedKeywords
-              const index = searchedKeywords.indexOf(keyword);
-              if (index !== -1) {
-                searchedKeywords.splice(index, 1);
-                if (searchedKeywords.length == 0) {
-                } else
+              search.appendChild(item);
+              searchedKeywords.push(keyword);
+              // Gọi hàm sendSearchRequest để gửi yêu cầu AJAX
+              var combo1 = document.getElementById("rowPerPage");
+              combo1.addEventListener("change", function () {
+                selectedValue = combo1.value; // Lấy giá trị đã chọn
+                if (selectedValue !== "" && !combo1.disabled) {
+                  console.log("Giá trị đã chọn mode 2: " + selectedValue);
+                  console.log("Giá trị searchKey mode 2: " + searchedKeywords);
                   sendSearchRequest(searchedKeywords);
-              }
-              item.remove();
-            });
-          }
+                } else {
+                  console.log("Chưa chọn tùy chọn");
+                }
+              });
+              sendSearchRequest(searchedKeywords);
+              console.log("Array: "+searchedKeywords);
+              var navidot = $('#navi-dot');
+              //Lấy đúng phần tử được click vào
+              navidot.on("click", ".common-container", function (event) {
+                var clickedValue = $(event.currentTarget).find('.common-ellipse').next().text();
+                console.log("Clicked Value: " + clickedValue);
+                myVar = clickedValue;
+                if (mode == 2) {
+                  sendSearchRequest(searchedKeywords);
+                }
+              });
 
-          sendSearchRequest(searchedKeywords);
-
-          console.log("mode "+mode);
-          // Hàm gửi yêu cầu AJAX với từ khóa tìm kiếm
-          function sendSearchRequest(searchKeywords) {
-            var url = "";
-            if (searchKeywords.length > 0) {
-              url = `http://localhost:8080/api/v1/syllabus/search-syllabus/` + selectedValue + `?key=` + searchKeywords + '&page=' + myVar;
+              // XÓA TỪ KHÓA
+              let deleteButton = item.getElementsByTagName("span")[0];
+              deleteButton.addEventListener("click", () => {
+                // Xóa từ khóa khỏi mảng searchedKeywords
+                const index = searchedKeywords.indexOf(keyword);
+                if (index !== -1) {
+                  searchedKeywords.splice(index, 1);
+                  if (searchedKeywords.length == 0) {
+                  } else
+                    sendSearchRequest(searchedKeywords);
+                }
+                item.remove();
+              });
             }
-            $.ajax({
-              url: url,
-              method: "GET",
-              success: function (data) {
-                console.log("DATA 2: " +data);
-                // Xử lý dữ liệu và cập nhật bảng
-                var dataTable = $('#data-table');
-                dataTable.empty();
-                // Lặp qua dữ liệu và thêm từng dòng vào bảng
-                $.each(data, function (index, item) {
-                  numberOfPage = item.count;
-                  console.log("Search page number: "+item.count);
-                  var durationText = item.duration + " days";
 
-                  var row = '<tr>' +
-                          '<td>' + item.topicName + '</td>' +
-                          '<td>' + item.topicCode + '</td>' +
-                          '<td>' + item.createdDate + '</td>' +
-                          '<td>' + item.createdBy + '</td>' +
-                          '<td>' + durationText + '</td>' +
-                          '<td>' + item.outputStandardArr + '</td>' +
-                          '<td id="' + item.syllabusStatus + '">' + item.syllabusStatus + '</td>' +
-                          '<td>' +
-                          '<div style="display: flex; justify-content: center">' +
-                          '<button class="button-action">' +
-                          '<a style="text-decoration: none; color: white" class="csv-button" href="http://localhost:8080/api/v1/syllabus/exportCSV/' + item.topicCode + '">Export CSV</a>'+
-                          '</button>'+
-                          '<button class="button-action">' +
-                          '<a style="text-decoration: none; color: white" class="excel-button" href="http://localhost:8080/api/v1/syllabus/exportExcel/' + item.topicCode + '">Export Excel</a>' +
-                          '</button>'+
-                          '<div data-topic-code="'+item.topicCode+'">' + divContainer.outerHTML + '</div>' +
-                          '</div>' +
-                          '</td>' +
-                          // Add other columns here
-                          '</tr>';
-                  dataTable.append(row);
-                });
+            sendSearchRequest(searchedKeywords);
+            console.log("mode " + mode);
 
-                // Click 3dot
-                $(".threeDot").click(function () {
-                  // Retrieve topicCode from the closest ancestor with data-topic-code
-                  var topicCode = $(this).closest('[data-topic-code]').data('topic-code');
-                  // Show modal dialog
-                  $("#dialog-backdrop").css("display", "block");
-                  $("#menu-syllabus-function-dialog")[0].showModal();
-                  $("#menu-syllabus-function-dialog").attr("topicCode", topicCode);
-
-                  var topicCode1 = $("#menu-syllabus-function-dialog").attr("topicCode");
-                  console.log("TopicCode:", topicCode1);
-
-                  var toolBar = document.querySelector(".pop-up-header-text");
-                  toolBar.textContent = "";
-                  var newTopicName = $(this).data('topic-name');
-                  console.log(newTopicName);
-                  toolBar.textContent = newTopicName;
-                });
-                //Click close
-                $(".close-menu-syllabus-dialog-button").click(function (event) {
-                  event.preventDefault();
-                  $("#menu-syllabus-function-dialog")[0].close();
-                  hideBackdrop();
-                });
-                // Click edit in syllabus menu dialog
-                $(".frame-88").click(function (event) {
-                  var topicCode1 = $("#menu-syllabus-function-dialog").attr("topicCode");
-
-                });
-                function hideBackdrop() {
-                  $("#dialog-backdrop").css("display", "none");
-                }
-
-                // Hiển thị nút paging theo số trang
-                var navidot = $('#navi-dot');
-                navidot.empty();
-                var newDiv;
-                for (var i = 1; i <= numberOfPage; i++) {
-                  newDiv = $('<div>', {
-                    'class': 'common-group',
-                    'html': '<div class="common-container">' +
-                            '<div class="common-ellipse"></div>' +
-                            '<div class="_' + i + '" ' +
-                            'style="font: 700 12px Inter, sans-serif;' +
-                            'position: absolute; top: 4px; left: 8px">' + i + '</div>' +
-                            '</div>'
-                  });
-                  navidot.append(newDiv);
-                }
-              },
-              error: function (error) {
-                console.log(error)
+            // Hàm gửi yêu cầu AJAX với từ khóa tìm kiếm
+            function sendSearchRequest(searchKeywords) {
+              var url = "";
+              if (searchKeywords.length > 0) {
+                url = `http://localhost:8080/api/v1/syllabus/search-syllabus/` + selectedValue + `?key=` + searchKeywords + '&page=' + myVar;
               }
-            });
-          }
-        }//mode
+              $.ajax({
+                url: url,
+                method: "GET",
+                success: function (data) {
+                  console.log("DATA 2: " + data);
+                  // Xử lý dữ liệu và cập nhật bảng
+                  var dataTable = $('#data-table');
+                  dataTable.empty();
+                  // Lặp qua dữ liệu và thêm từng dòng vào bảng
+                  $.each(data, function (index, item) {
+                    numberOfPage = item.count;
+                    console.log("Search page number: " + item.count);
+                    var durationText = item.duration + " days";
+
+                    var row = '<tr>' +
+                            '<td>' + item.topicName + '</td>' +
+                            '<td>' + item.topicCode + '</td>' +
+                            '<td>' + item.createdDate + '</td>' +
+                            '<td>' + item.createdBy + '</td>' +
+                            '<td>' + durationText + '</td>' +
+                            '<td>' + item.outputStandardArr + '</td>' +
+                            '<td id="' + item.syllabusStatus + '">' + item.syllabusStatus + '</td>' +
+                            '<td>' +
+                            '<div style="display: flex; justify-content: center">' +
+                            '<button class="button-action">' +
+                            '<a style="text-decoration: none; color: white" class="csv-button" href="http://localhost:8080/api/v1/syllabus/exportCSV/' + item.topicCode + '">Export CSV</a>' +
+                            '</button>' +
+                            '<button class="button-action">' +
+                            '<a style="text-decoration: none; color: white" class="excel-button" href="http://localhost:8080/api/v1/syllabus/exportExcel/' + item.topicCode + '">Export Excel</a>' +
+                            '</button>' +
+                            '<div data-topic-code="' + item.topicCode + '">' +
+                            divContainer.outerHTML +
+                            '<input type="hidden" class="topicName3dot" name="topicName" value="' + item.topicName + '">' +
+                            '</div>' +
+                            '</div>' +
+                            '</td>' +
+                            // Add other columns here
+                            '</tr>';
+                    dataTable.append(row);
+                  });
+
+                  // Click 3dot
+                  $(".threeDot").click(function () {
+                    // Retrieve topicCode from the closest ancestor with data-topic-code
+                    var topicCode = $(this).closest('[data-topic-code]').data('topic-code');
+                    // Show modal dialog
+                    $("#dialog-backdrop").css("display", "block");
+                    $("#menu-syllabus-function-dialog")[0].showModal();
+                    $("#menu-syllabus-function-dialog").attr("topicCode", topicCode);
+
+                    var topicCode1 = $("#menu-syllabus-function-dialog").attr("topicCode");
+                    console.log("TopicCode:", topicCode1);
+
+                    var toolBar = document.querySelector(".pop-up-header-text1");
+                    var newTopicName = document.querySelector(".topicName3dot").value;
+                    toolBar.innerText = newTopicName;
+                  });
+                  //Click close
+                  $(".close-menu-syllabus-dialog-button").click(function (event) {
+                    event.preventDefault();
+                    $("#menu-syllabus-function-dialog")[0].close();
+                    hideBackdrop();
+                  });
+                  // Click edit in syllabus menu dialog
+                  $(".frame-88").click(function (event) {
+                    var topicCode1 = $("#menu-syllabus-function-dialog").attr("topicCode");
+
+                  });
+
+                  function hideBackdrop() {
+                    $("#dialog-backdrop").css("display", "none");
+                  }
+
+                  // Hiển thị nút paging theo số trang
+                  var navidot = $('#navi-dot');
+                  navidot.empty();
+                  var newDiv;
+                  for (var i = 1; i <= numberOfPage; i++) {
+                    newDiv = $('<div>', {
+                      'class': 'common-group',
+                      'html': '<div class="common-container">' +
+                              '<div class="common-ellipse"></div>' +
+                              '<div class="_' + i + '" ' +
+                              'style="font: 700 12px Inter, sans-serif;' +
+                              'position: absolute; top: 4px; left: 8px">' + i + '</div>' +
+                              '</div>'
+                    });
+                    navidot.append(newDiv);
+                  }
+                },
+                error: function (error) {
+                  console.log(error)
+                }
+              });
+            }
+          }//mode
+        }
       });
 
       //MODE 3
@@ -1085,7 +1100,10 @@
                           '<button class="button-action">' +
                           '<a style="text-decoration: none; color: white" class="excel-button" href="http://localhost:8080/api/v1/syllabus/exportExcel/' + item.topicCode + '">Export Excel</a>' +
                           '</button>'+
-                          '<div data-topic-code="'+item.topicCode+'">' + divContainer.outerHTML + '</div>' +
+                          '<div data-topic-code="'+item.topicCode+'">' +
+                          divContainer.outerHTML +
+                          '<input type="hidden" class="topicName3dot" name="topicName" value="'+item.topicName+'">' +
+                          '</div>'+
                           '</div>' +
                           '</td>' +
                           // Add other columns here
@@ -1105,11 +1123,13 @@
                   var topicCode1 = $("#menu-syllabus-function-dialog").attr("topicCode");
                   console.log("TopicCode:", topicCode1);
 
-                  var toolBar = document.querySelector(".pop-up-header-text");
-                  toolBar.textContent = "";
-                  var newTopicName = $(this).data('topic-name');
-                  console.log(newTopicName);
-                  toolBar.textContent = newTopicName;
+                  var newTopicNameElement = document.querySelector(".topicName3dot");
+                  var newTopicNameValue = newTopicNameElement.value;
+                  var toolBar = document.querySelector(".pop-up-header-text1");
+                  toolBar.innerText = newTopicNameValue;
+                  newTopicNameElement.style.color = "white";
+                  newTopicNameElement.style.fontWeight = "bold";
+
                 });
                 //Click close
                 $(".close-menu-syllabus-dialog-button").click(function (event) {
