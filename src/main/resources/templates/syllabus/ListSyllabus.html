@@ -411,7 +411,6 @@
           </select>
         </div>
         </div>
-
       <dialog id="import-syllabus-dialog" class="p-0" style="border-radius: 20px; border: none;">
         <div class="popup-container">
           <div class="popup-header">
@@ -586,7 +585,7 @@
 
                 <div class="add-training-program">Add training program</div>
               </div>
-              <a th:href="@{/createSyllabusGeneral}" class="frame-88">
+              <a style="text-decoration: none; color: #0B2136" th:href="@{/createSyllabusGeneral}" class="frame-88">
                 <svg
                         class="create"
                         width="24"
@@ -981,8 +980,15 @@
                     console.log("TopicCode:", topicCode1);
 
                     var toolBar = document.querySelector(".pop-up-header-text1");
-                    var newTopicName = document.querySelector(".topicName3dot").value;
+                    var newTopicName = document.getElementById("topicName3dot").value;
+
+                    console.log(newTopicName);
                     toolBar.innerText = newTopicName;
+                    toolBar.style.color = "white";
+                    toolBar.style.weight = "bold";
+                    toolBar.style.font = "Inter";
+                    toolBar.style.margin = "0 40px 0 40px";
+                    toolBar.style.whiteSpace = "nowrap";
                   });
                   //Click close
                   $(".close-menu-syllabus-dialog-button").click(function (event) {
@@ -1188,8 +1194,6 @@
       });
     }
   </script>
-
-
 
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="/js/common.js"></script>
