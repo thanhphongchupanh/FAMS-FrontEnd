@@ -684,7 +684,7 @@
     var mode = 1;
     var myVar = 1;
     var selectedValue = 5;
-
+    var searchKeywords = [];
     // Tạo dấu 3 chấm
     var divContainer = document.createElement("div");
     divContainer.classList.add('threeDot');
@@ -855,187 +855,369 @@
       }
 
       // MODE 2
-      // Tạo mảng lưu trữ các từ khóa đã tìm kiếm
-      var searchedKeywords = [];
       // Lắng nghe sự kiện khi người dùng nhấn Enter trong ô tìm kiếm
       var input = document.getElementById("search-input");
+      var inputCalendar = document.getElementById("search-input-calendar");
       var tagNum = 0;
       input.addEventListener("keypress", function (event) {
-        if(tagNum <= 3) {
-          if (event.key === "Enter" && input.value.trim() !== "") {
-            tagNum++;
-            mode = 2;
-            console.log(mode + " là mode hiện tại");
-            if (mode === 2) {
-              let search = document.getElementById("search-keyword");
-              let item = document.createElement("div");
-              item.className = "search-item";
-              const keyword = input.value.trim();
-              item.innerHTML += `
+        var date = inputCalendar.value;
+        var selectedDate = new Date(inputCalendar.value);
+        var year = selectedDate.getFullYear();
+        var month = (selectedDate.getMonth() + 1).toString().padStart(2, '0');
+        var day = selectedDate.getDate().toString().padStart(2, '0');
+        // Định dạng lại thành "yyyy/mm/dd"
+        var formattedDate = year + '/' + month + '/' + day;
+          if (tagNum <= 3) {
+            if (event.key === "Enter" && input.value.trim() !== "") {
+              if(isNaN(Date.parse(formattedDate))){
+                tagNum++;
+                mode = 2;
+                console.log(formattedDate + " là date hiện tại");
+                if (mode === 2) {
+                  let search = document.getElementById("search-keyword");
+                  let item = document.createElement("div");
+                  item.className = "search-item";
+                  const keyword = input.value.trim();
+                  item.innerHTML += `
                 ${keyword}
                 <span>&#10005;</span>
             `
-              search.appendChild(item);
-              searchedKeywords.push(keyword);
-              // Gọi hàm sendSearchRequest để gửi yêu cầu AJAX
-              var combo1 = document.getElementById("rowPerPage");
-              combo1.addEventListener("change", function () {
-                selectedValue = combo1.value; // Lấy giá trị đã chọn
-                if (selectedValue !== "" && !combo1.disabled) {
-                  console.log("Giá trị đã chọn mode 2: " + selectedValue);
-                  console.log("Giá trị searchKey mode 2: " + searchedKeywords);
-                  sendSearchRequest(searchedKeywords);
-                } else {
-                  console.log("Chưa chọn tùy chọn");
-                }
-              });
-              sendSearchRequest(searchedKeywords);
-              console.log("Array: "+searchedKeywords);
-              var navidot = $('#navi-dot');
-              //Lấy đúng phần tử được click vào
-              navidot.on("click", ".common-container", function (event) {
-                var clickedValue = $(event.currentTarget).find('.common-ellipse').next().text();
-                console.log("Clicked Value: " + clickedValue);
-                myVar = clickedValue;
-                if (mode == 2) {
-                  sendSearchRequest(searchedKeywords);
-                }
-              });
-
-              // XÓA TỪ KHÓA
-              let deleteButton = item.getElementsByTagName("span")[0];
-              deleteButton.addEventListener("click", () => {
-                // Xóa từ khóa khỏi mảng searchedKeywords
-                const index = searchedKeywords.indexOf(keyword);
-                if (index !== -1) {
-                  searchedKeywords.splice(index, 1);
-                  if (searchedKeywords.length == 0) {
-                    performAjaxRequest();
-                  } else
-                    sendSearchRequest(searchedKeywords);
-                }
-                item.remove();
-              });
-            }
-
-            sendSearchRequest(searchedKeywords);
-            console.log("mode " + mode);
-
-            // Hàm gửi yêu cầu AJAX với từ khóa tìm kiếm
-            function sendSearchRequest(searchKeywords) {
-              var url = "";
-              if (searchKeywords.length > 0) {
-                url = `http://localhost:8080/api/v1/syllabus/search-syllabus/` + selectedValue + `?key=` + searchKeywords + '&page=' + myVar;
-              }
-              $.ajax({
-                url: url,
-                method: "GET",
-                success: function (data) {
-                  console.log("DATA 2: " + data);
-                  // Xử lý dữ liệu và cập nhật bảng
-                  var dataTable = $('#data-table');
-                  dataTable.empty();
-                  // Lặp qua dữ liệu và thêm từng dòng vào bảng
-                  $.each(data, function (index, item) {
-                    numberOfPage = item.count;
-                    console.log("Search page number: " + item.count);
-                    var durationText = item.duration + " days";
-
-                    var row = '<tr>' +
-                            '<td>' + item.topicName + '</td>' +
-                            '<td>' + item.topicCode + '</td>' +
-                            '<td>' + item.createdDate + '</td>' +
-                            '<td>' + item.createdBy + '</td>' +
-                            '<td>' + durationText + '</td>' +
-                            '<td>' + item.outputStandardArr + '</td>' +
-                            '<td id="' + item.syllabusStatus + '">' + item.syllabusStatus + '</td>' +
-                            '<td>' +
-                            '<div style="display: flex; justify-content: center">' +
-                            '<button class="button-action">' +
-                            '<a style="text-decoration: none; color: white" class="csv-button" href="http://localhost:8080/api/v1/syllabus/exportCSV/' + item.topicCode + '">Export CSV</a>' +
-                            '</button>' +
-                            '<button class="button-action">' +
-                            '<a style="text-decoration: none; color: white" class="excel-button" href="http://localhost:8080/api/v1/syllabus/exportExcel/' + item.topicCode + '">Export Excel</a>' +
-                            '</button>' +
-                            '<div data-topic-code="' + item.topicCode + '">' +
-                            divContainer.outerHTML +
-                            '<input type="hidden" class="topicName3dot" name="topicName" value="' + item.topicName + '">' +
-                            '</div>' +
-                            '</div>' +
-                            '</td>' +
-                            // Add other columns here
-                            '</tr>';
-                    dataTable.append(row);
+                  search.appendChild(item);
+                  searchKeywords.push(keyword);
+                  // Gọi hàm sendSearchRequest để gửi yêu cầu AJAX
+                  var combo1 = document.getElementById("rowPerPage");
+                  combo1.addEventListener("change", function () {
+                    selectedValue = combo1.value; // Lấy giá trị đã chọn
+                    if (selectedValue !== "" && !combo1.disabled) {
+                      console.log("Giá trị đã chọn mode 2: " + selectedValue);
+                      console.log("Giá trị searchKey mode 2: " + searchKeywords);
+                      sendSearchRequest(searchKeywords);
+                    } else {
+                      console.log("Chưa chọn tùy chọn");
+                    }
                   });
+                  sendSearchRequest(searchKeywords);
+                  console.log("Array: " + searchKeywords);
 
-                  // Click 3dot
-                  $(".threeDot").click(function () {
-                    // Retrieve topicCode from the closest ancestor with data-topic-code
-                    var topicCode = $(this).closest('[data-topic-code]').data('topic-code');
-                    // Show modal dialog
-                    $("#dialog-backdrop").css("display", "block");
-                    $("#menu-syllabus-function-dialog")[0].showModal();
-                    $("#menu-syllabus-function-dialog").attr("topicCode", topicCode);
-
-                    var topicCode1 = $("#menu-syllabus-function-dialog").attr("topicCode");
-                    console.log("TopicCode:", topicCode1);
-
-                    var toolBar = document.querySelector(".pop-up-header-text1");
-                    var newTopicName = document.getElementById("topicName3dot").value;
-
-                    console.log(newTopicName);
-                    toolBar.innerText = newTopicName;
-                    toolBar.style.color = "white";
-                    toolBar.style.weight = "bold";
-                    toolBar.style.font = "Inter";
-                    toolBar.style.margin = "0 40px 0 40px";
-                    toolBar.style.whiteSpace = "nowrap";
-                  });
-                  //Click close
-                  $(".close-menu-syllabus-dialog-button").click(function (event) {
-                    event.preventDefault();
-                    $("#menu-syllabus-function-dialog")[0].close();
-                    hideBackdrop();
-                  });
-                  // Click edit in syllabus menu dialog
-                  $(".frame-88").click(function (event) {
-                    var topicCode1 = $("#menu-syllabus-function-dialog").attr("topicCode");
-
-                  });
-
-                  function hideBackdrop() {
-                    $("#dialog-backdrop").css("display", "none");
-                  }
-
-                  // Hiển thị nút paging theo số trang
                   var navidot = $('#navi-dot');
-                  navidot.empty();
-                  var newDiv;
-                  for (var i = 1; i <= numberOfPage; i++) {
-                    newDiv = $('<div>', {
-                      'class': 'common-group',
-                      'html': '<div class="common-container">' +
-                              '<div class="common-ellipse"></div>' +
-                              '<div class="_' + i + '" ' +
-                              'style="font: 700 12px Inter, sans-serif;' +
-                              'position: absolute; top: 4px; left: 8px">' + i + '</div>' +
-                              '</div>'
-                    });
-                    navidot.append(newDiv);
-                  }
-                },
-                error: function (error) {
-                  console.log(error)
+                  //Lấy đúng phần tử được click vào
+                  navidot.on("click", ".common-container", function (event) {
+                    var clickedValue = $(event.currentTarget).find('.common-ellipse').next().text();
+                    console.log("Clicked Value: " + clickedValue);
+                    myVar = clickedValue;
+                    if (mode == 2) {
+                      sendSearchRequest(searchKeywords);
+                    }
+                  });
+
+                  // XÓA TỪ KHÓA
+                  let deleteButton = item.getElementsByTagName("span")[0];
+                  deleteButton.addEventListener("click", () => {
+                    // Xóa từ khóa khỏi mảng searchedKeywords
+                    const index = searchKeywords.indexOf(keyword);
+                    if (index !== -1) {
+                      searchKeywords.splice(index, 1);
+                      if (searchKeywords.length == 0) {
+                        performAjaxRequest();
+                      } else
+                        sendSearchRequest(searchKeywords);
+                    }
+                    item.remove();
+                  });
                 }
-              });
+
+                sendSearchRequest(searchKeywords);
+                console.log("mode " + mode);
+
+                // Hàm gửi yêu cầu AJAX với từ khóa tìm kiếm
+                function sendSearchRequest(searchKeywords) {
+                  var url = "";
+                  var encodedKeywords = encodeURIComponent(searchKeywords);
+                  if (searchKeywords.length > 0) {
+                    url = `http://localhost:8080/api/v1/syllabus/search-syllabus/` + selectedValue + `?key=` + encodedKeywords + '&page=' + myVar;
+                  }
+                  $.ajax({
+                    url: url,
+                    method: "GET",
+                    success: function (data) {
+                      console.log("DATA 2: " + data);
+                      // Xử lý dữ liệu và cập nhật bảng
+                      var dataTable = $('#data-table');
+                      dataTable.empty();
+                      // Lặp qua dữ liệu và thêm từng dòng vào bảng
+                      $.each(data, function (index, item) {
+                        numberOfPage = item.count;
+                        console.log("Search page number: " + item.count);
+                        var durationText = item.duration + " days";
+
+                        var row = '<tr>' +
+                                '<td>' + item.topicName + '</td>' +
+                                '<td>' + item.topicCode + '</td>' +
+                                '<td>' + item.createdDate + '</td>' +
+                                '<td>' + item.createdBy + '</td>' +
+                                '<td>' + durationText + '</td>' +
+                                '<td>' + item.outputStandardArr + '</td>' +
+                                '<td id="' + item.syllabusStatus + '">' + item.syllabusStatus + '</td>' +
+                                '<td>' +
+                                '<div style="display: flex; justify-content: center">' +
+                                '<button class="button-action">' +
+                                '<a style="text-decoration: none; color: white" class="csv-button" href="http://localhost:8080/api/v1/syllabus/exportCSV/' + item.topicCode + '">Export CSV</a>' +
+                                '</button>' +
+                                '<button class="button-action">' +
+                                '<a style="text-decoration: none; color: white" class="excel-button" href="http://localhost:8080/api/v1/syllabus/exportExcel/' + item.topicCode + '">Export Excel</a>' +
+                                '</button>' +
+                                '<div data-topic-code="' + item.topicCode + '">' +
+                                divContainer.outerHTML +
+                                '<input type="hidden" class="topicName3dot" name="topicName" value="' + item.topicName + '">' +
+                                '</div>' +
+                                '</div>' +
+                                '</td>' +
+                                // Add other columns here
+                                '</tr>';
+                        dataTable.append(row);
+                      });
+
+                      // Click 3dot
+                      $(".threeDot").click(function () {
+                        // Retrieve topicCode from the closest ancestor with data-topic-code
+                        var topicCode = $(this).closest('[data-topic-code]').data('topic-code');
+                        // Show modal dialog
+                        $("#dialog-backdrop").css("display", "block");
+                        $("#menu-syllabus-function-dialog")[0].showModal();
+                        $("#menu-syllabus-function-dialog").attr("topicCode", topicCode);
+
+                        var topicCode1 = $("#menu-syllabus-function-dialog").attr("topicCode");
+                        console.log("TopicCode:", topicCode1);
+
+                        var toolBar = document.querySelector(".pop-up-header-text1");
+                        var newTopicName = document.getElementById("topicName3dot").value;
+
+                        console.log(newTopicName);
+                        toolBar.innerText = newTopicName;
+                        toolBar.style.color = "white";
+                        toolBar.style.weight = "bold";
+                        toolBar.style.font = "Inter";
+                        toolBar.style.margin = "0 40px 0 40px";
+                        toolBar.style.whiteSpace = "nowrap";
+                      });
+                      //Click close
+                      $(".close-menu-syllabus-dialog-button").click(function (event) {
+                        event.preventDefault();
+                        $("#menu-syllabus-function-dialog")[0].close();
+                        hideBackdrop();
+                      });
+                      // Click edit in syllabus menu dialog
+                      $(".frame-88").click(function (event) {
+                        var topicCode1 = $("#menu-syllabus-function-dialog").attr("topicCode");
+
+                      });
+
+                      function hideBackdrop() {
+                        $("#dialog-backdrop").css("display", "none");
+                      }
+
+                      // Hiển thị nút paging theo số trang
+                      var navidot = $('#navi-dot');
+                      navidot.empty();
+                      var newDiv;
+                      for (var i = 1; i <= numberOfPage; i++) {
+                        newDiv = $('<div>', {
+                          'class': 'common-group',
+                          'html': '<div class="common-container">' +
+                                  '<div class="common-ellipse"></div>' +
+                                  '<div class="_' + i + '" ' +
+                                  'style="font: 700 12px Inter, sans-serif;' +
+                                  'position: absolute; top: 4px; left: 8px">' + i + '</div>' +
+                                  '</div>'
+                        });
+                        navidot.append(newDiv);
+                      }
+                    },
+                    error: function (error) {
+                      console.log(error)
+                    }
+                  });
+                }
+              }
+              //  NẾU CÓ DATE
+              else {
+                tagNum++;
+                mode = 2;
+                console.log(formattedDate + " là date hiện tại");
+                if (mode === 2) {
+                  let search = document.getElementById("search-keyword");
+                  let item = document.createElement("div");
+                  item.className = "search-item";
+                  const keyword = input.value.trim();
+                  item.innerHTML += `
+                ${keyword}
+                <span>&#10005;</span>
+            `
+                  search.appendChild(item);
+                  searchKeywords.push(keyword);
+                  // Gọi hàm sendSearchRequest để gửi yêu cầu AJAX
+                  var combo1 = document.getElementById("rowPerPage");
+                  combo1.addEventListener("change", function () {
+                    selectedValue = combo1.value; // Lấy giá trị đã chọn
+                    if (selectedValue !== "" && !combo1.disabled) {
+                      console.log("Giá trị đã chọn mode 2: " + selectedValue);
+                      console.log("Giá trị searchKey mode 2: " + searchKeywords);
+                      sendSearchRequest(searchKeywords, formattedDate);
+                    } else {
+                      console.log("Chưa chọn tùy chọn");
+                    }
+                  });
+                  sendSearchRequest(searchKeywords, formattedDate);
+                  console.log("Array: " + searchKeywords);
+                  var navidot = $('#navi-dot');
+                  //Lấy đúng phần tử được click vào
+                  navidot.on("click", ".common-container", function (event) {
+                    var clickedValue = $(event.currentTarget).find('.common-ellipse').next().text();
+                    console.log("Clicked Value: " + clickedValue);
+                    myVar = clickedValue;
+                    if (mode == 2) {
+                      sendSearchRequest(searchKeywords, formattedDate);
+                    }
+                  });
+
+                  // XÓA TỪ KHÓA
+                  let deleteButton = item.getElementsByTagName("span")[0];
+                  deleteButton.addEventListener("click", () => {
+                    // Xóa từ khóa khỏi mảng searchedKeywords
+                    const index = searchKeywords.indexOf(keyword);
+                    if (index !== -1) {
+                      searchKeywords.splice(index, 1);
+                      if (searchKeywords.length == 0) {
+                        performAjaxRequest();
+                        inputCalendar.value = "";
+                        input.value = "";
+                      } else
+                        sendSearchRequest(searchKeywords);
+                    }
+                    item.remove();
+                  });
+                }
+
+                sendSearchRequest(searchKeywords, searchDate);
+                console.log("mode " + mode);
+
+                // Hàm gửi yêu cầu AJAX với từ khóa tìm kiếm
+                function sendSearchRequest(searchKeywords, formattedDate) {
+                  var url = "";
+                  var encodedKeywords = encodeURIComponent(searchKeywords);
+                  if (searchKeywords.length > 0) {
+                    url = `http://localhost:8080/api/v1/syllabus/search-syllabus-byCreatedDate/` + selectedValue + `?key=` + encodedKeywords + `&date=` + formattedDate + '&page=' + myVar;
+                  }
+                  $.ajax({
+                    url: url,
+                    method: "GET",
+                    success: function (data) {
+                      console.log("DATA 2: " + data);
+                      // Xử lý dữ liệu và cập nhật bảng
+                      var dataTable = $('#data-table');
+                      dataTable.empty();
+                      // Lặp qua dữ liệu và thêm từng dòng vào bảng
+                      $.each(data, function (index, item) {
+                        numberOfPage = item.count;
+                        console.log("Search page number: " + item.count);
+                        var durationText = item.duration + " days";
+
+                        var row = '<tr>' +
+                                '<td>' + item.topicName + '</td>' +
+                                '<td>' + item.topicCode + '</td>' +
+                                '<td>' + item.createdDate + '</td>' +
+                                '<td>' + item.createdBy + '</td>' +
+                                '<td>' + durationText + '</td>' +
+                                '<td>' + item.outputStandardArr + '</td>' +
+                                '<td id="' + item.syllabusStatus + '">' + item.syllabusStatus + '</td>' +
+                                '<td>' +
+                                '<div style="display: flex; justify-content: center">' +
+                                '<button class="button-action">' +
+                                '<a style="text-decoration: none; color: white" class="csv-button" href="http://localhost:8080/api/v1/syllabus/exportCSV/' + item.topicCode + '">Export CSV</a>' +
+                                '</button>' +
+                                '<button class="button-action">' +
+                                '<a style="text-decoration: none; color: white" class="excel-button" href="http://localhost:8080/api/v1/syllabus/exportExcel/' + item.topicCode + '">Export Excel</a>' +
+                                '</button>' +
+                                '<div data-topic-code="' + item.topicCode + '">' +
+                                divContainer.outerHTML +
+                                '<input type="hidden" class="topicName3dot" name="topicName" value="' + item.topicName + '">' +
+                                '</div>' +
+                                '</div>' +
+                                '</td>' +
+                                // Add other columns here
+                                '</tr>';
+                        dataTable.append(row);
+                      });
+
+                      // Click 3dot
+                      $(".threeDot").click(function () {
+                        // Retrieve topicCode from the closest ancestor with data-topic-code
+                        var topicCode = $(this).closest('[data-topic-code]').data('topic-code');
+                        // Show modal dialog
+                        $("#dialog-backdrop").css("display", "block");
+                        $("#menu-syllabus-function-dialog")[0].showModal();
+                        $("#menu-syllabus-function-dialog").attr("topicCode", topicCode);
+
+                        var topicCode1 = $("#menu-syllabus-function-dialog").attr("topicCode");
+                        console.log("TopicCode:", topicCode1);
+
+                        var toolBar = document.querySelector(".pop-up-header-text1");
+                        var newTopicName = document.getElementById("topicName3dot").value;
+
+                        console.log(newTopicName);
+                        toolBar.innerText = newTopicName;
+                        toolBar.style.color = "white";
+                        toolBar.style.weight = "bold";
+                        toolBar.style.font = "Inter";
+                        toolBar.style.margin = "0 40px 0 40px";
+                        toolBar.style.whiteSpace = "nowrap";
+                      });
+                      //Click close
+                      $(".close-menu-syllabus-dialog-button").click(function (event) {
+                        event.preventDefault();
+                        $("#menu-syllabus-function-dialog")[0].close();
+                        hideBackdrop();
+                      });
+                      // Click edit in syllabus menu dialog
+                      $(".frame-88").click(function (event) {
+                        var topicCode1 = $("#menu-syllabus-function-dialog").attr("topicCode");
+
+                      });
+
+                      function hideBackdrop() {
+                        $("#dialog-backdrop").css("display", "none");
+                      }
+
+                      // Hiển thị nút paging theo số trang
+                      var navidot = $('#navi-dot');
+                      navidot.empty();
+                      var newDiv;
+                      for (var i = 1; i <= numberOfPage; i++) {
+                        newDiv = $('<div>', {
+                          'class': 'common-group',
+                          'html': '<div class="common-container">' +
+                                  '<div class="common-ellipse"></div>' +
+                                  '<div class="_' + i + '" ' +
+                                  'style="font: 700 12px Inter, sans-serif;' +
+                                  'position: absolute; top: 4px; left: 8px">' + i + '</div>' +
+                                  '</div>'
+                        });
+                        navidot.append(newDiv);
+                      }
+                    },
+                    error: function (error) {
+                      console.log(error)
+                    }
+                  });
+                }
+              }//mode
+              }
             }
-          }//mode
-        }
       });
 
       //MODE 3
-      // Lắng nghe sự kiện khi người dùng nhấn Enter trong ô tìm kiếm
       var inputCalendar = document.getElementById("search-input-calendar");
+      // Lắng nghe sự kiện khi người dùng nhấn Enter trong ô tìm kiếm
       inputCalendar.addEventListener("change", function(){
         var date = inputCalendar.value;
         var selectedDate = new Date(inputCalendar.value);
@@ -1056,12 +1238,12 @@
             selectedValue = combo1.value; // Lấy giá trị đã chọn
             if (selectedValue !== "" && !combo1.disabled) {
               console.log("Giá trị searchKey mode 3: " + formattedDate);
-              sendDateRequest(formattedDate);
+              sendDateRequest(formattedDate, searchKeywords);
             } else {
               console.log("Chưa chọn tùy chọn");
             }
           });
-          sendDateRequest(formattedDate);
+          sendDateRequest(formattedDate, searchKeywords);
           if(mode === 3){
             var navidot = $('#navi-dot');
             //Lấy đúng phần tử được click vào
@@ -1069,7 +1251,7 @@
               var clickedValue = $(event.currentTarget).find('.common-ellipse').next().text();
               myVar = clickedValue;
               if(mode == 3) {
-                sendDateRequest(formattedDate);
+                sendDateRequest(formattedDate, searchKeywords);
               }
             });
           } else {
@@ -1077,8 +1259,10 @@
           }
 
           // Hàm gửi yêu cầu AJAX với ngày tìm kiếm
-          function sendDateRequest(formattedDate) {
-            var url = `http://localhost:8080/api/v1/syllabus/search-syllabus-byCreatedDate/`+selectedValue+`?page=`+myVar+`&key=`+formattedDate;
+          function sendDateRequest(formattedDate, searchKeywords) {
+            var encodedKeywords = encodeURIComponent(searchKeywords);
+            var url = `http://localhost:8080/api/v1/syllabus/search-syllabus-byCreatedDate/` + selectedValue + `?key=` + encodedKeywords + `&date=` + formattedDate + '&page=' + myVar;
+
             $.ajax({
               url: url,
               method: "GET",
