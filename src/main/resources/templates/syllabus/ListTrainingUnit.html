@@ -658,7 +658,9 @@
                     if (typedUnitName.length > 0){
                         // $('.frame-1193').empty();
                         createUnitName(data,typedUnitName);
-                        location.reload();
+                        setTimeout(()=> {
+                            location.reload();
+                        },50)
                         setTimeout(()=>{
                             loadday(topicCodedata);
                         },300)
