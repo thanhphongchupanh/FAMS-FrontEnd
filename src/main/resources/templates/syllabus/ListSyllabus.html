@@ -685,6 +685,7 @@
     var myVar = 1;
     var selectedValue = 5;
     var searchKeywords = [];
+    var tagNum = 0;
     // Tạo dấu 3 chấm
     var divContainer = document.createElement("div");
     divContainer.classList.add('threeDot');
@@ -858,7 +859,6 @@
       // Lắng nghe sự kiện khi người dùng nhấn Enter trong ô tìm kiếm
       var input = document.getElementById("search-input");
       var inputCalendar = document.getElementById("search-input-calendar");
-      var tagNum = 0;
       input.addEventListener("keypress", function (event) {
         var date = inputCalendar.value;
         var selectedDate = new Date(inputCalendar.value);
@@ -913,12 +913,15 @@
                   // XÓA TỪ KHÓA
                   let deleteButton = item.getElementsByTagName("span")[0];
                   deleteButton.addEventListener("click", () => {
+                    tagNum--;
                     // Xóa từ khóa khỏi mảng searchedKeywords
                     const index = searchKeywords.indexOf(keyword);
                     if (index !== -1) {
                       searchKeywords.splice(index, 1);
-                      if (searchKeywords.length == 0) {
-                        performAjaxRequest();
+                        if (searchKeywords.length == 0) {
+                          inputCalendar.value = "";
+                          input.value = "";
+                          performAjaxRequest();
                       } else
                         sendSearchRequest(searchKeywords);
                     }
@@ -1083,14 +1086,15 @@
                   // XÓA TỪ KHÓA
                   let deleteButton = item.getElementsByTagName("span")[0];
                   deleteButton.addEventListener("click", () => {
+                    tagNum--;
                     // Xóa từ khóa khỏi mảng searchedKeywords
                     const index = searchKeywords.indexOf(keyword);
                     if (index !== -1) {
                       searchKeywords.splice(index, 1);
                       if (searchKeywords.length == 0) {
-                        performAjaxRequest();
                         inputCalendar.value = "";
                         input.value = "";
+                        performAjaxRequest();
                       } else
                         sendSearchRequest(searchKeywords);
                     }
@@ -1098,7 +1102,7 @@
                   });
                 }
 
-                sendSearchRequest(searchKeywords, searchDate);
+                sendSearchRequest(searchKeywords, formattedDate);
                 console.log("mode " + mode);
 
                 // Hàm gửi yêu cầu AJAX với từ khóa tìm kiếm
