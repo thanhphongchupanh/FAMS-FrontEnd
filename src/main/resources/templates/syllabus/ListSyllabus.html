@@ -87,8 +87,8 @@
             </div>
           </div>
           <div class="col text-end" style="padding-right: 28px">
-            <button class="btn btn-dark">
-              <a id="createSyllabusBtn" style="text-decoration: none; color: #eeeaea" th:href="@{/createSyllabusGeneral}">
+            <button class="btn btn-dark" >
+              <a th:href="@{/createSyllabusGeneral}" style="text-decoration: none; color: #eeeaea" id="createSyllabusBtn1">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <g clip-path="url(#clip0_487_2486)">
                     <path
@@ -103,13 +103,6 @@
                 </svg>
                 Add Syllabus
               </a>
-              <script>
-                $(document).ready(function () {
-                  $('#createSyllabusBtn').click(function () {
-                    localStorage.clear();
-                  });
-                });
-              </script>
             </button>
           </div>
         </div>
@@ -1012,9 +1005,8 @@
                       // Click edit in syllabus menu dialog
                       $(".frame-88").click(function (event) {
                         var topicCode1 = $("#menu-syllabus-function-dialog").attr("topicCode");
-
+                        localStorage.setItem('topicCode', topicCode1);
                       });
-
                       function hideBackdrop() {
                         $("#dialog-backdrop").css("display", "none");
                       }
@@ -1185,9 +1177,8 @@
                       // Click edit in syllabus menu dialog
                       $(".frame-88").click(function (event) {
                         var topicCode1 = $("#menu-syllabus-function-dialog").attr("topicCode");
-
+                        localStorage.setItem('topicCode', topicCode1);
                       });
-
                       function hideBackdrop() {
                         $("#dialog-backdrop").css("display", "none");
                       }
@@ -1318,13 +1309,16 @@
                   var topicCode1 = $("#menu-syllabus-function-dialog").attr("topicCode");
                   console.log("TopicCode:", topicCode1);
 
-                  var newTopicNameElement = document.querySelector(".topicName3dot");
-                  var newTopicNameValue = newTopicNameElement.value;
                   var toolBar = document.querySelector(".pop-up-header-text1");
-                  toolBar.innerText = newTopicNameValue;
-                  newTopicNameElement.style.color = "white";
-                  newTopicNameElement.style.fontWeight = "bold";
+                  var newTopicName = document.getElementById("topicName3dot").value;
 
+                  console.log(newTopicName);
+                  toolBar.innerText = newTopicName;
+                  toolBar.style.color = "white";
+                  toolBar.style.weight = "bold";
+                  toolBar.style.font = "Inter";
+                  toolBar.style.margin = "0 40px 0 40px";
+                  toolBar.style.whiteSpace = "nowrap";
                 });
                 //Click close
                 $(".close-menu-syllabus-dialog-button").click(function (event) {
@@ -1335,7 +1329,7 @@
                 // Click edit in syllabus menu dialog
                 $(".frame-88").click(function (event) {
                   var topicCode1 = $("#menu-syllabus-function-dialog").attr("topicCode");
-
+                  localStorage.setItem('topicCode', topicCode1);
                 });
                 function hideBackdrop() {
                   $("#dialog-backdrop").css("display", "none");
@@ -1386,7 +1380,15 @@
 
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="/js/common.js"></script>
-
+  <script>
+      $(document).ready(function () {
+        var createSyllabusBtn = document.getElementById("createSyllabusBtn1");
+        createSyllabusBtn.addEventListener("click", function () {
+          localStorage.clear();
+          console.log("Button clicked!");
+        });
+      });
+  </script>
   <!--   Pop-up window-->
   <script>
     function getUserTableData(){
