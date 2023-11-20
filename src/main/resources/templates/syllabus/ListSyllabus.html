@@ -910,6 +910,7 @@
                 if (index !== -1) {
                   searchedKeywords.splice(index, 1);
                   if (searchedKeywords.length == 0) {
+                    performAjaxRequest();
                   } else
                     sendSearchRequest(searchedKeywords);
                 }
