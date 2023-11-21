@@ -90,6 +90,10 @@
             }
           },
           maintainAspectRatio: true,
+        },
+        animation: {
+          animateRotate: true, // Animate rotation of the pie chart
+          animateScale: true // Animate scaling of the pie chart
         }
       });
 
@@ -137,7 +141,7 @@
   <div th:replace="~{common :: menu}"></div>
 
 
-  <div class="frame-1186">
+  <div class="frame-1195">
     <div class="program-detail">
       <div class="program-header">
         <div class="syllabus">Syllabus</div>
@@ -181,11 +185,11 @@
             <div class="days">days</div>
           </div>
           <div class="frame-78">
-            <div >
-              <div class="_68-hours" id="modifiedDate">Modified on </div>
-            </div>
-            <div class="_68-hours" id="modifiedBy">By </div>
           </div>
+          <div >
+            <div class="_68-hours" id="modifiedDate">Modified on </div>
+          </div>
+          <div class="_68-hours" id="modifiedBy">By </div>
         </div>
       </div>
     </div>
@@ -319,20 +323,11 @@
                   </div>
                 </div>
               </div>
-<!--              <div class="text-box">-->
-<!--                <div class="req-text-box">-->
-<!--                  <div class="text">Final</div>-->
-<!--                  <div class="text-box2">-->
-<!--                    <div class="default-text">70%</div>-->
-<!--                  </div>-->
-<!--                </div>-->
-<!--              </div>-->
-<!--              -->
             </div>
             <div class="frame-102">
               <div class="passing-criteria2">
                 <div class="passing-criteria3">Passing criteria</div>
-                <div class="text-box">
+                <div class="text-box" id="gpa">
                   <div class="req-text-box">
                     <div class="text">GPA *</div>
                     <div class="text-box2">

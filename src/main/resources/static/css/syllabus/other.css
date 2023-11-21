@@ -367,76 +367,11 @@
 }
 .doughnut {
     flex-shrink: 0;
-    /*width: 1px;*/
-    /*height: 1px;*/
+    width: 119px;
+    height: 119px;
     position: relative;
-    border-radius: 50%;
-    /*background-color: green;*/
-    /*background: repeating-conic-gradient(*/
-    /*        from 0deg,*/
-    /*        #f4be37 0deg calc(3.6deg * 15),*/
-    /*        #ff9f40 calc(3.6deg * 15) calc(3.6deg * 30),*/
-    /*        #0d2535 calc(3.6deg * 30) calc(3.6deg * 60),*/
-    /*        #5388d8 calc(3.6deg * 20) calc(3.6deg * 80),*/
-    /*        #206ee5 calc(3.6deg * 30) calc(3.6deg * 100)*/
-    /*);*/
 }
-/*.assignment-pie {*/
-/*    display: block;*/
-/*    background: #f4be37;*/
-/*    border-radius: 50%;*/
-/*    position: absolute;*/
-/*    right: 0%;*/
-/*    left: 0%;*/
-/*    width: 100%;*/
-/*    bottom: 0%;*/
-/*    top: 0%;*/
-/*    height: 100%;*/
-/*}*/
-/*.quiz-pie {*/
-/*    background: #ff9f40;*/
-/*    border-radius: 50%;*/
-/*    position: absolute;*/
-/*    right: 0%;*/
-/*    left: 0%;*/
-/*    width: 100%;*/
-/*    bottom: 0%;*/
-/*    top: 0%;*/
-/*    height: 100%;*/
-/*}*/
-/*.final-pie {*/
-/*    background: #5388d8;*/
-/*    border-radius: 50%;*/
-/*    position: absolute;*/
-/*    right: 0%;*/
-/*    left: 0%;*/
-/*    width: 100%;*/
-/*    bottom: 0%;*/
-/*    top: 0%;*/
-/*    height: 100%;*/
-/*}*/
-/*.final-theory-pie {*/
-/*    background: #0d2535;*/
-/*    border-radius: 50%;*/
-/*    position: absolute;*/
-/*    right: 0%;*/
-/*    left: 0%;*/
-/*    width: 100%;*/
-/*    bottom: 0%;*/
-/*    top: 0%;*/
-/*    height: 100%;*/
-/*}*/
-/*.final-practice-pie {*/
-/*    background: #0d2535;*/
-/*    border-radius: 50%;*/
-/*    position: absolute;*/
-/*    right: 0%;*/
-/*    left: 0%;*/
-/*    width: 100%;*/
-/*    bottom: 0%;*/
-/*    top: 0%;*/
-/*    height: 100%;*/
-/*}*/
+
 
 .info {
     display: flex;
@@ -1106,3 +1041,8 @@
     flex-shrink: 0;
     position: relative;
 }
+
+ #gpa{
+    float: inherit;
+     margin-bottom: 10px;
+ }
