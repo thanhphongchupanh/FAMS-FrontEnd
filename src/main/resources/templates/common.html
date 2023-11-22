@@ -1,3 +1,4 @@
+
 <div class="d-flex flex-row align-items-center p-2" th:fragment="header">
     <div class="flex-grow-1 mx-3">
         <img style="height: 60px;" src="img/FPT_logo.png">
@@ -110,9 +111,16 @@
                 <a class="btn btn-nav-sub" th:href="@{/viewSyllabus}">
                     View Syllabus
                 </a>
-                <a class="btn btn-nav-sub" th:href="@{/createSyllabusGeneral}">
+                <a id="createSyllabusBtn" class="btn btn-nav-sub" th:href="@{/createSyllabusGeneral}">
                     Create Syllabus
                 </a>
+                <script>
+                    $(document).ready(function () {
+                        $('#createSyllabusBtn').click(function () {
+                            localStorage.clear();
+                        });
+                    });
+                </script>
             </div>
         </li>
         <li class="mb-1">
@@ -337,3 +345,139 @@
 <footer class="bg-main text-center text-white p-3" th:fragment="footer">
     <p class="text-light m-auto">Copyright @2022 BA Warrior. All right reserved</p>
 </footer>
+
+<!--SUCCESS-->
+<style>
+    .toast{
+        width: 300px;
+        height: 80px;
+        padding: 20px;
+        background-color: #ffffff;
+        border-radius: 7px;
+        display: grid;
+        grid-template-columns: 1.3fr 6fr 0.5fr;
+        box-shadow: 0 15px 30px rgba(0,0,0,0.08);
+    }
+    .success{
+        border-left: 8px solid #47D764;
+    }
+    .error{
+        border-left: 8px solid #ff355b;
+    }
+    .warning{
+        border-left: 8px solid #FFC021;
+    }
+    .error i{
+        color: #ff355b;
+    }
+    .info i{
+        color: #2F86EB;
+    }
+    .warning i{
+        color: #FFC021;
+    }
+    .toast:not(:last-child){
+        margin-bottom: 50px;
+    }
+    .container-1,.container-2{
+        align-self: center;
+    }
+    .container-1 i{
+        font-size: 35px;
+    }
+    .success i{
+        color: #47D764;
+    }
+    .container-2 p:first-child{
+        color: #101020;
+        font-weight: 600;
+        font-size: 16px;
+    }
+    .container-2 p:last-child{
+        font-size: 12px;
+        font-weight: 400;
+        color: #656565;
+    }
+    @keyframes loadingAnimation {
+        0% {
+            background-position: 200% 0;
+        }
+        100% {
+            background-position: -200% 0;
+        }
+    }
+
+    .toast.success .loading1.active {
+        display: block; /* Hiển thị thanh loading khi có class "active" */
+    }
+
+    .toast.success .container-2 p {
+        margin-bottom: 0; /* Remove the default margin-bottom for the text */
+    }
+
+    /* Warning======== */
+    .toast.warning .loading1.active {
+        display: block;
+    }
+    .toast.warning .container-2 p {
+        margin-bottom: 0px;
+    }
+
+    .container-2 {
+        gap: 10px;
+        display: flex;
+        flex-direction: column;
+    }
+    .loading1 {
+        width: 100%;
+        height: 5px;
+        background: linear-gradient(90deg,#fff 50%, #fff, #FFC021, #FFC021 50%);
+        background-size: 200% 100%;
+        animation: loadingAnimation 5s linear 1;
+        margin-bottom: 10px;
+        border-radius: 10px;
+        animation: loadingAnimation 10s linear forwards;
+        display: none;
+    }
+    .toast.warning {
+        transition: opacity 0.5s ease;
+    }
+    .toast.success {
+        transition: opacity 0.5s ease;
+    }
+</style>
+<div class="toast success" style="position: fixed;z-index:1000
+        ;display: flex; align-items: center; gap: 15px;
+        right: 0; margin: 10px 40px 0 0; opacity: 0">
+    <div class="container-1">
+        <i class="fas fa-check-circle"></i>
+    </div>
+    <div class="container-2">
+        <div class="container-2Text">
+            <p>Success</p>
+            <p>Your changes have been saved successfully.</p>
+        </div>
+        <div class="loading1"></div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('.save-btn').click(function (e) {
+            console.log("click");
+            showSuccess();
+        });
+
+        function showSuccess(){
+            var successToast = document.querySelector('.toast.success');
+            var loadingBar1 = successToast.querySelector('.loading1');
+            successToast.style.opacity = '1';
+            loadingBar1.classList.add('active');
+
+            setTimeout(function () {
+                loadingBar1.classList.remove('active');
+                successToast.style.opacity = "0";
+            }, 2500);
+        }
+    });
+</script>

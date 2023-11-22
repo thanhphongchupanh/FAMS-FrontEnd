@@ -561,7 +561,24 @@
     flex-shrink: 0;
     position: relative;
 }
-
+.text-box1{
+    background: #ffffff;
+    border-radius: 10px;
+    border-style: solid;
+    border-color: var(--un-modified, #8b8b8b);
+    border-width: 1px;
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+    justify-content: flex-start;
+    align-self: stretch;
+    flex-shrink: 0;
+    position: relative;
+    width: 50px;
+    height: 20px;
+}
 .trainees-p-cs-need-to-have-following-software-installed-run-without-any-issues-microsoft-sql-server-2005-express-in-which-the-trainees-can-create-manipulate-on-their-own-database-microsoft-visual-studio-2017-microsoft-office-2007-visio-word-power-point {
     color: #000000;
     text-align: left;
