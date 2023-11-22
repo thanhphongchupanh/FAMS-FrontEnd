@@ -814,6 +814,18 @@
               var dataTable = $('#data-table');
               dataTable.empty(); // Xóa nội dung hiện có trong bảng
 
+              data.sort(function(a, b) {
+                var nameA = a.topicName.toUpperCase(); // Chuyển đổi thành chữ in hoa để so sánh chữ cái không phân biệt hoa thường
+                var nameB = b.topicName.toUpperCase();
+
+                if (nameA < nameB) {
+                  return -1;
+                }
+                if (nameA > nameB) {
+                  return 1;
+                }
+                return 0; // Trường hợp bằng nhau
+              });
               // Lặp qua dữ liệu và thêm từng dòng vào bảng
               $.each(data, function (index, item) {
                 numberOfPage = item.count;
@@ -1679,25 +1691,6 @@
         $("#selectedFileName").text("");
       });
 
-      // function importSyllabusAPI(fileName) {
-      //   var formData = new FormData();
-      //   formData.append('file', fileName);
-      //   $.ajax({
-      //     url: 'http://localhost:8080/api/v1/syllabus/importExcel',
-      //     type: 'POST',
-      //     data: formData,
-      //     processData: false,
-      //     contentType: false,
-      //     success: function(response) {
-      //       console.log('File uploaded successfully:', response);
-      //       // Xử lý phản hồi từ máy chủ
-      //     },
-      //     error: function(error) {
-      //       console.error('Error uploading file:', error);
-      //       // Xử lý lỗi
-      //     }
-      //   });
-      // }
       function importSyllabusAPI(fileName) {
         var formData = new FormData();
         formData.append('file', fileName);
