@@ -515,12 +515,14 @@
 
 <script>
     const topicCodedata = localStorage.getItem("topicCode");
+    const savedSyllabusCode = localStorage.getItem("topicCode");
     var api2;
     var selectedDay;
     var unitCodedata;
-    var apiUrl2;
     var status;
-    const savedSyllabusCode = localStorage.getItem("topicCode");
+    var unitCode;
+    // const topicCodedata = "A01";
+    // const savedSyllabusCode = "A01";
     $(document).ready(function() {
 
         // Load data when the page is refreshed
@@ -534,26 +536,20 @@
         $('.add-day-button-2').click(function() {
            addDay();
         });
-        $(document).on('click', '.add', function () {
-            $('.add').remove();
-            getDeliveryAndType();
-        });
         $(document).on('click', '#toggleButton', function () {
-            console.log("clicked");
-
             $('.toggle-online').toggleClass('active');
             if ($('.online-add').length) {
                 status = 'Offline';
                 // If the current status is online, replace with offline
                 $('.online-add').replaceWith(function () {
-                    return $('<div>').addClass('offline-add').text('Offline');
+                    return $('<div>').addClass('offline-add').val('OFFLINE').text('Offline').attr('id', 'toggle');
                 });
                 $('.offline-add').toggleClass('active');
             } else {
                 status = 'Online';
                 // If the current status is offline, replace with online
                 $('.offline-add').replaceWith(function () {
-                    return $('<div>').addClass('online-add').text('Online');
+                    return $('<div>').addClass('online-add').val('ONLINE').text('Online').attr('id', 'toggle');
                 });
             }
 
@@ -562,17 +558,12 @@
             if (selectedDay != null) {
                 addUnitCode();
                 setTimeout(() => {
-                    getGeneratedCode(selectedDay);
-                }, 30);
+                    getTrainingUnitforadd();
+                }, 300);
             }
             else {
-                alert("You have to select day before add TrainingUnit")
+                alert("You have to select day before add TrainingUnit");
             }
-        });
-        $(document).on('click', '.folder-btn', function ()  {
-            $("#dialog-backdrop").css("display", "block");
-            $("#menu-syllabus-function-dialog")[0].showModal();
-            console.log("click folder success");
         });
     });
     function updateUnitNames(data) {
@@ -582,19 +573,16 @@
         unitCodedata = lastestUnitCode;
         const lastestUnit = unitNames.length;
         var day1 = selectedDay;
-        // var dayContainer = $('.frame-54');
-        // $.each(unitNames, function (index, unitName) {
-        if(data.content != null || unitNames == ""){
+        if(unitNames[unitNames.length - 1] == ""){
             var unitNameContainer = $('<div>',{
                 class: 'unit-names-container',
                 id: 'unit-names-container-' + day1
             });
 
-            // var unitNamefield = $('<div>').
             var unitContainer = $('<div>').addClass('frame-108');
 
             var unitLabel = $('<div>', {
-                class: 'unit-7',
+                class: 'unit-7 unitnef'+lastestUnit,
                 text: 'Unit ' + lastestUnit // You may need to adjust the index accordingly
             });
 
@@ -613,12 +601,10 @@
                 type: 'text',
                 id: 'unitNameInput',
                 placeholder: 'Type unit name',
-                // value: unitName
             });
 
             var transferunitCode = $('<input>', {
                 type: 'hidden',
-                // id:'unitCode',
                 class: 'unitCodee',
                 value: lastestUnitCode
             });
@@ -639,7 +625,6 @@
             programName.append(frame84);
             programContainer.append(programName);
             unitContainer.append(unitLabel);
-            // unitContainer.append(programContainer);
             unitNameContainer.append(unitContainer);
             unitNameContainer.append(programContainer);
             unitNamefield.append(unitNameContainer);
@@ -651,12 +636,10 @@
                 link.append(unitNamefield);
                 console.log("append dc");
             }
-            // unitNamefield.append(addbtnAddunit());
             typeUnitName.on('change', function () {
                 var typedUnitName = $(this).val().trim();
                 create.click(function () {
                     if (typedUnitName.length > 0){
-                        // $('.frame-1193').empty();
                         createUnitName(data,typedUnitName);
                         setTimeout(()=> {
                             location.reload();
@@ -664,7 +647,6 @@
                         setTimeout(()=>{
                             loadday(topicCodedata);
                         },300)
-                        // loadTrainingUnit(data);
                     }
                     else
                     {
@@ -675,7 +657,6 @@
             });
 
                 function createUnitName(data, typedUnitName){
-                    // var unitName = $("#unitNameInput").val();
                     var unitName = typedUnitName;
                     var topicCode = topicCodedata;
                     var dayNumber = selectedDay;
@@ -703,7 +684,6 @@
                         }
                     });
                 }
-            // })
 
     }else {
             location.reload();
@@ -747,13 +727,14 @@
     function getTrainingContent(unitCode1) {
         var day = selectedDay;
         var unitCode2 = unitCode1;
-        apiUrl2 = 'http://localhost:8080/api/v1/syllabus/OutlineScreen/' + topicCodedata + '/' + day + '/' + unitCode2;
+        var apiUrl2 = 'http://localhost:8080/api/v1/syllabus/OutlineScreen/ShowTrainingContent/' + day + '/' + unitCode2;
         // Second AJAX request to load unit names for the selected day
         $.ajax({
             url: apiUrl2,
             type: 'GET',
             success: function (data) {
-
+                console.log('Success:', data);
+                updateTrainingContent(data);
             },
             error: function (error) {
                 console.log('Error:', error);
@@ -773,9 +754,7 @@
                 success: function(response) {
                     // Handle the successful response or any additional actions
                     console.log(response);
-                    // getTrainingContentforadd(response.topicCode);
                     // Reload the page after a successful request
-                    // location.reload();
                 },
                 error: function(error) {
                     // Handle the error or any error-specific actions
@@ -796,7 +775,6 @@
                     console.log(response);
                     loadday(syllabusCode);
                     // Reload the page after a successful request
-                    // location.reload();
                 },
                 error: function(error) {
                     // Handle the error or any error-specific actions
@@ -808,16 +786,13 @@
     // Cập nhật ngày được chọn và thực hiện AJAX request
     function updateSelectedDay(selectedDay) {
         var updatedApi2 = api2 + selectedDay;
-        apiUrl2 = 'http://localhost:8080/api/v1/syllabus/OutlineScreen/' + topicCodedata + '/' + selectedDay;
         // Second AJAX request to load unit names for the selected day
         $.ajax({
             url: updatedApi2,
             type: 'GET',
             success: function (data) {
                 // Handle the successful response and update the HTML elements
-                // updateUnitNames(data);
                 loadTrainingUnit(data);
-                // createTrainingUnit(data);
             },
             error: function (error) {
                 console.log('Error:', error);
@@ -825,22 +800,6 @@
         });
     }
     // Get again the unitCode when add unit
-    function getGeneratedCode(selectedDay) {
-        var topicCode = topicCodedata;
-        apiUrl2 = 'http://localhost:8080/api/v1/syllabus/OutlineScreen/' + topicCode + '/' + selectedDay;
-        // Second AJAX request to load unit names for the selected day
-        $.ajax({
-            url: apiUrl2,
-            type: 'GET',
-            success: function (data) {
-                getTrainingContentforadd(data)
-                // updateUnitNames(data);
-            },
-            error: function (error) {
-                console.log('Error:', error);
-            }
-        });
-    }
     // Function to update the unit names
     function createClickableRemoveIcon() {
         var svgElement = $('<svg>', {
@@ -885,7 +844,7 @@
         var topicCodefield = $('.npl');
         var versionfield = $('._1-0');
 
-        topicNamefield.val(topicName);
+        topicNamefield.val(topicName).prop('readonly',true);
         topicCodefield.text(topicCodedata);
         versionfield.text(versiondata);
     }
@@ -946,6 +905,7 @@
     function loadTrainingUnit(data) {
         var unitNames1 = data.unitName;
         var unitCodes1 = data.unitCode;
+        unitCode = unitCodes1;
         console.log(unitCodes1);
         var day = selectedDay;
         var unitNamefield = $('.uday'+day);
@@ -953,54 +913,50 @@
         console.log(unitNames1);
         if (unitNames1 != ""){
             $.each(unitNames1, function (index, unitName1) {
-            var unitNameContainer = $('<div>',{
-                class: 'unit-names-container',
-                id: 'unit-names-container-' + selectedDay
-            });
-            var unitContainer = $('<div>').addClass('frame-108');
-            var unitLabel = $('<div>', {
-                class: 'unit-7',
-                text: 'Unit ' + (index + 1)
-            });
+                var unitCode1 = unitCodes1[index]; // Get the corresponding unitCode
+                if (unitName1 !='' ) {
+                    var unitNameContainer = $('<div>', {
+                        class: 'unit-names-container',
+                        id: 'unit-names-container-' + day + '-' + unitCode1
+                    });
+                    var unitContainer = $('<div>').addClass('frame-108');
+                    var unitLabel = $('<div>', {
+                        class: 'unit-7',
+                        text: 'Unit ' + (index + 1)
+                    });
 
-            var programContainer = $('<div>').addClass('frame-1199');
-            var programName = $('<div>').addClass('program-name');
-            var unitNameElement1 = $('<div>', {
-                class: 'unit-name',
-                text:'Unit Name'
-            });
-            var unitNameElement = $('<div>', {
-                class: 'unit-7',
-                text: unitName1 // Display the unit name
-            });
+                    var programContainer = $('<div>').addClass('frame-1199');
+                    var programName = $('<div>').addClass('program-name').attr('id','unitname-'+ day + '-' + unitCode1);
+                    var unitNameElement = $('<div>', {
+                        class: 'unit-7',
+                        text: unitName1 // Display the unit name
+                    });
 
 
-            // Assemble the structure
-            programName.append(unitNameElement);
-            programContainer.append(programName);
-            unitContainer.append(unitLabel);
-            unitNameContainer.append(unitContainer);
-            unitNameContainer.append(programContainer);
-            unitNamefield.append(unitNameContainer);
-
+                    // Assemble the structure
+                    programName.append(unitNameElement);
+                    programContainer.append(unitLabel);
+                    programContainer.append(programName);
+                    unitContainer.append(programContainer);
+                    unitNameContainer.append(unitContainer);
+                    unitNamefield.append(unitNameContainer);
+                }
+                getTrainingContent(unitCode1);
         });
-            getTrainingContent(unitCodes1);
+            // getTrainingContent(unitCodes1);
             setTimeout(() => {
-                var addDiv = $('<button>').addClass('add');
-                unitNamefield.append(addDiv);
+                // var addDiv = $('<button>').addClass('add');
+                // unitNamefield.append(addDiv);
             },20);
         }
         else {
             alert("Continue to add Training Unit to show Day")
         }
-
     }
-    function getTrainingContentforadd(data) {
+    function getTrainingUnitforadd() {
         var day = selectedDay;
-        var unitCode2 = data.unitCode;
         var topicCodene = topicCodedata;
-        console.log(unitCode2);
-        apiUrl2 = 'http://localhost:8080/api/v1/syllabus/OutlineScreen/' + topicCodene + '/' + day + '/' + unitCode2;
+        var apiUrl2 = 'http://localhost:8080/api/v1/syllabus/OutlineScreen/ShowTrainingUnit/' + topicCodene + '/' + day;
         // Second AJAX request to load unit names for the selected day
         $.ajax({
             url: apiUrl2,
@@ -1021,7 +977,9 @@
         var format= data.trainingFormat
         var day = selectedDay;
         var deliveryTypes = data.deliveryType;
-        var unitNamefield = $('.uday'+day);
+        var unitNamefield = $('#unit-names-container-'+ day + '-' + data.unitCode1);
+        var TrainingContent_Field = $('<div>').addClass('trainingContent-field')
+        let totalDuration = 0;
         $.each(contents, function (index, contentItem) {
             var trainingContentContainer = $('<div>').addClass('frame-41');
             var trainingContentName = $('<div>', {
@@ -1046,106 +1004,176 @@
             //     text: format[index]
             // });
             var type = deliveryTypes[index];
-            var addfolder = $('<button>').addClass('folder-btn');
+            // var addfolder = $('<button>').addClass('folder-btn');
             trainingContentIdContainer.append(trainingContentId);
             // trainingContentFormatContain.append(trainingContentFormat);
             // trainingContentdetailContainer.append(trainingContentIdContainer, trainingContentDuration, trainingContentFormatContain);
             trainingContentdetailContainer.append(trainingContentIdContainer, trainingContentDuration, createdivTrainingFormat(format[index]));
-            trainingContentContainer.append(trainingContentName, trainingContentdetailContainer,createIconfordeliverType(type),addfolder);
-            unitNamefield.append(trainingContentContainer);
+            trainingContentContainer.append(trainingContentName, trainingContentdetailContainer,createIconfordeliverType(type));
+            TrainingContent_Field.append(trainingContentContainer);
+            unitNamefield.append(TrainingContent_Field);
+            // Update total duration
+            totalDuration += parseFloat(duration[index]);
+
+        });
+
+        var addDiv = $('<button>').addClass('add').attr('id','addbtn');
+        unitNamefield.append(addDiv);
+        if (totalDuration != 0) {
+            if (totalDuration == 1) {
+                var totalDuration1 = $('<div>').addClass('duration').text(totalDuration + 'hr');
+            } else if (totalDuration > 1) {
+                var totalDuration1 = $('<div>').addClass('duration').text(totalDuration + 'hrs');
+            }
+            var unitName = $('#unitname-'+ day + '-' + data.unitCode1);
+            unitName.append(totalDuration1);
+        }
+        addDiv.click(function (){
+            // event.preventDefault();
+            $('.add').remove();
+            getDeliveryAndType(data.unitCode1);
         });
     }
-    function addTrainingContent(deliveryData, typeData, trainingUnit){
-        if (trainingUnit.unitName.toString() != "")
-        {
-            var day = selectedDay;
-            var unitNamefield = $('.uday'+day);
-            // Create main container
-            var mainContainer = $('<div>').addClass('frame-41');
+    function addTrainingContentform(deliveryData, typeData,trainingUnit,unitCode){
 
-            // Create nested containers
-            var frame1197 = $('<div>').addClass('frame-1197');
-            var practiceTime = $('<input>').addClass('practice-time').attr('placeholder','Training Content Name').attr('id','Content-Name');
-            frame1197.append(practiceTime);
+        if (trainingUnit.unitName.toString() != "") {
+            var unitNamefield2 = $('.frame-42');
+            if (unitNamefield2.length === 0){
+                var day = selectedDay;
+                var unitNamefield = $('#unit-names-container-'+ day + '-' + unitCode);
+                var TrainingContent_Field = $('<div>').addClass('trainingContent-field')
+                // Create main container
+                var mainContainer = $('<div>').addClass('frame-42');
 
-            // var frame40 = $('<div>').addClass('frame-40');
+                // Create nested containers
+                var frame1197 = $('<div>').addClass('frame-1197');
+                var practiceTime = $('<input>').addClass('practice-time').attr('placeholder','Training Content Name').attr('id','Content-Name');
+                frame1197.append(practiceTime);
 
-            // Create delivery type container
-            var deliveryType = $('<div>').addClass('delivery-type');
-            var frame111 = $('<div>').addClass('frame-111');
-            var deliveryType2 = $('<select>').addClass('delivery-type2').attr('id', 'output-standard');
-            // Adding options to the select element
-            typeData.forEach(function (contentType1) {
-                var option = $('<option>').val(contentType1).text(contentType1);
-                deliveryType2.append(option);
-            });
+                // var frame40 = $('<div>').addClass('frame-40');
 
-// Appending options to the select element
-            var arrowBackIos = $('<svg>').addClass('arrow-back-ios')
-                .attr({
-                    width: '24',
-                    height: '24',
-                    viewBox: '0 0 24 24',
-                    fill: 'none',
-                    xmlns: 'http://www.w3.org/2000/svg'
+                // Create delivery type container
+                var deliveryType = $('<div>').addClass('delivery-type');
+                var frame111 = $('<div>').addClass('frame-111');
+                var deliveryType2 = $('<select>').addClass('delivery-type2').attr('id', 'leariningType');
+                // Adding options to the select element
+                typeData.forEach(function (contentType1) {
+                    var option = $('<option>').val(contentType1).text(contentType1);
+                    deliveryType2.append(option);
                 });
-            var arrowBackIosPath = $('<path>').attr('d', 'M7.16212 8L6 9.0677L12.5 15L19 9.0617L17.8379 8L12.5 12.8766L7.16212 8Z').attr('fill', '#285D9A');
-            arrowBackIos.append(arrowBackIosPath);
-            frame111.append(deliveryType2, arrowBackIos);
-            deliveryType.append(frame111);
 
-// Other elements in frame40
-            var frame1198 = $('<div>').addClass('frame-1198');
-            // var _15 = $('<div>').addClass('_15').text('15');
-            var _15 = $('<input>').addClass('_15').attr('id','duration_add').attr('placeholder','duration').attr('type', 'number').attr('pattern', '[0-9]*');
-            frame1198.append(_15);
+    // Appending options to the select element
+                var arrowBackIos = $('<svg>').addClass('arrow-back-ios')
+                    .attr({
+                        width: '24',
+                        height: '24',
+                        viewBox: '0 0 24 24',
+                        fill: 'none',
+                        xmlns: 'http://www.w3.org/2000/svg'
+                    });
+                var arrowBackIosPath = $('<path>').attr('d', 'M7.16212 8L6 9.0677L12.5 15L19 9.0617L17.8379 8L12.5 12.8766L7.16212 8Z').attr('fill', '#285D9A');
+                arrowBackIos.append(arrowBackIosPath);
+                frame111.append(deliveryType2, arrowBackIos);
+                deliveryType.append(frame111);
 
-            var toggleOnline = $('<div>').addClass('toggle-online');
-            var ellipse19 = $('<div>').addClass('ellipse-19').attr('id','toggleButton');
-            var online = $('<div>').addClass('online-add').text('Online').attr('id','toggletext');
-            toggleOnline.append(ellipse19, online);
+    // Other elements in frame40
+                var frame1198 = $('<div>').addClass('frame-1198');
+                // var _15 = $('<div>').addClass('_15').text('15');
+                var _15 = $('<input>').addClass('_15').attr('id','duration_add').attr('placeholder','duration').attr('type', 'number').attr('pattern', '[0-9]*');
+                frame1198.append(_15);
 
-            // Another delivery type container
-            // Create delivery type container
-            var deliveryType_2 = $('<div>').addClass('delivery-type');
-            var frame111_2 = $('<div>').addClass('frame-111');
-            var deliveryType2_2 = $('<select>').addClass('delivery-type2').attr('id', 'output-standard');
-            // Adding options to the select element
-            deliveryData.forEach(function (contentType) {
-                var option_2 = $('<option>').val(contentType).text(contentType);
-                deliveryType2_2.append(option_2);
-            });
+                var toggleOnline = $('<div>').addClass('toggle-online');
+                var ellipse19 = $('<div>').addClass('ellipse-19').attr('id','toggleButton');
+                var online = $('<div>').addClass('online-add').text('Online').val('ONLINE').attr('id','toggle');
+                toggleOnline.append(ellipse19, online);
 
-// Appending options to the select element
-            var arrowBackIos_2 = $('<svg>').addClass('arrow-back-ios')
-                .attr({
-                    width: '24',
-                    height: '24',
-                    viewBox: '0 0 24 24',
-                    fill: 'none',
-                    xmlns: 'http://www.w3.org/2000/svg'
+                // Another delivery type container
+                // Create delivery type container
+                var deliveryType_2 = $('<div>').addClass('delivery-type');
+                var frame111_2 = $('<div>').addClass('frame-111');
+                var deliveryType2_2 = $('<select>').addClass('delivery-type2').attr('id', 'output-standard');
+                // Adding options to the select element
+                deliveryData.forEach(function (contentType) {
+                    var option_2 = $('<option>').val(contentType).text(contentType);
+                    deliveryType2_2.append(option_2);
                 });
-            var arrowBackIosPath_2 = $('<path>').attr('d', 'M7.16212 8L6 9.0677L12.5 15L19 9.0617L17.8379 8L12.5 12.8766L7.16212 8Z').attr('fill', '#285D9A');
-            arrowBackIos_2.append(arrowBackIosPath_2);
-            frame111_2.append(deliveryType2_2, arrowBackIos_2);
-            deliveryType_2.append(frame111_2);
-            var addfolder = $('<button>').addClass('folder-btn');
 
-// Append everything to the main container
-//         frame40.append(deliveryType, frame1198, toggleOnline, deliveryType2, addfolder);
-            mainContainer.append(frame1197, deliveryType, frame1198, toggleOnline, deliveryType_2, addfolder);
-// Append main container to the body or any other parent element
-            unitNamefield.append(mainContainer);
-            var addDiv = $('<button>').addClass('add');
-            unitNamefield.append(addDiv);
-        }
-       else {
-           alert("Must add UnitName first");
-            var day = selectedDay;
-            var unitNamefield1 = $('.uday'+day);
-            var addDiv = $('<button>').addClass('add');
-            unitNamefield1.append(addDiv);
-        }
+    // Appending options to the select element
+                var arrowBackIos_2 = $('<svg>').addClass('arrow-back-ios')
+                    .attr({
+                        width: '24',
+                        height: '24',
+                        viewBox: '0 0 24 24',
+                        fill: 'none',
+                        xmlns: 'http://www.w3.org/2000/svg'
+                    });
+                var arrowBackIosPath_2 = $('<path>').attr('d', 'M7.16212 8L6 9.0677L12.5 15L19 9.0617L17.8379 8L12.5 12.8766L7.16212 8Z').attr('fill', '#285D9A');
+                arrowBackIos_2.append(arrowBackIosPath_2);
+                frame111_2.append(deliveryType2_2, arrowBackIos_2);
+                deliveryType_2.append(frame111_2);
+                var addfolder = $('<button>').addClass('folder-btn');
+
+    // Append everything to the main container
+    //         frame40.append(deliveryType, frame1198, toggleOnline, deliveryType2, addfolder);
+                mainContainer.append(frame1197, deliveryType, frame1198, toggleOnline, deliveryType_2, addfolder);
+    // Append main container to the body or any other parent element
+                TrainingContent_Field.append(mainContainer);
+                unitNamefield.append(TrainingContent_Field);
+                // var addDiv = $('<button>').addClass('add');
+                // unitNamefield.append(addDiv);
+                    addfolder.click(function (){
+                        var contentName = $('#Content-Name').val();
+                        var deliveryType = $('#output-standard').val();
+                        var duration = $('#duration_add').val();
+                        var type = $('#leariningType').val();
+                        var trainingFormat = $('#toggle').val();
+                        var day = selectedDay;
+                        var topicCode = topicCodedata;console.log(trainingFormat);
+
+                        // Check if required fields are not empty
+                        if (contentName.trim() !== "" && deliveryType.trim() !== "" && duration.trim() !== "") {
+                            // Make AJAX call to the API
+                            $.ajax({
+                                url: 'http://localhost:8080/api/v1/syllabus/OutlineScreen/createTrainingContent/'+topicCode+'/'+day+'/'+unitCode,
+                                type: 'POST',
+                                contentType: 'application/json',
+                                data: JSON.stringify({
+                                    content:contentName,
+                                    duration: duration,
+                                    trainingFormat:trainingFormat,
+                                    deliveryType:deliveryType,
+                                    type: type
+                                    // Add other parameters if needed
+                                }),
+                                success: function (response) {
+                                    // Handle success, you can update UI or do something else
+                                    console.log('API call successful', response);
+                                },
+                                error: function (error) {
+                                    // Handle error, show an alert or log the error
+                                    console.error('API call failed', error);
+                                }
+                            });
+                            location.reload();
+                        } else {
+                            alert("Please fill in all required fields");
+                        }
+                    });
+            }else {
+                    alert("Must add Training Content first");
+                    var day = selectedDay;
+                    var unitNamefield1 = $('.uday'+day);
+                    var addDiv = $('<button>').addClass('add');
+                    unitNamefield1.append(addDiv);
+                }
+            }
+           else {
+               alert("Must add UnitName first");
+                var day = selectedDay;
+                var unitNamefield1 = $('.uday'+day);
+                var addDiv = $('<button>').addClass('add');
+                unitNamefield1.append(addDiv);
+            }
     }
     function createdivTrainingFormat(format1){
         var trimmedFormat = format1.toString().trim();
@@ -1190,12 +1218,12 @@
         }
         return svg ;
     }
-    function getDeliveryAndType() {
+    function getDeliveryAndType(unitCode) {
         var urlDelivery = 'http://localhost:8080/api/v1/syllabus/OutlineScreen/showDeliverType';
         var urlType = 'http://localhost:8080/api/v1/syllabus/OutlineScreen/showType';
         var topicCode = topicCodedata;
         var day = selectedDay;
-        var urlTrainingUnit = 'http://localhost:8080/api/v1/syllabus/OutlineScreen/' + topicCode + '/' + day;
+        var urlTrainingUnit = 'http://localhost:8080/api/v1/syllabus/OutlineScreen/ShowTrainingUnit/' + topicCode + '/' + day;
         // Create promises for both AJAX requests
         var promiseDelivery = $.ajax({
             url: urlDelivery,
@@ -1221,7 +1249,7 @@
                 var typeData = results[1];
                 var trainingUnit = results[2];
                 // Call addTrainingContent with both sets of data
-                addTrainingContent(deliveryData, typeData, trainingUnit);
+                addTrainingContentform(deliveryData, typeData,trainingUnit,unitCode);
             })
             .catch(function (error) {
                 console.log('Error:', error);
