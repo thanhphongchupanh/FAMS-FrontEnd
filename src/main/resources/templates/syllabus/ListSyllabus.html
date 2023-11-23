@@ -824,7 +824,7 @@
                 var durationText = item.duration + " days";
 
                 var row = '<tr>' +
-                        '<td>' + item.topicName + '</td>' +
+                    '<td><a class="linkDetails" style="text-decoration: none;" data-topic-code="'+ item.topicCode + '">' + item.topicName + '</a></td>' +
                         '<td>' + item.topicCode + '</td>' +
                         '<td>' + item.createdDate + '</td>' +
                         '<td>' + item.createdBy + '</td>' +
@@ -848,6 +848,18 @@
                         // Add other columns here
                         '</tr>';
                 dataTable.append(row);
+                $(document).on('click', '.linkDetails', function () {
+                  var topicCode = $(this).data('topic-code');
+                  console.log("Clicked", topicCode);
+                  localStorage.clear();
+                  localStorage.setItem("topicCode", topicCode);
+                  // Construct the URL with the input value
+                  var url = '/general';
+
+                  // Navigate to the destination page
+                  window.location.href = url;
+                });
+
               });
 
               // Click 3dot
@@ -1565,7 +1577,7 @@
                         var durationText = item.duration + " days";
 
                         var row = '<tr>' +
-                                '<td>' + item.topicName + '</td>' +
+                                '<td><a class="linkDetails" style="text-decoration: none;" data-topic-code="'+ item.topicCode + '">' + item.topicName + '</a></td>' +
                                 '<td>' + item.topicCode + '</td>' +
                                 '<td>' + item.createdDate + '</td>' +
                                 '<td>' + item.createdBy + '</td>' +
@@ -1589,6 +1601,18 @@
                                 // Add other columns here
                                 '</tr>';
                         dataTable.append(row);
+                        $(document).on('click', '.linkDetails', function () {
+                          var topicCode = $(this).data('topic-code');
+                          console.log("Clicked", topicCode);
+                          localStorage.clear();
+                          localStorage.setItem("topicCode", topicCode);
+                          // Construct the URL with the input value
+                          var url = '/general';
+
+                          // Navigate to the destination page
+                          window.location.href = url;
+                        });
+
                       });
 
                       // Click 3dot
@@ -1734,7 +1758,7 @@
                         var durationText = item.duration + " days";
 
                         var row = '<tr>' +
-                                '<td>' + item.topicName + '</td>' +
+                                '<td><a class="linkDetails" style="text-decoration: none;" data-topic-code="'+ item.topicCode + '">' + item.topicName + '</a></td>' +
                                 '<td>' + item.topicCode + '</td>' +
                                 '<td>' + item.createdDate + '</td>' +
                                 '<td>' + item.createdBy + '</td>' +
@@ -1758,6 +1782,33 @@
                                 // Add other columns here
                                 '</tr>';
                         dataTable.append(row);
+
+                        $(document).on('click', '.linkDetails', function () {
+                          var topicCode = $(this).data('topic-code');
+                          console.log("Clicked", topicCode);
+                          localStorage.clear();
+                          localStorage.setItem("topicCode", topicCode);
+                          // Construct the URL with the input value
+                          var url = '/general';
+
+                          // Navigate to the destination page
+                          window.location.href = url;
+                        });
+
+
+                        $(document).on('click', '.linkDetails', function () {
+                          var topicCode = $(this).data('topic-code');
+                          console.log("Clicked", topicCode);
+                          localStorage.clear();
+                          localStorage.setItem("topicCode", topicCode);
+                          // Construct the URL with the input value
+                          var url = '/general';
+
+                          // Navigate to the destination page
+                          window.location.href = url;
+                        });
+
+
                       });
 
                       // Click 3dot
@@ -1885,7 +1936,7 @@
                   numberOfPage = item.count;
                   var durationText = item.duration + " days";
                   var row = '<tr>' +
-                          '<td>' + item.topicName + '</td>' +
+                          '<td><a class="linkDetails" style="text-decoration: none;" data-topic-code="'+ item.topicCode + '">' + item.topicName + '</a></td>' +
                           '<td>' + item.topicCode + '</td>' +
                           '<td>' + item.createdDate + '</td>' +
                           '<td>' + item.createdBy + '</td>' +
@@ -1909,6 +1960,18 @@
                           // Add other columns here
                           '</tr>';
                   dataTable.append(row);
+                  $(document).on('click', '.linkDetails', function () {
+                    var topicCode = $(this).data('topic-code');
+                    console.log("Clicked", topicCode);
+                    localStorage.clear();
+                    localStorage.setItem("topicCode", topicCode);
+                    // Construct the URL with the input value
+                    var url = '/general';
+
+                    // Navigate to the destination page
+                    window.location.href = url;
+                  });
+
                 });
 
                 // Click 3dot
