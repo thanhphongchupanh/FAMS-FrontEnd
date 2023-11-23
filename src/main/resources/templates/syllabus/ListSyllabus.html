@@ -193,8 +193,8 @@
       <div class="table-container">
         <table id="user-information-table" class="table table-responsive">
           <thead>
-          <th style="border-top-left-radius: 10px">Syllabus <svg
-                  class="sort"
+          <th style="border-top-left-radius: 10px; user-select: none; cursor:pointer;">Syllabus <svg
+                  class="sortSyllabus"
                   width="18"
                   height="18"
                   viewBox="0 0 18 18"
@@ -202,7 +202,7 @@
                   xmlns="http://www.w3.org/2000/svg"
           >
             <g clip-path="url(#clip0_707_7387)">
-              <path
+              <path style="cursor:pointer;" class="sortSyllabus"
                       d="M5.70833 13.5H7.54167C7.79375 13.5 8 13.1625 8 12.75C8 12.3375 7.79375 12 7.54167 12H5.70833C5.45625 12 5.25 12.3375 5.25 12.75C5.25 13.1625 5.45625 13.5 5.70833 13.5ZM5.25 5.25C5.25 5.6625 5.45625 6 5.70833 6H13.0417C13.2937 6 13.5 5.6625 13.5 5.25C13.5 4.8375 13.2937 4.5 13.0417 4.5H5.70833C5.45625 4.5 5.25 4.8375 5.25 5.25ZM5.70833 9.75H10.2917C10.5438 9.75 10.75 9.4125 10.75 9C10.75 8.5875 10.5438 8.25 10.2917 8.25H5.70833C5.45625 8.25 5.25 8.5875 5.25 9C5.25 9.4125 5.45625 9.75 5.70833 9.75Z"
                       fill="#F1F1F1"
               />
@@ -814,18 +814,23 @@
               var dataTable = $('#data-table');
               dataTable.empty(); // Xóa nội dung hiện có trong bảng
 
-              data.sort(function(a, b) {
-                var nameA = a.topicName.toUpperCase(); // Chuyển đổi thành chữ in hoa để so sánh chữ cái không phân biệt hoa thường
-                var nameB = b.topicName.toUpperCase();
+              // SORTING, BUG
+              $('.sortSyllabus').click(function () {
+                console.log("Click sorted syllabus");
+                data.sort(function(a, b) {
+                  var nameA = a.topicName.toUpperCase(); // Chuyển đổi thành chữ in hoa để so sánh chữ cái không phân biệt hoa thường
+                  var nameB = b.topicName.toUpperCase();
 
-                if (nameA < nameB) {
-                  return -1;
-                }
-                if (nameA > nameB) {
-                  return 1;
-                }
-                return 0; // Trường hợp bằng nhau
-              });
+                  if (nameA < nameB) {
+                    return -1;
+                  }
+                  if (nameA > nameB) {
+                    return 1;
+                  }
+                  return 0; // Trường hợp bằng nhau
+                });
+              })
+
               // Lặp qua dữ liệu và thêm từng dòng vào bảng
               $.each(data, function (index, item) {
                 numberOfPage = item.count;
