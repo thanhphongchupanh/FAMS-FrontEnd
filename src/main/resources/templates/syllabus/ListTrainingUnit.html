@@ -16,6 +16,7 @@
     <link rel="shortcut icon" type="image/png" href="img/FPT_logo.png"/>
     <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
     <link rel="stylesheet" href="css/syllabus/createSyllabusOutline.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
     <title>Document</title>
 </head>
@@ -25,6 +26,50 @@
 </header>
 
 <div class="d-flex flex-grow-1 flex-row">
+    <!--    WARNING-->
+    <div class="toast warning">
+        <div class="container-1">
+            <i class="fas fa-exclamation-circle"></i>
+        </div>
+        <div class="container-2">
+            <div class="container-2Text">
+                <p>Warning</p>
+                <p>Please fill all fields.</p>
+            </div>
+            <div class="loadingWarning"></div>
+        </div>
+    </div>
+    <!--WARNING-->
+
+    <!--    SUCCESS-->
+    <div class="toast success">
+        <div class="container-1">
+            <i class="fas fa-check-circle"></i>
+        </div>
+        <div class="container-2">
+            <div class="container-2Text">
+                <p>Success</p>
+                <p>Import successfully.</p>
+            </div>
+            <div class="loadingSucces"></div>
+        </div>
+    </div>
+    <!--    SUCCESS-->
+
+    <!--    ERROR-->
+    <div class="toast error">
+        <div class="container-1">
+            <i class="fas fa-check-circle"></i>
+        </div>
+        <div class="container-2">
+            <div class="container-2Text">
+                <p>Error</p>
+                <p></p>
+            </div>
+            <div class="loading1"></div>
+        </div>
+    </div>
+    <!--    ERROR-->
     <div th:replace="~{common :: menu}"></div>
 
     <div class="frame-1186">
@@ -115,257 +160,10 @@
                 <div class="frame-1207">
                     <div class="frame-1192">
                         <div class="content">
-                            <div class="daye-3">
+                            <div class="daye-">
                                 <div class="frame-1193"></div>
 <!--                                <div class="frame-54"></div>-->
                                 <dialog id="menu-syllabus-function-dialog" class="p-0" style="border-radius: 20px; border: none; width: 1000px">
-                                    <div class="training-material">
-                                        <div class="frame-49">
-                                            <div class="frame-51">
-                                                <div class="day-3">Day 3</div>
-                                            </div>
-                                            <div class="frame-53">
-                                                <svg
-                                                        class="cancel"
-                                                        width="24"
-                                                        height="24"
-                                                        viewBox="0 0 24 24"
-                                                        fill="none"
-                                                        xmlns="http://www.w3.org/2000/svg"
-                                                >
-                                                    <g clip-path="url(#clip0_126905_1022)">
-                                                        <path
-                                                                d="M12 2C6.47 2 2 6.47 2 12C2 17.53 6.47 22 12 22C17.53 22 22 17.53 22 12C22 6.47 17.53 2 12 2ZM12 20C7.59 20 4 16.41 4 12C4 7.59 7.59 4 12 4C16.41 4 20 7.59 20 12C20 16.41 16.41 20 12 20ZM15.59 7L12 10.59L8.41 7L7 8.41L10.59 12L7 15.59L8.41 17L12 13.41L15.59 17L17 15.59L13.41 12L17 8.41L15.59 7Z"
-                                                                fill="white"
-                                                        />
-                                                    </g>
-                                                    <defs>
-                                                        <clipPath id="clip0_126905_1022">
-                                                            <rect width="24" height="24" fill="white" />
-                                                        </clipPath>
-                                                    </defs>
-                                                </svg>
-                                            </div>
-                                        </div>
-                                        <div class="frame-106">
-                                            <div class="frame-101">
-                                                <div class="unit-5">Unit 5</div>
-                                                <div class="net-introduction">.NET Introduction</div>
-                                            </div>
-                                            <div class="frame-105">
-                                                <div class="frame-102">
-                                                    <div class="net-introduction2">.NET Introduction</div>
-                                                    <div class="frame-72">
-                                                        <div class="net-introduction-overview-pdf">
-                                                            .NET Introduction overview.pdf
-                                                        </div>
-                                                        <div class="frame-70">
-                                                            <div class="by-joseph-on-12-03-2012">by Joseph on 12/03/2012</div>
-                                                            <div class="frame-69">
-                                                                <svg
-                                                                        class="create"
-                                                                        width="24"
-                                                                        height="24"
-                                                                        viewBox="0 0 24 24"
-                                                                        fill="none"
-                                                                        xmlns="http://www.w3.org/2000/svg"
-                                                                >
-                                                                    <g clip-path="url(#clip0_126905_1037)">
-                                                                        <path
-                                                                                d="M3 17.25V21H6.75L17.81 9.94L14.06 6.19L3 17.25ZM5.92 19H5V18.08L14.06 9.02L14.98 9.94L5.92 19ZM20.71 5.63L18.37 3.29C18.17 3.09 17.92 3 17.66 3C17.4 3 17.15 3.1 16.96 3.29L15.13 5.12L18.88 8.87L20.71 7.04C21.1 6.65 21.1 6.02 20.71 5.63Z"
-                                                                                fill="#285D9A"
-                                                                        />
-                                                                    </g>
-                                                                    <defs>
-                                                                        <clipPath id="clip0_126905_1037">
-                                                                            <rect width="24" height="24" fill="white" />
-                                                                        </clipPath>
-                                                                    </defs>
-                                                                </svg>
-
-                                                                <svg
-                                                                        class="delete-forever"
-                                                                        width="24"
-                                                                        height="24"
-                                                                        viewBox="0 0 24 24"
-                                                                        fill="none"
-                                                                        xmlns="http://www.w3.org/2000/svg"
-                                                                >
-                                                                    <g clip-path="url(#clip0_126905_1040)">
-                                                                        <path
-                                                                                d="M14.12 10.47L12 12.59L9.87 10.47L8.46 11.88L10.59 14L8.47 16.12L9.88 17.53L12 15.41L14.12 17.53L15.53 16.12L13.41 14L15.53 11.88L14.12 10.47ZM15.5 4L14.5 3H9.5L8.5 4H5V6H19V4H15.5ZM6 19C6 20.1 6.9 21 8 21H16C17.1 21 18 20.1 18 19V7H6V19ZM8 9H16V19H8V9Z"
-                                                                                fill="#285D9A"
-                                                                        />
-                                                                    </g>
-                                                                    <defs>
-                                                                        <clipPath id="clip0_126905_1040">
-                                                                            <rect width="24" height="24" fill="white" />
-                                                                        </clipPath>
-                                                                    </defs>
-                                                                </svg>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="frame-73">
-                                                        <div class="net-introduction-pattern-in-lorem-pdf">
-                                                            .NET Introduction pattern in lorem.pdf
-                                                        </div>
-                                                        <div class="frame-70">
-                                                            <div class="by-joseph-on-12-03-2012">by Joseph on 12/03/2012</div>
-                                                            <div class="frame-69">
-                                                                <svg
-                                                                        class="create2"
-                                                                        width="24"
-                                                                        height="24"
-                                                                        viewBox="0 0 24 24"
-                                                                        fill="none"
-                                                                        xmlns="http://www.w3.org/2000/svg"
-                                                                >
-                                                                    <g clip-path="url(#clip0_126905_1048)">
-                                                                        <path
-                                                                                d="M3 17.25V21H6.75L17.81 9.94L14.06 6.19L3 17.25ZM5.92 19H5V18.08L14.06 9.02L14.98 9.94L5.92 19ZM20.71 5.63L18.37 3.29C18.17 3.09 17.92 3 17.66 3C17.4 3 17.15 3.1 16.96 3.29L15.13 5.12L18.88 8.87L20.71 7.04C21.1 6.65 21.1 6.02 20.71 5.63Z"
-                                                                                fill="#285D9A"
-                                                                        />
-                                                                    </g>
-                                                                    <defs>
-                                                                        <clipPath id="clip0_126905_1048">
-                                                                            <rect width="24" height="24" fill="white" />
-                                                                        </clipPath>
-                                                                    </defs>
-                                                                </svg>
-
-                                                                <svg
-                                                                        class="delete-forever2"
-                                                                        width="24"
-                                                                        height="24"
-                                                                        viewBox="0 0 24 24"
-                                                                        fill="none"
-                                                                        xmlns="http://www.w3.org/2000/svg"
-                                                                >
-                                                                    <g clip-path="url(#clip0_126905_1051)">
-                                                                        <path
-                                                                                d="M14.12 10.47L12 12.59L9.87 10.47L8.46 11.88L10.59 14L8.47 16.12L9.88 17.53L12 15.41L14.12 17.53L15.53 16.12L13.41 14L15.53 11.88L14.12 10.47ZM15.5 4L14.5 3H9.5L8.5 4H5V6H19V4H15.5ZM6 19C6 20.1 6.9 21 8 21H16C17.1 21 18 20.1 18 19V7H6V19ZM8 9H16V19H8V9Z"
-                                                                                fill="#285D9A"
-                                                                        />
-                                                                    </g>
-                                                                    <defs>
-                                                                        <clipPath id="clip0_126905_1051">
-                                                                            <rect width="24" height="24" fill="white" />
-                                                                        </clipPath>
-                                                                    </defs>
-                                                                </svg>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="frame-74">
-                                                        <div class="what-is-future-youtube">What is future.youtube</div>
-                                                        <div class="frame-70">
-                                                            <div class="by-warrior-tran-on-02-08-2022">
-                                                                by Warrior Tran on 02/08/2022
-                                                            </div>
-                                                            <div class="frame-69">
-                                                                <svg
-                                                                        class="create3"
-                                                                        width="24"
-                                                                        height="24"
-                                                                        viewBox="0 0 24 24"
-                                                                        fill="none"
-                                                                        xmlns="http://www.w3.org/2000/svg"
-                                                                >
-                                                                    <g clip-path="url(#clip0_126905_1059)">
-                                                                        <path
-                                                                                d="M3 17.25V21H6.75L17.81 9.94L14.06 6.19L3 17.25ZM5.92 19H5V18.08L14.06 9.02L14.98 9.94L5.92 19ZM20.71 5.63L18.37 3.29C18.17 3.09 17.92 3 17.66 3C17.4 3 17.15 3.1 16.96 3.29L15.13 5.12L18.88 8.87L20.71 7.04C21.1 6.65 21.1 6.02 20.71 5.63Z"
-                                                                                fill="#285D9A"
-                                                                        />
-                                                                    </g>
-                                                                    <defs>
-                                                                        <clipPath id="clip0_126905_1059">
-                                                                            <rect width="24" height="24" fill="white" />
-                                                                        </clipPath>
-                                                                    </defs>
-                                                                </svg>
-
-                                                                <svg
-                                                                        class="delete-forever3"
-                                                                        width="24"
-                                                                        height="24"
-                                                                        viewBox="0 0 24 24"
-                                                                        fill="none"
-                                                                        xmlns="http://www.w3.org/2000/svg"
-                                                                >
-                                                                    <g clip-path="url(#clip0_126905_1062)">
-                                                                        <path
-                                                                                d="M14.12 10.47L12 12.59L9.87 10.47L8.46 11.88L10.59 14L8.47 16.12L9.88 17.53L12 15.41L14.12 17.53L15.53 16.12L13.41 14L15.53 11.88L14.12 10.47ZM15.5 4L14.5 3H9.5L8.5 4H5V6H19V4H15.5ZM6 19C6 20.1 6.9 21 8 21H16C17.1 21 18 20.1 18 19V7H6V19ZM8 9H16V19H8V9Z"
-                                                                                fill="#285D9A"
-                                                                        />
-                                                                    </g>
-                                                                    <defs>
-                                                                        <clipPath id="clip0_126905_1062">
-                                                                            <rect width="24" height="24" fill="white" />
-                                                                        </clipPath>
-                                                                    </defs>
-                                                                </svg>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="frame-75">
-                                                        <div class="net-history-ppt">.NET history.ppt</div>
-                                                        <div class="frame-70">
-                                                            <div class="by-warrior-tran-on-02-08-2022">
-                                                                by Warrior Tran on 02/08/2022
-                                                            </div>
-                                                            <div class="frame-69">
-                                                                <svg
-                                                                        class="create4"
-                                                                        width="24"
-                                                                        height="24"
-                                                                        viewBox="0 0 24 24"
-                                                                        fill="none"
-                                                                        xmlns="http://www.w3.org/2000/svg"
-                                                                >
-                                                                    <g clip-path="url(#clip0_126905_1070)">
-                                                                        <path
-                                                                                d="M3 17.25V21H6.75L17.81 9.94L14.06 6.19L3 17.25ZM5.92 19H5V18.08L14.06 9.02L14.98 9.94L5.92 19ZM20.71 5.63L18.37 3.29C18.17 3.09 17.92 3 17.66 3C17.4 3 17.15 3.1 16.96 3.29L15.13 5.12L18.88 8.87L20.71 7.04C21.1 6.65 21.1 6.02 20.71 5.63Z"
-                                                                                fill="#285D9A"
-                                                                        />
-                                                                    </g>
-                                                                    <defs>
-                                                                        <clipPath id="clip0_126905_1070">
-                                                                            <rect width="24" height="24" fill="white" />
-                                                                        </clipPath>
-                                                                    </defs>
-                                                                </svg>
-
-                                                                <svg
-                                                                        class="delete-forever4"
-                                                                        width="24"
-                                                                        height="24"
-                                                                        viewBox="0 0 24 24"
-                                                                        fill="none"
-                                                                        xmlns="http://www.w3.org/2000/svg"
-                                                                >
-                                                                    <g clip-path="url(#clip0_126905_1073)">
-                                                                        <path
-                                                                                d="M14.12 10.47L12 12.59L9.87 10.47L8.46 11.88L10.59 14L8.47 16.12L9.88 17.53L12 15.41L14.12 17.53L15.53 16.12L13.41 14L15.53 11.88L14.12 10.47ZM15.5 4L14.5 3H9.5L8.5 4H5V6H19V4H15.5ZM6 19C6 20.1 6.9 21 8 21H16C17.1 21 18 20.1 18 19V7H6V19ZM8 9H16V19H8V9Z"
-                                                                                fill="#285D9A"
-                                                                        />
-                                                                    </g>
-                                                                    <defs>
-                                                                        <clipPath id="clip0_126905_1073">
-                                                                            <rect width="24" height="24" fill="white" />
-                                                                        </clipPath>
-                                                                    </defs>
-                                                                </svg>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="frame-68">
-                                            <div class="upload-new">Upload new</div>
-                                        </div>
-                                    </div>
 
                                 </dialog>
                                 <div class="dialog-backdrop" id="dialog-backdrop"></div>
@@ -534,7 +332,8 @@
 
         // Event listener for adding a day
         $('.add-day-button-2').click(function() {
-           addDay();
+            location.reload();
+            addDay();
         });
         $(document).on('click', '#toggleButton', function () {
             $('.toggle-online').toggleClass('active');
@@ -559,10 +358,11 @@
                 addUnitCode();
                 setTimeout(() => {
                     getTrainingUnitforadd();
-                }, 300);
+                    console.log('Training unit retrieved.');
+                }, 100);
             }
             else {
-                alert("You have to select day before add TrainingUnit");
+                showWarning("You have to select day before add TrainingUnit");
             }
         });
     });
@@ -573,16 +373,16 @@
         unitCodedata = lastestUnitCode;
         const lastestUnit = unitNames.length;
         var day1 = selectedDay;
-        if(unitNames[unitNames.length ] != "" || unitNames.length == 1){
+        if (unitNames[unitNames.length - 2] != "" || unitNames.length == 1) {
             var unitNameContainer = $('<div>',{
                 class: 'unit-names-container',
-                id: 'unit-names-container-' + day1
+                id: 'unit-names-container--' + day1
             });
 
             var unitContainer = $('<div>').addClass('frame-108');
 
             var unitLabel = $('<div>', {
-                class: 'unit-7 unitnef'+lastestUnit,
+                class: 'unit-7 u' + lastestUnit,
                 text: 'Unit ' + lastestUnit // You may need to adjust the index accordingly
             });
 
@@ -603,11 +403,11 @@
                 placeholder: 'Type unit name',
             });
 
-            var transferunitCode = $('<input>', {
-                type: 'hidden',
-                class: 'unitCodee',
-                value: lastestUnitCode
-            });
+            // var transferunitCode = $('<input>', {
+            //     type: 'hidden',
+            //     class: 'unitCodee',
+            //     value: lastestUnitCode
+            // });
 
             var frame66 = $('<div>').addClass('frame-66');
 
@@ -615,11 +415,11 @@
                 class: 'create',
                 text: 'Create'
             });
-            var unitNamefield = $('<div>').addClass('frame-54 uday'+day1);
+            var unitNamefield = $('<div>').addClass('frame-54 uday--' + day1);
             // Assemble the structure
             frame66.append(create);
             frame84.append(typeUnitName);
-            frame84.append(transferunitCode);
+            // frame84.append(transferunitCode);
             frame84.append(frame66);
             programName.append(unitNameElement);
             programName.append(frame84);
@@ -632,65 +432,69 @@
             unitNamefield.append(unitNameContainer);
 
             // Ẩn tất cả các ngày trước
-            if($('.uday' + day1).length === 1){
+            if($('.uday--' + day1).length === 1){
                 var link = $('.day-'+ day1);
                 console.log(unitNamefield);
                 link.append(unitNamefield);
                 console.log("append dc");
             }
             typeUnitName.on('change', function () {
-                var typedUnitName = $(this).val().trim();
+                var typedUnitName = $(this).val().toString().trim();
                 create.click(function () {
-                    if (typedUnitName.length > 0){
+                    if (typedUnitName != ""){
                         createUnitName(data,typedUnitName);
-                        setTimeout(()=> {
-                            location.reload();
-                        },50)
-                        setTimeout(()=>{
-                            loadday(topicCodedata);
-                        },300)
+                            var day = selectedDay;
+                            $('.frame-54').remove();
+                            setTimeout(()=>{
+                                updateSelectedDay(day);
+                                // $('.unit-names-container').hide();
+                                var unitNamefield = $('<div>').addClass('frame-54 uday--' + day);
+                                if ($('.uday--' + day).length === 0) {
+                                    var link = $('.day-' + day);
+                                    console.log(unitNamefield);
+                                    link.append(unitNamefield);
+                                    console.log("append dc");
+                                }},200)
+
                     }
                     else
                     {
-                        alert("Invalid Unit Name ");
+                        showWarning("Invalid Unit Name ");
                     }
 
                 });
             });
-
-                function createUnitName(data, typedUnitName){
-                    var unitName = typedUnitName;
-                    var topicCode = topicCodedata;
-                    var dayNumber = selectedDay;
-                    var unitCodes1 = data.unitCode;
-                    const lastestUnitCode = unitCodes1[unitCodes1.length - 1];
-                    unitCodedata = lastestUnitCode;
-
-                    console.log("create: "+selectedDay);
-                    // Second AJAX request to load unit names for the selected day
-                    var apiUrl = 'http://localhost:8080/api/v1/syllabus/OutlineScreen/createTrainingUnit/' + topicCode + '/' + dayNumber + '/' + lastestUnitCode;
-                    $.ajax({
-                        url: apiUrl,
-                        type: 'POST',
-                        contentType: 'application/json', // Set the content type if needed
-                        data: JSON.stringify({ unitName: unitName }), // Send the unitName as JSON data
-                        success: function (data) {
-                            // Handle the API response here
-                            console.log('API response:', data);
-                            // console.log(unitCode);
-                            // You can perform additional actions as needed
-                        },
-                        error: function (error) {
-                            // Handle any errors here
-                            console.error('API error:', error);
-                        }
-                    });
-                }
-
     }else {
-            location.reload();
-            alert('Has not added Training Content yet ');
+            showError('Has not added Training Content yet ');
         }
+    }
+    //Create Unit Name
+    function createUnitName(data, typedUnitName){
+        var unitName = typedUnitName;
+        var topicCode = topicCodedata;
+        var dayNumber = selectedDay;
+        var unitCodes1 = data.unitCode;
+        const lastestUnitCode = unitCodes1[unitCodes1.length - 1];
+        unitCodedata = lastestUnitCode;
+        // Second AJAX request to load unit names for the selected day
+        var apiUrl = 'http://localhost:8080/api/v1/syllabus/OutlineScreen/createTrainingUnit/' + topicCode + '/' + dayNumber + '/' + lastestUnitCode;
+        $.ajax({
+            url: apiUrl,
+            type: 'POST',
+            contentType: 'application/json', // Set the content type if needed
+            data: JSON.stringify({ unitName: unitName }), // Send the unitName as JSON data
+            success: function (data) {
+                // Handle the API response here
+                console.log('API response:', data);
+                showSuccess('Added TrainingContent successfully');
+                // console.log(unitCode);
+                // You can perform additional actions as needed
+            },
+            error: function (error) {
+                // Handle any errors here
+                console.error('API error:', error);
+            }
+        });
     }
     // Define a function to load data based on the syllabus name
     function loadData(topicCode) {
@@ -787,7 +591,10 @@
     }
     // Cập nhật ngày được chọn và thực hiện AJAX request
     function updateSelectedDay(selectedDay) {
-        var updatedApi2 = api2 + selectedDay;
+        // var updatedApi2 = api2 + selectedDay;
+        var topicCode = topicCodedata;
+        var day = selectedDay;
+        var updatedApi2 = 'http://localhost:8080/api/v1/syllabus/OutlineScreen/'+ topicCode + '/' + day;
         // Second AJAX request to load unit names for the selected day
         $.ajax({
             url: updatedApi2,
@@ -890,16 +697,15 @@
                     selectedDay = $(this).text().replace('Day ', '');
                     updateSelectedDay(selectedDay);
                     $('.unit-names-container').hide();
-                    var unitNamefield = $('<div>').addClass('frame-54 uday'+selectedDay);
                     day = selectedDay;
+                    var unitNamefield = $('<div>').addClass('frame-54 uday--'+day);
                     // Ẩn tất cả các ngày trước
-                    if($('.uday' + day).length === 0){
+                    if($('.uday--' + day).length === 0){
                         var link = $('.day-'+ day);
                         console.log(unitNamefield);
                         link.append(unitNamefield);
                         console.log("append dc");
                     }
-                    currentDay = selectedDay;
                 });
             }
         }
@@ -908,9 +714,8 @@
         var unitNames1 = data.unitName;
         var unitCodes1 = data.unitCode;
         unitCode = unitCodes1;
-        console.log(unitCodes1);
         var day = selectedDay;
-        var unitNamefield = $('.uday'+day);
+        var unitNamefield = $('.uday--'+day);
         $('.unit-names-container').hide();
         console.log(unitNames1);
         if (unitNames1 != ""){
@@ -919,7 +724,7 @@
                 if (unitName1 !='' ) {
                     var unitNameContainer = $('<div>', {
                         class: 'unit-names-container',
-                        id: 'unit-names-container-' + day + '-' + unitCode1
+                        id: 'unit-names-container--' + day + '-' + unitCode1
                     });
                     var unitContainer = $('<div>').addClass('frame-108');
                     var unitLabel = $('<div>', {
@@ -952,7 +757,7 @@
             },20);
         }
         else {
-            alert("Continue to add Training Unit to show Day")
+            showWarning("Continue to add Training Unit to show Day");
         }
     }
     function getTrainingUnitforadd() {
@@ -964,7 +769,7 @@
             url: apiUrl2,
             type: 'GET',
             success: function (data) {
-                // console.log(data);
+                console.log(data);
                 updateUnitNames(data);
             },
             error: function (error) {
@@ -979,7 +784,7 @@
         var format= data.trainingFormat
         var day = selectedDay;
         var deliveryTypes = data.deliveryType;
-        var unitNamefield = $('#unit-names-container-'+ day + '-' + data.unitCode1);
+        var unitNamefield = $('#unit-names-container--'+ day + '-' + data.unitCode1);
         var TrainingContent_Field = $('<div>').addClass('trainingContent-field')
         let totalDuration = 0;
         $.each(contents, function (index, contentItem) {
@@ -1037,12 +842,11 @@
         });
     }
     function addTrainingContentform(deliveryData, typeData,trainingUnit,unitCode){
-
         if (trainingUnit.unitName.toString() != "") {
             var unitNamefield2 = $('.frame-42');
             if (unitNamefield2.length === 0){
                 var day = selectedDay;
-                var unitNamefield = $('#unit-names-container-'+ day + '-' + unitCode);
+                var unitNamefield = $('#unit-names-container--'+ day + '-' + unitCode);
                 var TrainingContent_Field = $('<div>').addClass('trainingContent-field')
                 // Create main container
                 var mainContainer = $('<div>').addClass('frame-42');
@@ -1100,7 +904,7 @@
                     deliveryType2_2.append(option_2);
                 });
 
-    // Appending options to the select element
+                // Appending options to the select element
                 var arrowBackIos_2 = $('<svg>').addClass('arrow-back-ios')
                     .attr({
                         width: '24',
@@ -1115,10 +919,10 @@
                 deliveryType_2.append(frame111_2);
                 var addfolder = $('<button>').addClass('folder-btn');
 
-    // Append everything to the main container
-    //         frame40.append(deliveryType, frame1198, toggleOnline, deliveryType2, addfolder);
+                // Append everything to the main container
+                // frame40.append(deliveryType, frame1198, toggleOnline, deliveryType2, addfolder);
                 mainContainer.append(frame1197, deliveryType, frame1198, toggleOnline, deliveryType_2, addfolder);
-    // Append main container to the body or any other parent element
+                // Append main container to the body or any other parent element
                 TrainingContent_Field.append(mainContainer);
                 unitNamefield.append(TrainingContent_Field);
                 // var addDiv = $('<button>').addClass('add');
@@ -1130,8 +934,7 @@
                         var type = $('#leariningType').val();
                         var trainingFormat = $('#toggle').val();
                         var day = selectedDay;
-                        var topicCode = topicCodedata;console.log(trainingFormat);
-
+                        var topicCode = topicCodedata;
                         // Check if required fields are not empty
                         if (contentName.trim() !== "" && deliveryType.trim() !== "" && duration.trim() !== "") {
                             // Make AJAX call to the API
@@ -1147,24 +950,33 @@
                                     type: type
                                     // Add other parameters if needed
                                 }),
-                                success: function (response) {
-                                    // Handle success, you can update UI or do something else
-                                    console.log('API call successful', response);
+                                success: function () {
+                                    showSuccess('Added TrainingContent successfully');
+                                    $('.frame-54').remove();
+                                    updateSelectedDay(day);
+                                    $('.unit-names-container').hide();
+                                    var unitNamefield = $('<div>').addClass('frame-54 uday--' + day);
+                                    if($('.uday--' + day).length === 0){
+                                        var link = $('.day-' + day);
+                                        console.log(unitNamefield);
+                                        link.append(unitNamefield);
+                                        console.log("append dc");
+                                    }
                                 },
                                 error: function (error) {
                                     // Handle error, show an alert or log the error
                                     console.error('API call failed', error);
                                 }
                             });
-                            setTimeout(()=>{location.reload();},200);
+                            // setTimeout(()=>{location.reload();},200);
                         } else {
-                            alert("Please fill in all required fields");
+                            showError("Please fill in all required fields");
                         }
                     });
             }else {
                     alert("Must add Training Content first");
                     var day = selectedDay;
-                    var unitNamefield1 = $('.uday'+day);
+                    var unitNamefield1 = $('.uday--'+day);
                     var addDiv = $('<button>').addClass('add');
                     unitNamefield1.append(addDiv);
                 }
@@ -1172,7 +984,7 @@
            else {
                alert("Must add UnitName first");
                 var day = selectedDay;
-                var unitNamefield1 = $('.uday'+day);
+                var unitNamefield1 = $('.uday--'+day);
                 var addDiv = $('<button>').addClass('add');
                 unitNamefield1.append(addDiv);
             }
@@ -1258,6 +1070,61 @@
             });
     }
 
+    // Warning
+    function showWarning(message){
+        var warningToast = document.querySelector('.toast.warning');
+        var loadingBar1 = warningToast.querySelector('.loadingWarning');
+        warningToast.style.opacity = '1';
+        warningToast.style.pointerEvents = 'auto'; // Enable pointer events
+        loadingBar1.classList.add('active');
+        var warningText = warningToast.querySelector('.container-2Text p:last-child');
+
+        warningText.textContent = message;
+        setTimeout(function () {
+            loadingBar1.classList.remove('active');
+            warningToast.style.opacity = '0';
+            warningToast.style.pointerEvents = 'none'; // Disable pointer events when hidden
+        }, 2500);
+    }
+    //===============================================================
+
+    // Error
+    function showError(message) {
+        var errorToast = document.querySelector('.toast.error');
+        var loadingBar1 = errorToast.querySelector('.loading1');
+        var errorText = errorToast.querySelector('.container-2Text p:last-child');
+
+        errorText.textContent = message;
+
+        errorToast.style.opacity = '1';
+        errorToast.style.pointerEvents = 'none'; // Disable pointer events when hidden
+        loadingBar1.classList.add('active');
+
+        setTimeout(function () {
+            loadingBar1.classList.remove('active');
+            errorToast.style.opacity = '0';
+            errorToast.style.pointerEvents = 'none'; // Disable pointer events when hidden
+        }, 2500);
+    }
+    // ==================================================================
+
+    // Success
+    function showSuccess(message){
+        var successToast = document.querySelector('.toast.success');
+        var loadingBar1 = successToast.querySelector('.loadingSucces');
+        successToast.style.opacity = '1';
+        successToast.style.pointerEvents = 'none'; // Disable pointer events when hidden
+        loadingBar1.classList.add('active');
+        var successText = successToast.querySelector('.container-2Text p:last-child');
+
+        successText.textContent = message;
+        setTimeout(function () {
+            loadingBar1.classList.remove('active');
+            successToast.style.opacity = '0';
+            successToast.style.pointerEvents = 'none'; // Disable pointer events when hidden
+        }, 2500);
+    }
+    //=============================================================
 </script>
 <script>
     // Hàm để lấy giá trị từ query parameter
