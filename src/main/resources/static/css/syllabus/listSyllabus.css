@@ -721,6 +721,7 @@ combo-box2 {
      display: grid;
      grid-template-columns: 1.3fr 6fr 0.5fr;
      box-shadow: 0 15px 30px rgba(0,0,0,0.08);
+     opacity: 0;  /* Set initial opacity to 0 */
  }
 .success{
     border-left: 8px solid #47D764;
@@ -841,7 +842,9 @@ combo-box2 {
 }
 .toast.warning {
     transition: opacity 0.5s ease;
-=======
+}
+/*============*/
+
 a {
     text-decoration: none;
     color: #0B2136;
@@ -850,5 +853,4 @@ a {
 .linkDetails:hover{
     cursor: pointer;
     color: #7fa7be;
-}
 }

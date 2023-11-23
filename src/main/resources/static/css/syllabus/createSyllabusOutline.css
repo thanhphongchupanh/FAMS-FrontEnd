@@ -244,7 +244,7 @@
     align-items: flex-start;
     justify-content: space-between;
     flex-shrink: 0;
-    width: 1171px;
+    width: 100%;
     height: 925px;
     position: relative;
 }
@@ -372,7 +372,7 @@
     height: 948px;
     position: relative;
 }
-.daye-3 {
+.daye- {
     background: #ffffff;
     border-radius: 0px 0px 20px 20px;
     padding: 0px 0px 20px 0px;
@@ -533,12 +533,12 @@
     width: 860px;
     position: relative;
 }
-.day-32 {
-    color: #ffffff;
-    text-align: left;
-    font: 700 16px "Inter", sans-serif;
-    position: relative;
-}
+/*.day-32 {*/
+/*    color: #ffffff;*/
+/*    text-align: left;*/
+/*    font: 700 16px "Inter", sans-serif;*/
+/*    position: relative;*/
+/*}*/
 .remove-circle-outline3 {
     flex-shrink: 0;
     position: relative;
@@ -2022,3 +2022,158 @@
     font: 400 italic 14px "Inter-Italic", sans-serif;
     position: relative;
 }
+
+/*Show Warning*/
+.toast{
+    width: 400px;
+    height: 100px;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 7px;
+    display: grid;
+    grid-template-columns: 1.3fr 6fr 0.5fr;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.08);
+    opacity: 0;  /* Set initial opacity to 0 */
+}
+.success{
+    border-left: 8px solid #47D764;
+}
+.error{
+    border-left: 8px solid #ff355b;
+}
+.warning{
+    border-left: 8px solid #FFC021;
+}
+.error i{
+    color: #ff355b;
+}
+.info i{
+    color: #2F86EB;
+}
+.warning i{
+    color: #FFC021;
+}
+.toast:not(:last-child){
+    margin-bottom: 50px;
+}
+.container-1,.container-2{
+    align-self: center;
+}
+.container-1 i{
+    font-size: 35px;
+}
+.success i{
+    color: #47D764;
+}
+.container-2 p:first-child{
+    color: #101020;
+    font-weight: 600;
+    font-size: 18px;
+}
+.container-2 p:last-child{
+    font-size: 15px;
+    font-weight: 400;
+    color: #656565;
+}
+@keyframes loadingAnimation {
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+.toast.success .loadingSucces.active {
+    display: block; /* Hiển thị thanh loading khi có class "active" */
+}
+
+.toast.success .container-2 p {
+    margin-bottom: 0; /* Remove the default margin-bottom for the text */
+}
+
+.toast.warning .loadingWarning.active {
+    display: block; /* Hiển thị thanh loading khi có class "active" */
+}
+
+.toast.warning .container-2 p {
+    margin-bottom: 0; /* Remove the default margin-bottom for the text */
+}
+
+.toast.error .loading1.active {
+    display: block; /* Hiển thị thanh loading khi có class "active" */
+}
+
+.toast.error .container-2 p {
+    margin-bottom: 0; /* Remove the default margin-bottom for the text */
+}
+.container-2 {
+    gap: 10px;
+    display: flex;
+    flex-direction: column;
+}
+.loading1 {
+    width: 100%;
+    height: 5px;
+    background: linear-gradient(90deg,#fff 50%, #fff, #ff355b, #ff355b 50%);
+    background-size: 200% 100%;
+    animation: loadingAnimation 5s linear 1;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    animation: loadingAnimation 10s linear forwards;
+    display: none;
+}
+
+.loadingWarning {
+    width: 100%;
+    height: 5px;
+    background: linear-gradient(90deg,#fff 50%, #fff, #FFC021, #FFC021 50%);
+    background-size: 200% 100%;
+    animation: loadingAnimation 5s linear 1;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    animation: loadingAnimation 10s linear forwards;
+    display: none;
+}
+.loadingSucces {
+    width: 100%;
+    height: 5px;
+    background: linear-gradient(90deg,#fff 50%, #fff, #47D764, #47D764 50%);
+    background-size: 200% 100%;
+    animation: loadingAnimation 5s linear 1;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    animation: loadingAnimation 10s linear forwards;
+    display: none;
+}
+.toast.success {
+    transition: opacity 0.5s ease;
+    position: fixed;
+    z-index:1001;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    right: 0;
+    margin: 10px 40px 0 0;
+}
+.toast.error {
+    transition: opacity 0.5s ease;
+    position: fixed;
+    z-index:1001;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    right: 0;
+    margin: 10px 40px 0 0;
+}
+.toast.warning {
+    transition: opacity 0.5s ease;
+    position: fixed;
+    z-index:1001;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    right: 0;
+    margin: 10px 40px 0 0;
+}
+/*============*/
