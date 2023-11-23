@@ -1629,7 +1629,6 @@
         }
         if(checkFileExtension(fileName, ['xlsx'])) {
           importSyllabusAPI(file1);
-          showSuccess();
           $("#fileInput").val("");
           $("#selectedFileName").text("");
         }else {
@@ -1668,9 +1667,12 @@
         }, 2500);
       }
 
-      function showSuccess(){
+      function showSuccess(message){
         var successToast = document.querySelector('.toast.success');
         var loadingBar1 = successToast.querySelector('.loadingSucces');
+        var successText = successToast.querySelector('.container-2Text p:last-child');
+
+        successText.textContent = message;
         successToast.style.opacity = '1';
         loadingBar1.classList.add('active');
 
@@ -1701,15 +1703,25 @@
         formData.append('file', fileName);
         $.ajax({
           url: 'http://localhost:8080/api/v1/syllabus/importExcel',
-          data: fileName,
+          data: formData,
           processData: false,
+          contentType: false,
           beforeSend: function(xhr) {
             xhr.setRequestHeader('Authorization', 'Basic c3lzYWRtaW46cGFzc3dvcmQtMQ==');
           },
           type: 'POST',
           success: function(result) {
             console.log(result);
+            showSuccess("Import successfully.");
             return result;
+          },
+          error: function(xhr) {
+            if (xhr.status === 400) {
+              showError("Topic code or Topic name is already exist");
+            }
+            if (xhr.status === 500) {
+              showError("Fail to import file!");
+            }
           }
         });
       }
