@@ -1,0 +1,555 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="/css/Bootstrap%205/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="/js/Bootstrap%205/bootstrap.bundle.min.js"></script>
+  <script src="/js/JQuery/jquery-3.7.1.js"></script>
+  <link href="/css/select2/select2.css" rel="stylesheet" />
+  <script src="/js/select2/select2.min.js"></script>
+  <link href="/css/DataTable/jquery.dataTables.css" rel="stylesheet">
+  <script src="/js/DataTable/jquery.dataTables.js"></script>
+  <link href="/css/user.css" rel="stylesheet" >
+  <!--    <script src="/js/user.js"></script>-->
+  <link rel="shortcut icon" type="image/png" href="img/FPT_logo.png"/>
+  <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
+  <link rel="stylesheet" href="/css/syllabus/other.css">
+
+  <title>Document</title>
+</head>
+<body>
+<header class="bg-main text-white px-5 py-1" >
+  <div th:replace="~{common :: header}"></div>
+</header>
+
+<script>
+
+  var topicCode = localStorage.getItem("topicCode");
+
+  $(document).ready(function() {
+
+    console.log(localStorage.getItem("topicCode"));
+    loadData();
+    getOther();
+
+
+  });
+
+  function getOther() {
+    $.ajax({
+      url: 'http://localhost:8080/api/v1/syllabus/showOtherScreenById/' + topicCode
+      ,type: 'GET',
+      success: function (ds) {
+        console.log(ds);
+        console.log(ds.trainingPrincipal);
+        loadOther(ds);
+      }
+    });
+
+    function loadOther(ds) {
+      document.getElementById('assignment').innerHTML = "(" + ds.assignment +"%" + ")";
+      document.getElementById('quiz').innerHTML = "(" + ds.quiz +"%" + ")";
+      document.getElementById('final').innerHTML = "(" + ds.finalTest +"%" + ")";
+      document.getElementById('final_theory').innerHTML = "(" + ds.finalTheory +"%" + ")";
+      document.getElementById('final_practice').innerHTML = "(" + ds.finalPractice +"%" + ")";
+      // document.getElementById('gpa').innerHTML = "(" + ds.gpa +"%" + ")";
+
+      document.getElementById('assignment_scheme').innerHTML = ds.assignment + "%";
+      document.getElementById('quiz_scheme').innerHTML = ds.quiz + "%";
+      document.getElementById('final_scheme').innerHTML = ds.finalTest + "%";
+      document.getElementById('final_theory_scheme').innerHTML = ds.finalTheory + "%";
+      document.getElementById('final_practice_scheme').innerHTML = ds.finalPractice + "%";
+      document.getElementById('gpa_scheme').innerHTML = ds.gpa + "%";
+      document.getElementById('training_principle').innerHTML = ds.trainingPrincipal;
+
+      // Example data value (between 0 and 100)
+      const assignment = ds.assignment;
+      const quiz = ds.quiz;
+      const final = ds.finalTest;
+      const final_theory = ds.finalTheory;
+      const final_practice = ds.finalPractice;
+
+      // Get the canvas element
+      var ctx = document.getElementById('doughnut').getContext('2d');
+
+      var doughnut = new Chart(ctx, {
+        type: 'pie',
+        data: {
+          labels: ['Assignment', 'Quiz', 'Final', 'Final Theory', 'Final Practice'],
+          datasets: [{
+            data: [assignment, quiz, final, final_theory, final_practice], // Replace with your own data values
+            backgroundColor: ['#f4be37', '#ff9f40', '#0d2535', '#5388d8', '#206ee5'] // Replace with desired colors
+          }]
+        },options: {
+          plugins: {
+            legend: {
+              display: false,
+            }
+          },
+          maintainAspectRatio: true,
+        },
+        animation: {
+          animateRotate: true, // Animate rotation of the pie chart
+          animateScale: true // Animate scaling of the pie chart
+        }
+      });
+
+    }
+  };
+
+  function loadData() {
+    $.ajax({
+      url: 'http://localhost:8080/api/v1/syllabus/' + topicCode
+      ,type: 'GET',
+      success: function (rs) {
+        console.log(rs);
+        loadSyllabus(rs);
+        $('#topicCode').html(rs.topicCode);
+        $('#version').html(rs.version);
+        console.log(rs.level);
+        console.log(rs.assignment);
+
+      }
+
+
+    });
+
+    function loadSyllabus(rs){
+      document.getElementById('activeField').innerHTML = rs.syllabusStatus;
+      document.getElementById('syllabusName').innerHTML = rs.topicName;
+      document.getElementById('code-version').innerHTML = rs.topicCode + " v" + rs.version;
+      const modifiedDate = rs.modifiedDate;
+      const formattedDate = new Date(modifiedDate).toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' });
+      document.getElementById('modifiedDate').append(formattedDate);
+      document.getElementById('modifiedBy').append(rs.modifiedBy);
+      document.getElementById('duration').innerHTML = rs.durationArr;
+    }
+
+
+  }
+
+
+
+
+</script>
+
+
+<div class="d-flex flex-grow-1 flex-row">
+  <div th:replace="~{common :: menu}"></div>
+
+
+  <div class="frame-1195">
+    <div class="program-detail">
+      <div class="program-header">
+        <div class="syllabus">Syllabus</div>
+        <div class="frame-1194">
+          <div class="program-name">
+            <div class="frame-98">
+              <div class="c-programming-language" id="syllabusName"></div>
+              <div class="chip">
+                <div class="active" id="activeField"></div>
+              </div>
+            </div>
+            <svg
+                    class="more-horizontal"
+                    width="48"
+                    height="48"
+                    viewBox="0 0 48 48"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                      d="M26 30C28.2091 30 30 28.2091 30 26C30 23.7909 28.2091 22 26 22C23.7909 22 22 23.7909 22 26C22 28.2091 23.7909 30 26 30Z"
+                      fill="#2D3748"
+              />
+              <path
+                      d="M40 30C42.2091 30 44 28.2091 44 26C44 23.7909 42.2091 22 40 22C37.7909 22 36 23.7909 36 26C36 28.2091 37.7909 30 40 30Z"
+                      fill="#2D3748"
+              />
+              <path
+                      d="M12 30C14.2091 30 16 28.2091 16 26C16 23.7909 14.2091 22 12 22C9.79086 22 8 23.7909 8 26C8 28.2091 9.79086 30 12 30Z"
+                      fill="#2D3748"
+              />
+            </svg>
+          </div>
+          <div class="npl-v-4-0" id="code-version"></div>
+        </div>
+      </div>
+      <div class="program-meta-data">
+        <div class="frame-87">
+          <div class="frame-77">
+            <div class="_8" id="duration"></div>
+            <div class="days">days</div>
+          </div>
+          <div class="frame-78">
+          </div>
+          <div >
+            <div class="_68-hours" id="modifiedDate">Modified on </div>
+          </div>
+          <div class="_68-hours" id="modifiedBy">By </div>
+        </div>
+      </div>
+    </div>
+    <div class="frame-1184">
+      <div class="syllabus-tab">
+        <div class="frame-5113">
+          <a th:href="@{/general}"  style="text-decoration: none">
+            <div class="tab-1">
+              <div class="general">General</div>
+            </div>
+          </a>
+          <a th:href="@{/outline}" style="text-decoration: none">
+            <div class="tab-2">
+              <div class="frame-51">
+                <div class="tab-22">Outline</div>
+              </div>
+            </div>
+          </a>
+          <a th:href="@{/other}" style="text-decoration: none">
+            <div class="tab-3">
+              <div class="frame-51">
+                <div class="tab-22">Other</div>
+              </div>
+            </div>
+          </a>
+
+        </div>
+        <div class="line-4"></div>
+      </div>
+      <div class="others">
+        <div class="frame-113">
+          <div class="time-allocation">
+            <div class="time-allocation2">
+              <div class="time-allocation3">Time allocation</div>
+            </div>
+            <div class="content-chart">
+              <canvas class="doughnut" id="doughnut" >
+<!--                <div class="assignment-pie"></div>-->
+<!--                <div class="quiz-pie"></div>-->
+<!--                <div class="final-pie"></div>-->
+<!--                <div class="final-theory-pie"></div>-->
+<!--                <div class="final-practice-pie"></div>-->
+              </canvas>
+              <div class="info">
+                <div class="frame-108">
+                  <div class="bullet">
+                    <div class="rectangle-644"></div>
+                  </div>
+                  <div class="assignment-lab">Assignment</div>
+                  <div class="_54" id="assignment"></div>
+                </div>
+                <div class="frame-109">
+                  <div class="bullet">
+                    <div class="rectangle-6442"></div>
+                  </div>
+                  <div class="concept-lecture">Quiz</div>
+                  <div class="_29" id="quiz"></div>
+                </div>
+                <div class="frame-110">
+                  <div class="bullet">
+                    <div class="rectangle-6443"></div>
+                  </div>
+                  <div class="guide-review">Final</div>
+                  <div class="_9" id="final"></div>
+                </div>
+                <div class="frame-111">
+                  <div class="bullet">
+                    <div class="rectangle-6444"></div>
+                  </div>
+                  <div class="test-quiz">Final Theory</div>
+                  <div class="_1" id="final_theory"></div>
+                </div>
+                <div class="frame-112">
+                  <div class="bullet">
+                    <div class="rectangle-6445"></div>
+                  </div>
+                  <div class="exam">Final Practice</div>
+                  <div class="_6" id="final_practice"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="assessment-scheme">
+            <div class="percentage">
+              <div class="assessment-scheme2">Assessment scheme</div>
+            </div>
+            <div class="passing-criteria">
+              <div class="frame">
+                <div class="text-box">
+                  <div class="req-text-box">
+                    <div class="text">Assignment</div>
+                    <div class="text-box2">
+                      <div class="_15" id="assignment_scheme"></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="text-box">
+                  <div class="req-text-box">
+                    <div class="text">Quiz</div>
+                    <div class="text-box2">
+                      <div class="_15" id="quiz_scheme"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="frame">
+                <div class="text-box">
+                  <div class="req-text-box">
+                    <div class="text">Final</div>
+                    <div class="text-box2">
+                      <div class="_15" id="final_scheme"></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="text-box">
+                  <div class="req-text-box">
+                    <div class="text">Final Theory</div>
+                    <div class="text-box2">
+                      <div class="_15" id="final_theory_scheme"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="frame">
+                <div class="text-box">
+                  <div class="req-text-box">
+                    <div class="text">Final Practice</div>
+                    <div class="text-box2">
+                      <div class="_15" id="final_practice_scheme"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="frame-102">
+              <div class="passing-criteria2">
+                <div class="passing-criteria3">Passing criteria</div>
+                <div class="text-box" id="gpa">
+                  <div class="req-text-box">
+                    <div class="text">GPA *</div>
+                    <div class="text-box2">
+                      <div class="_70" id="gpa_scheme"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="training-delivery-principle">
+          <div class="frame-100">
+            <div class="frame-90">
+              <div class="training-delivery-principle2">
+                Training delivery principle
+              </div>
+            </div>
+          </div>
+          <div class="frame-99">
+            <div class="row">
+              <div class="col-xxl-3 headers">
+                <div class="frame-1204">
+                  <div class="training">
+                    <div class="frame3">
+                      <svg
+                              class="verified-user"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <g clip-path="url(#clip0_252_18567)">
+                          <path
+                                  d="M12 1L3 5V11C3 16.55 6.84 21.74 12 23C17.16 21.74 21 16.55 21 11V5L12 1ZM19 11C19 15.52 16.02 19.69 12 20.93C7.98 19.69 5 15.52 5 11V6.3L12 3.19L19 6.3V11ZM7.41 11.59L6 13L10 17L18 9L16.59 7.58L10 14.17L7.41 11.59Z"
+                                  fill="#2D3748"
+                          />
+                        </g>
+                        <defs>
+                          <clipPath id="clip0_252_18567">
+                            <rect width="24" height="24" fill="white" />
+                          </clipPath>
+                        </defs>
+                      </svg>
+
+                      <div class="training2">Training</div>
+                    </div>
+                    <div
+                            class="trainee-who-actively-complete-online-learning-according-to-mooc-links-provided-at-the-end-of-the-day-students-complete-daily-quiz-for-30-minutes-trainer-mentor-supports-answering-questions-guiding-exercises-1-5-2-0-h-day-trainer-conduct-the-workshops-trainees-complete-assignments-and-labs-trainees-have-1-final-test-in-4-hours-1-hour-theory-3-hours-of-practice"
+                    >
+                      <!--                    Trainee who actively complete online learning according to-->
+                      <!--                    MOOC links provided<br />At the end of the day, students-->
+                      <!--                    complete Daily Quiz for 30 minutes<br />Trainer/Mentor-->
+                      <!--                    supports answering questions, guiding exercises-->
+                      <!--                    1.5-2.0h/day<br />Trainer conduct the workshops<br />Trainees-->
+                      <!--                    complete Assignments and Labs<br />Trainees have 1 final test-->
+                      <!--                    in 4 hours (1 hour theory + 3 hours of practice)-->
+
+                    </div>
+                  </div>
+                  <div class="re-test">
+                    <div class="frame3">
+                      <svg
+                              class="verified-user2"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <g clip-path="url(#clip0_252_18572)">
+                          <path
+                                  d="M12 1L3 5V11C3 16.55 6.84 21.74 12 23C17.16 21.74 21 16.55 21 11V5L12 1ZM19 11C19 15.52 16.02 19.69 12 20.93C7.98 19.69 5 15.52 5 11V6.3L12 3.19L19 6.3V11ZM7.41 11.59L6 13L10 17L18 9L16.59 7.58L10 14.17L7.41 11.59Z"
+                                  fill="#2D3748"
+                          />
+                        </g>
+                        <defs>
+                          <clipPath id="clip0_252_18572">
+                            <rect width="24" height="24" fill="white" />
+                          </clipPath>
+                        </defs>
+                      </svg>
+
+                      <div class="re-test2">Re-test</div>
+                    </div>
+                    <div
+                            class="only-allow-each-student-to-retake-the-test-up-to-2-times-re-exam-the-same-structure-as-the-final-test"
+                    >
+                      <!--                    Only allow each student to retake the test up to 2 times<br />Re-exam-->
+                      <!--                    the same structure as the Final Tests-->
+                    </div>
+                  </div>
+                  <div class="marking">
+                    <div class="frame3">
+                      <svg
+                              class="verified-user3"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <g clip-path="url(#clip0_252_18577)">
+                          <path
+                                  d="M12 1L3 5V11C3 16.55 6.84 21.74 12 23C17.16 21.74 21 16.55 21 11V5L12 1ZM19 11C19 15.52 16.02 19.69 12 20.93C7.98 19.69 5 15.52 5 11V6.3L12 3.19L19 6.3V11ZM7.41 11.59L6 13L10 17L18 9L16.59 7.58L10 14.17L7.41 11.59Z"
+                                  fill="#2D3748"
+                          />
+                        </g>
+                        <defs>
+                          <clipPath id="clip0_252_18577">
+                            <rect width="24" height="24" fill="white" />
+                          </clipPath>
+                        </defs>
+                      </svg>
+
+                      <div class="marking2">Marking</div>
+                    </div>
+                    <div
+                            class="mentor-review-students-on-2-assignments-mentor-marks-the-3-quizzes-and-final-exam-theory-trainer-marks-the-final-exam-practice-if-the-trainees-have-to-retake-test-the-score-will-be-calculated-the-score-6-the-score-will-be-6-the-scroe-6-the-score-will-be-that-score"
+                    >
+                      <!--                  <span-->
+                      <!--                  ><span-->
+                      <!--                          class="mentor-review-students-on-2-assignments-mentor-marks-the-3-quizzes-and-final-exam-theory-trainer-marks-the-final-exam-practice-if-the-trainees-have-to-retake-test-the-score-will-be-calculated-the-score-6-the-score-will-be-6-the-scroe-6-the-score-will-be-that-score-span"-->
+                      <!--                  >Mentor review students on 2 Assignments<br />Mentor marks-->
+                      <!--                      the 3 Quizzes and Final Exam Theory<br />Trainer marks the-->
+                      <!--                      Final Exam Practice<br />If the trainees have to retake-->
+                      <!--                      test, the score will be calculated:<br /></span-->
+                      <!--                  ><span-->
+                      <!--                          class="mentor-review-students-on-2-assignments-mentor-marks-the-3-quizzes-and-final-exam-theory-trainer-marks-the-final-exam-practice-if-the-trainees-have-to-retake-test-the-score-will-be-calculated-the-score-6-the-score-will-be-6-the-scroe-6-the-score-will-be-that-score-span2"-->
+                      <!--                  >The score &gt;=6, the score will be 6<br />The scroe-->
+                      <!--                      &lt;6, the score will be that score</span-->
+                      <!--                  ></span-->
+                      <!--                  >-->
+                    </div>
+                  </div>
+                  <div class="waiver">
+                    <div class="frame3">
+                      <svg
+                              class="verified-user4"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <g clip-path="url(#clip0_252_18582)">
+                          <path
+                                  d="M12 1L3 5V11C3 16.55 6.84 21.74 12 23C17.16 21.74 21 16.55 21 11V5L12 1ZM19 11C19 15.52 16.02 19.69 12 20.93C7.98 19.69 5 15.52 5 11V6.3L12 3.19L19 6.3V11ZM7.41 11.59L6 13L10 17L18 9L16.59 7.58L10 14.17L7.41 11.59Z"
+                                  fill="#2D3748"
+                          />
+                        </g>
+                        <defs>
+                          <clipPath id="clip0_252_18582">
+                            <rect width="24" height="24" fill="white" />
+                          </clipPath>
+                        </defs>
+                      </svg>
+
+                      <div class="waiver-criteria">Waiver Criteria</div>
+                    </div>
+                    <div class="students-pass-the-quick-test-trainer-audit-rank-b">
+                      <!--                    Students pass the quick test-->
+                      <!--                    <br />Trainer Audit: rank B-->
+                    </div>
+                  </div>
+                  <div class="frame-107">
+                    <div class="frame-902">
+                      <svg
+                              class="verified-user5"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <g clip-path="url(#clip0_252_18587)">
+                          <path
+                                  d="M12 1L3 5V11C3 16.55 6.84 21.74 12 23C17.16 21.74 21 16.55 21 11V5L12 1ZM19 11C19 15.52 16.02 19.69 12 20.93C7.98 19.69 5 15.52 5 11V6.3L12 3.19L19 6.3V11ZM7.41 11.59L6 13L10 17L18 9L16.59 7.58L10 14.17L7.41 11.59Z"
+                                  fill="#2D3748"
+                          />
+                        </g>
+                        <defs>
+                          <clipPath id="clip0_252_18587">
+                            <rect width="24" height="24" fill="white" />
+                          </clipPath>
+                        </defs>
+                      </svg>
+
+                      <div class="others2">Others</div>
+                    </div>
+                    <div
+                            class="trainers-can-allow-students-to-complete-homework-and-submit-the-next-day"
+                    >
+                      <!--                    Trainers can allow students to complete homework and submit-->
+                      <!--                    the next day-->
+                    </div>
+                  </div>
+                </div>
+                </div>
+              <div class="col-xxl-9">
+                <div
+                        class="trainee-who-actively-complete-online-learning-according-to-mooc-links-provided-at-the-end-of-the-day-students-complete-daily-quiz-for-30-minutes-trainer-mentor-supports-answering-questions-guiding-exercises-1-5-2-0-h-day-trainer-conduct-the-workshops-trainees-complete-assignments-and-labs-trainees-have-1-final-test-in-4-hours-1-hour-theory-3-hours-of-practice"
+                        id="training_principle">
+
+                </div>
+              </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</div>
+
+<div th:replace="~{common :: footer}"></div>
+
+<script src="/js/common.js"></script>
+</body>
+
+</html>

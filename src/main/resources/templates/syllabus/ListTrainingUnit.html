@@ -573,7 +573,7 @@
         unitCodedata = lastestUnitCode;
         const lastestUnit = unitNames.length;
         var day1 = selectedDay;
-        if(unitNames[unitNames.length - 1] == ""){
+        if(unitNames[unitNames.length ] != "" || unitNames.length == 1){
             var unitNameContainer = $('<div>',{
                 class: 'unit-names-container',
                 id: 'unit-names-container-' + day1
@@ -623,10 +623,12 @@
             frame84.append(frame66);
             programName.append(unitNameElement);
             programName.append(frame84);
+            programContainer.append(unitLabel);
             programContainer.append(programName);
-            unitContainer.append(unitLabel);
+            // unitContainer.append(unitLabel);
+            unitContainer.append(programContainer);
             unitNameContainer.append(unitContainer);
-            unitNameContainer.append(programContainer);
+            // unitNameContainer.append(programContainer);
             unitNamefield.append(unitNameContainer);
 
             // Ẩn tất cả các ngày trước
@@ -1154,7 +1156,7 @@
                                     console.error('API call failed', error);
                                 }
                             });
-                            location.reload();
+                            setTimeout(()=>{location.reload();},200);
                         } else {
                             alert("Please fill in all required fields");
                         }

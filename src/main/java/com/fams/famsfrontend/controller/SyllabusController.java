@@ -22,8 +22,17 @@ public class SyllabusController {
     public String createSyllabusOtherScreen(){
         return "syllabus/CreateSyllabusOtherScreen";
     }
-    @GetMapping("/viewSyllabusGeneral")
-    public String viewSyllabusGeneral(){
-        return "syllabus/viewSyllabusGeneral";
+    @GetMapping("/general")
+    public String general(){
+        return "syllabus/SyllabusGeneral";
     }
+    @GetMapping("/outline")
+    public String outline(){
+        return "syllabus/SyllabusOutline";
+    }
+    @GetMapping("/other")
+    public String other(){
+        return "syllabus/SyllabusOther";
+    }
+
 }

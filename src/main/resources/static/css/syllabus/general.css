@@ -1,0 +1,575 @@
+.frame-1195,
+.frame-1195 * {
+    box-sizing: border-box;
+}
+.frame-1195 {
+    display: flex;
+    flex-direction: column;
+    gap: 0px;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex: 1;
+    position: relative;
+}
+.program-detail {
+    display: flex;
+    flex-direction: column;
+    gap: 0px;
+    align-items: flex-start;
+    justify-content: flex-start;
+    align-self: stretch;
+    flex-shrink: 0;
+    position: relative;
+}
+.program-header {
+    background: #ffffff;
+    border-style: solid;
+    border-color: var(--main, #2d3748);
+    border-width: 0px 0px 1px 0px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: flex-start;
+    justify-content: center;
+    align-self: stretch;
+    flex-shrink: 0;
+    position: relative;
+}
+.syllabus {
+    color: var(--main, #2d3748);
+    text-align: left;
+    font: var(--header-h-4, 500 24px/36px "Inter-Medium", sans-serif);
+    position: relative;
+}
+.frame-1194 {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    align-items: flex-start;
+    justify-content: flex-start;
+    align-self: stretch;
+    flex-shrink: 0;
+    position: relative;
+}
+.program-name {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+    align-self: stretch;
+    flex-shrink: 0;
+    height: 44px;
+    position: relative;
+}
+.frame-98 {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    align-items: center;
+    justify-content: flex-start;
+    flex-shrink: 0;
+    position: relative;
+}
+.c-programming-language {
+    color: var(--main, #2d3748);
+    text-align: left;
+    font: var(--header-h-3, 700 32px/48px "Inter-Bold", sans-serif);
+    position: relative;
+}
+.chip {
+    background: var(--main, #2d3748);
+    border-radius: 50px;
+    border-style: solid;
+    border-color: #ffffff;
+    border-width: 1.5px;
+    padding: 5px 15px 5px 15px;
+    display: flex;
+    flex-direction: row;
+    gap: 0px;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 72px;
+    height: 27px;
+    position: relative;
+}
+.active {
+    color: #ffffff;
+    text-align: left;
+    font: var(--caption-1, 400 12px/18px "Inter-Regular", sans-serif);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+.more-horizontal {
+    flex-shrink: 0;
+    width: 48px;
+    height: 48px;
+    position: relative;
+    overflow: visible;
+}
+.npl-v-4-0 {
+    color: var(--main, #2d3748);
+    text-align: left;
+    font: var(--subtitle-1-bold, 700 16px/24px "Inter-Bold", sans-serif);
+    position: relative;
+}
+.program-meta-data {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    align-items: flex-start;
+    justify-content: center;
+    align-self: stretch;
+    flex-shrink: 0;
+    position: relative;
+}
+.frame-87 {
+    display: flex;
+    flex-direction: row;
+    gap: 0px;
+    align-items: undefined;
+    justify-content: center;
+    flex-shrink: 0;
+    position: relative;
+}
+.frame-77 {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    align-items: undefined;
+    justify-content: center;
+    flex-shrink: 0;
+    position: relative;
+}
+._8 {
+    color: #000000;
+    text-align: left;
+    font: var(--header-h-4, 500 24px/36px "Inter-Medium", sans-serif);
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-start;
+}
+.days {
+    color: #000000;
+    text-align: left;
+    font: var(--body-1, 400 16px/24px "Inter-Regular", sans-serif);
+    position: relative;
+    width: 41px;
+    height: 24px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-start;
+}
+.frame-78 {
+    display: flex;
+    flex-direction: row;
+    gap: 0px;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    position: relative;
+}
+._68-hours {
+    color: #000000;
+    text-align: left;
+    font: 400 italic 14px/22px "Inter-Italic", sans-serif;
+    position: relative;
+    width: 86px;
+    height: 24px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-start;
+}
+.frame-1184 {
+    padding: 0px 20px 0px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 0px;
+    align-items: flex-start;
+    justify-content: flex-start;
+    align-self: stretch;
+    flex-shrink: 0;
+    position: relative;
+}
+.syllabus-tab {
+    border-style: solid;
+    border-color: var(--un-modified, #8b8b8b);
+    border-width: 0px 0px 1.5px 0px;
+    display: flex;
+    flex-direction: column;
+    gap: 0px;
+    align-items: flex-start;
+    justify-content: flex-start;
+    align-self: stretch;
+    flex-shrink: 0;
+    position: relative;
+}
+.frame-5115 {
+    display: flex;
+    flex-direction: row;
+    gap: 0px;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-shrink: 0;
+    position: relative;
+}
+.tab-1 {
+    background: #2d3748;
+    border-radius: 20px 20px 0px 0px;
+    border-style: solid;
+    border-color: #ffffff;
+    border-width: 1px;
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 200px;
+    height: 30px;
+    position: relative;
+}
+.general {
+    color: #ffffff;
+    text-align: left;
+    font: 400 16px "Inter-Regular", sans-serif;
+    position: relative;
+}
+.tab-2 {
+    background: #6d7684;
+    border-radius: 20px 20px 0px 0px;
+    border-style: solid;
+    border-color: #ffffff;
+    border-width: 1px;
+    padding: 10px 20px 10px 30px;
+    display: flex;
+    flex-direction: row;
+    gap: 40px;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 200px;
+    height: 30px;
+    position: relative;
+}
+.frame-51 {
+    display: flex;
+    flex-direction: row;
+    gap: 40px;
+    align-items: center;
+    justify-content: flex-start;
+    flex-shrink: 0;
+    position: relative;
+}
+.tab-22 {
+    color: #ffffff;
+    text-align: left;
+    font: 400 16px "Inter-Regular", sans-serif;
+    position: relative;
+}
+.tab-3 {
+    background: #6d7684;
+    border-radius: 20px 20px 0px 0px;
+    border-style: solid;
+    border-color: #ffffff;
+    border-width: 1px;
+    padding: 10px 20px 10px 30px;
+    display: flex;
+    flex-direction: row;
+    gap: 40px;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 200px;
+    height: 30px;
+    position: relative;
+}
+.line-4 {
+    border-style: solid;
+    border-color: var(--un-modified, #8b8b8b);
+    border-width: 1.3px 0 0 0;
+    align-self: stretch;
+    flex-shrink: 0;
+    height: 0px;
+    position: relative;
+}
+.frame-99 {
+    background: #ffffff;
+    border-radius: 0px 0px 10px 10px;
+    border-style: solid;
+    border-color: var(--box, #dfdede);
+    border-width: 1px 0px 0px 0px;
+    padding: 30px 0px 0px 0px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    align-items: flex-start;
+    justify-content: flex-start;
+    align-self: stretch;
+    flex-shrink: 0;
+    position: relative;
+}
+.req {
+    display: flex;
+    flex-direction: row;
+    gap: 42px;
+    align-items: flex-start;
+    justify-content: flex-start;
+    align-self: stretch;
+    flex-shrink: 0;
+    position: relative;
+}
+.syllabus-req {
+    background: #ffffff;
+    border-radius: 10px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: flex-start;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 447px;
+    height: 172px;
+    position: relative;
+    box-shadow: var(
+            --m-3-elevation-light-2-box-shadow,
+            0px 2px 6px 2px rgba(0, 0, 0, 0.15),
+            0px 1px 2px 0px rgba(0, 0, 0, 0.3)
+    );
+}
+.eligibility {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    align-items: center;
+    justify-content: flex-start;
+    align-self: stretch;
+    flex-shrink: 0;
+    position: relative;
+}
+.eligibility2 {
+    display: flex;
+    flex-direction: row;
+    gap: 0px;
+    align-items: center;
+    justify-content: flex-start;
+    flex-shrink: 0;
+    width: 152px;
+    position: relative;
+}
+.grade {
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    position: relative;
+    overflow: visible;
+}
+.eligibility3 {
+    color: #000000;
+    text-align: left;
+    font: var(--subtitle-2-reg, 700 14px/22px "Inter-Bold", sans-serif);
+    position: relative;
+}
+.all-levels {
+    color: #000000;
+    text-align: left;
+    font: var(--body-2, 400 14px/22px "Inter-Regular", sans-serif);
+    position: relative;
+}
+.attendee-no {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    align-items: center;
+    justify-content: flex-start;
+    align-self: stretch;
+    flex-shrink: 0;
+    position: relative;
+}
+.attendee-no2 {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+    justify-content: flex-start;
+    flex-shrink: 0;
+    width: 152px;
+    position: relative;
+}
+.group {
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    position: relative;
+    overflow: visible;
+}
+._20 {
+    color: #000000;
+    text-align: left;
+    font: var(--body-2, 400 14px/22px "Inter-Regular", sans-serif);
+    position: relative;
+}
+.outputs {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    align-items: center;
+    justify-content: flex-start;
+    align-self: stretch;
+    flex-shrink: 0;
+    position: relative;
+}
+.output {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+    justify-content: flex-start;
+    flex-shrink: 0;
+    width: 152px;
+    position: relative;
+}
+.verified-user {
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    position: relative;
+    overflow: visible;
+}
+.outputs2 {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex: 1;
+    position: relative;
+}
+.chip2 {
+    background: var(--main, #2d3748);
+    border-radius: 50px;
+    padding: 5px 15px 5px 15px;
+    display: flex;
+    flex-direction: row;
+    gap: 0px;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 72px;
+    height: 27px;
+    position: relative;
+}
+.req-text-box {
+    background: #ffffff;
+    border-radius: 10px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex: 1;
+    position: relative;
+    box-shadow: var(
+            --m-3-elevation-light-2-box-shadow,
+            0px 2px 6px 2px rgba(0, 0, 0, 0.15),
+            0px 1px 2px 0px rgba(0, 0, 0, 0.3)
+    );
+}
+.frame-1183 {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+    justify-content: flex-start;
+    flex-shrink: 0;
+    position: relative;
+}
+.settings {
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    position: relative;
+    overflow: visible;
+}
+.tech-rreq {
+    color: #000000;
+    text-align: left;
+    font: var(--subtitle-2-reg, 700 14px/22px "Inter-Bold", sans-serif);
+    position: relative;
+}
+.text-box {
+    border-radius: 10px;
+    padding: 0px 10px 0px 10px;
+    display: flex;
+    flex-direction: row;
+    gap: 0px;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-shrink: 0;
+    width: 619px;
+    position: relative;
+}
+.trainees-p-cs-need-to-have-following-software-installed-run-without-any-issues-microsoft-sql-server-2005-express-microsoft-visual-studio-2017-microsoft-office-2007-visio-word-power-point {
+    color: #000000;
+    text-align: left;
+    font: var(--body-2, 400 14px/22px "Inter-Regular", sans-serif);
+    position: relative;
+    flex: 1;
+}
+.frame-982 {
+    border-radius: 10px;
+    display: flex;
+    flex-direction: row;
+    gap: 40px;
+    align-items: flex-start;
+    justify-content: flex-start;
+    align-self: stretch;
+    flex-shrink: 0;
+    position: relative;
+}
+.frame-97 {
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex: 1;
+    position: relative;
+}
+.frame-90 {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    position: relative;
+}
+.filter-center-focus {
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    position: relative;
+    overflow: visible;
+}
+.course-objectives {
+    color: #000000;
+    text-align: left;
+    font: var(--subtitle-2-reg, 700 14px/22px "Inter-Bold", sans-serif);
+    position: relative;
+}
+.this-topic-is-to-introduce-about-c-programming-language-knowledge-adapt-trainees-with-skills-lessons-and-practices-which-is-specifically-used-in-the-fsoft-projects-in-details-after-completing-the-topic-trainees-will-understand-basic-concepts-of-high-level-programming-languages-keyword-statement-operator-control-of-flow-understand-and-distinguish-two-concepts-class-class-and-object-object-understand-and-apply-object-oriented-programming-knowledge-to-resolve-simple-problems-inheritance-encapsulation-abstraction-polymorphism-working-with-some-of-the-existing-data-structures-in-c-list-array-list-hash-table-dictionary-know-how-to-control-program-errors-use-try-catch-finally-throw-throws-be-able-to-working-with-concurrency-and-multi-thread-in-c-be-able-to-working-with-common-classes-in-ado-net-sql-connection-sql-command-sql-parameter-sql-data-adapter-sql-data-reader-be-able-to-manipulate-sql-data-from-window-form-application-via-4-basic-commands-add-update-delete-select-know-how-to-design-ui-screen-in-window-form-application-know-how-to-use-approciate-controls-for-each-field-data-type-textbox-label-combobox-radio-date-time-picker-numeric-up-down-rich-text-box {
+    color: #000000;
+    text-align: left;
+    font: var(--body-2, 400 14px/22px "Inter-Regular", sans-serif);
+    position: relative;
+    align-self: stretch;
+}

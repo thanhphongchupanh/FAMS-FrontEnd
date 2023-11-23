@@ -1,0 +1,918 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="/css/Bootstrap%205/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+  <script src="/js/Bootstrap%205/bootstrap.bundle.min.js"></script>
+  <script src="/js/JQuery/jquery-3.7.1.js"></script>
+  <link href="/css/select2/select2.css" rel="stylesheet" />
+  <script src="/js/select2/select2.min.js"></script>
+  <link href="/css/DataTable/jquery.dataTables.css" rel="stylesheet">
+  <script src="/js/DataTable/jquery.dataTables.js"></script>
+  <link href="/css/user.css" rel="stylesheet" >
+  <!--    <script src="/js/user.js"></script>-->
+  <link rel="shortcut icon" type="image/png" href="img/FPT_logo.png"/>
+  <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
+  <link rel="stylesheet" href="/css/syllabus/outline.css">
+
+  <title>Document</title>
+</head>
+<body>
+<header class="bg-main text-white px-5 py-1" >
+  <div th:replace="~{common :: header}"></div>
+</header>
+
+<script>
+
+  var topicCode = localStorage.getItem("topicCode");
+
+  $(document).ready(function() {
+
+    console.log(localStorage.getItem("topicCode"));
+    loadData();
+    getOutline();
+
+
+  });
+
+  function getOutline() {
+    console.log(topicCode)
+    $.ajax({
+      url: 'http://localhost:8080/api/v1/syllabus/showOutlineById/' + topicCode
+      ,type: 'GET',
+      success: function (ds) {
+        console.log(ds);
+        loadOutline(ds);
+      },
+      error: function (error) {
+        console.log(error)
+      }
+
+    });
+
+    function loadOutline(ds) {
+      document.getElementById('assignment_pie').innerHTML = "(" + ds.assignment +"%" + ")";
+      document.getElementById('quiz_pie').innerHTML = "(" + ds.quiz +"%" + ")";
+      document.getElementById('final_pie').innerHTML = "(" + ds.finalTest +"%" + ")";
+      document.getElementById('final_theory_pie').innerHTML = "(" + ds.finalTheory +"%" + ")";
+      document.getElementById('final_practice_pie').innerHTML = "(" + ds.finalPractice +"%" + ")";
+
+      // Example data value (between 0 and 100)
+      const assignment = ds.assignment;
+      const quiz = ds.quiz;
+      const final = ds.finalTest;
+      const final_theory = ds.finalTheory;
+      const final_practice = ds.finalPractice;
+
+      // Get the canvas element
+      var ctx = document.getElementById('doughnut').getContext('2d');
+
+      var doughnut = new Chart(ctx, {
+        type: 'pie',
+        data: {
+          labels: ['Assignment', 'Quiz', 'Final', 'Final Theory', 'Final Practice'],
+          datasets: [{
+            data: [assignment, quiz, final, final_theory, final_practice], // Replace with your own data values
+            backgroundColor: ['#f4be37', '#ff9f40', '#0d2535', '#5388d8', '#206ee5'] // Replace with desired colors
+          }]
+        },options: {
+          plugins: {
+            legend: {
+              display: false,
+            }
+          },
+          maintainAspectRatio: true,
+        }
+      });
+
+    }
+  };
+
+  function loadData() {
+    $.ajax({
+      url: 'http://localhost:8080/api/v1/syllabus/' + topicCode
+      ,type: 'GET',
+      success: function (rs) {
+        console.log(rs);
+        loadSyllabus(rs);
+
+      }
+
+
+    });
+
+    function loadSyllabus(rs){
+      document.getElementById('activeField').innerHTML = rs.syllabusStatus;
+      document.getElementById('syllabusName').innerHTML = rs.topicName;
+      document.getElementById('code-version').innerHTML = rs.topicCode + " v" + rs.version;
+      const modifiedDate = rs.modifiedDate;
+      const formattedDate = new Date(modifiedDate).toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' });
+      document.getElementById('modifiedDate').append(formattedDate);
+      document.getElementById('modifiedBy').append(rs.modifiedBy);
+      document.getElementById('duration').innerHTML = rs.durationArr;
+    }
+
+
+
+
+
+
+  }
+
+
+</script>
+
+
+<div class="d-flex flex-grow-1 flex-row">
+  <div th:replace="~{common :: menu}"></div>
+
+  <div class="frame-1186">
+    <div class="program-detail">
+      <div class="program-header">
+        <div class="syllabus">Syllabus</div>
+        <div class="frame-1194">
+          <div class="program-name">
+            <div class="frame-98">
+              <div class="c-programming-language" id="syllabusName"></div>
+              <div class="chip">
+                <div class="active" id="activeField"></div>
+              </div>
+            </div>
+            <svg
+                    class="more-horizontal"
+                    width="48"
+                    height="48"
+                    viewBox="0 0 48 48"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                      d="M26 30C28.2091 30 30 28.2091 30 26C30 23.7909 28.2091 22 26 22C23.7909 22 22 23.7909 22 26C22 28.2091 23.7909 30 26 30Z"
+                      fill="#2D3748"
+              />
+              <path
+                      d="M40 30C42.2091 30 44 28.2091 44 26C44 23.7909 42.2091 22 40 22C37.7909 22 36 23.7909 36 26C36 28.2091 37.7909 30 40 30Z"
+                      fill="#2D3748"
+              />
+              <path
+                      d="M12 30C14.2091 30 16 28.2091 16 26C16 23.7909 14.2091 22 12 22C9.79086 22 8 23.7909 8 26C8 28.2091 9.79086 30 12 30Z"
+                      fill="#2D3748"
+              />
+            </svg>
+          </div>
+          <div class="npl-v-4-0" id="code-version"></div>
+        </div>
+      </div>
+      <div class="program-meta-data">
+        <div class="frame-87">
+            <div class="frame-77">
+              <div class="_8" id="duration"></div>
+              <div class="days">days</div>
+            </div>
+            <div class="frame-78">
+              <div >
+                <div class="_68-hours" id="modifiedDate">Modified on </div>
+              </div>
+              <div class="_68-hours" id="modifiedBy">By </div>
+            </div>
+        </div>
+      </div>
+    </div>
+    <div class="frame-1189">
+      <div class="b-ody">
+        <div class="syllabus-tab">
+          <div class="frame-5114">
+            <a th:href="@{/general}"  style="text-decoration: none">
+              <div class="tab-1">
+                <div class="general">General</div>
+              </div>
+            </a>
+            <a th:href="@{/outline}" style="text-decoration: none">
+              <div class="tab-2">
+                <div class="frame-51">
+                  <div class="tab-22">Outline</div>
+                </div>
+              </div>
+            </a>
+            <a th:href="@{/other}" style="text-decoration: none">
+              <div class="tab-3">
+                <div class="frame-51">
+                  <div class="tab-22">Other</div>
+                </div>
+              </div>
+            </a>
+
+          </div>
+          <div class="line-4"></div>
+        </div>
+        <div class="frame-1192">
+          <div class="content">
+            <div class="day-3">
+              <div class="frame-1193">
+                <div class="frame-48">
+                  <div class="frame-512">
+                    <div class="day-1">Day 1</div>
+                  </div>
+                </div>
+                <div class="frame-49">
+                  <div class="frame-512">
+                    <div class="day-2">Day 2</div>
+                  </div>
+                </div>
+                <div class="frame-50">
+                  <div class="frame-512">
+                    <div class="day-32">Day 3</div>
+                  </div>
+                </div>
+              </div>
+              <div class="unit-1-day-1">
+                <div class="syllabus-program-header">
+                  <div class="frame-513">
+                    <div class="unit-5">Unit 5</div>
+                    <div class="frame-1185">
+                      <div class="frame-47">
+                        <div class="net-introduction">.NET Introduction</div>
+                        <div class="_3-hrs">3hrs</div>
+                      </div>
+                    </div>
+                  </div>
+                  <svg
+                          class="arrow-drop-down-circle"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <g clip-path="url(#clip0_252_20185)">
+                      <path
+                              d="M12 4C16.41 4 20 7.59 20 12C20 16.41 16.41 20 12 20C7.59 20 4 16.41 4 12C4 7.59 7.59 4 12 4ZM12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM12 15L8 11H16L12 15Z"
+                              fill="#2D3748"
+                      />
+                    </g>
+                    <defs>
+                      <clipPath id="clip0_252_20185">
+                        <rect width="24" height="24" fill="white" />
+                      </clipPath>
+                    </defs>
+                  </svg>
+                </div>
+                <div class="frame-89">
+                  <div class="frame-43">
+                    <div class="syllabus-detail">
+                      <div class="net-introduction2">.NET Introduction</div>
+                      <div class="frame-40">
+                        <div class="chip2">
+                          <div class="active">H4SD</div>
+                        </div>
+                        <div class="_30-mins">30mins</div>
+                        <div class="online">
+                          <div class="online2">Online</div>
+                        </div>
+                        <svg
+                                class="concept-lecture"
+                                width="24"
+                                height="24"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <g clip-path="url(#clip0_3006_294)">
+                            <path
+                                    d="M9 13C11.21 13 13 11.21 13 9C13 6.79 11.21 5 9 5C6.79 5 5 6.79 5 9C5 11.21 6.79 13 9 13ZM9 7C10.1 7 11 7.9 11 9C11 10.1 10.1 11 9 11C7.9 11 7 10.1 7 9C7 7.9 7.9 7 9 7ZM9 15C6.33 15 1 16.34 1 19V21H17V19C17 16.34 11.67 15 9 15ZM3 19C3.22 18.28 6.31 17 9 17C11.7 17 14.8 18.29 15 19H3ZM15.08 7.05C15.92 8.23 15.92 9.76 15.08 10.94L16.76 12.63C18.78 10.61 18.78 7.56 16.76 5.36L15.08 7.05ZM20.07 2L18.44 3.63C21.21 6.65 21.21 11.19 18.44 14.37L20.07 16C23.97 12.11 23.98 6.05 20.07 2Z"
+                                    fill="#2D3748"
+                            />
+                          </g>
+                          <defs>
+                            <clipPath id="clip0_3006_294">
+                              <rect width="24" height="24" fill="white" />
+                            </clipPath>
+                          </defs>
+                        </svg>
+
+                        <div class="folder">
+                          <svg
+                                  class="group"
+                                  width="24"
+                                  height="24"
+                                  viewBox="0 0 24 24"
+                                  fill="none"
+                                  xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                                    d="M20 6H12L10 4H4C2.9 4 2.01 4.9 2.01 6L2 18C2 19.1 2.9 20 4 20H20C21.1 20 22 19.1 22 18V8C22 6.9 21.1 6 20 6ZM20 18H4V6H9.17L11.17 8H20V18ZM17.5 12.12V15.5H14.5V10.5H15.88L17.5 12.12ZM13 9V17H19V11.5L16.5 9H13Z"
+                                    fill="#2D3748"
+                            />
+                          </svg>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="syllabus-detail">
+                      <div class="net-introduction2">
+                        Declaration &amp; Assignment
+                      </div>
+                      <div class="frame-40">
+                        <div class="chip2">
+                          <div class="active">H4SD</div>
+                        </div>
+                        <div class="_30-mins">30mins</div>
+                        <div class="offline">
+                          <div class="offline2">Offline</div>
+                        </div>
+                        <svg
+                                class="concept-lecture2"
+                                width="25"
+                                height="24"
+                                viewBox="0 0 25 24"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <g clip-path="url(#clip0_3006_405)">
+                            <path
+                                    d="M9.5 13C11.71 13 13.5 11.21 13.5 9C13.5 6.79 11.71 5 9.5 5C7.29 5 5.5 6.79 5.5 9C5.5 11.21 7.29 13 9.5 13ZM9.5 7C10.6 7 11.5 7.9 11.5 9C11.5 10.1 10.6 11 9.5 11C8.4 11 7.5 10.1 7.5 9C7.5 7.9 8.4 7 9.5 7ZM9.5 15C6.83 15 1.5 16.34 1.5 19V21H17.5V19C17.5 16.34 12.17 15 9.5 15ZM3.5 19C3.72 18.28 6.81 17 9.5 17C12.2 17 15.3 18.29 15.5 19H3.5ZM15.58 7.05C16.42 8.23 16.42 9.76 15.58 10.94L17.26 12.63C19.28 10.61 19.28 7.56 17.26 5.36L15.58 7.05ZM20.57 2L18.94 3.63C21.71 6.65 21.71 11.19 18.94 14.37L20.57 16C24.47 12.11 24.48 6.05 20.57 2Z"
+                                    fill="#2D3748"
+                            />
+                          </g>
+                          <defs>
+                            <clipPath id="clip0_3006_405">
+                              <rect
+                                      width="24"
+                                      height="24"
+                                      fill="white"
+                                      transform="translate(0.5)"
+                              />
+                            </clipPath>
+                          </defs>
+                        </svg>
+
+                        <div class="folder">
+                          <svg
+                                  class="group2"
+                                  width="24"
+                                  height="24"
+                                  viewBox="0 0 24 24"
+                                  fill="none"
+                                  xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                                    d="M20 6H12L10 4H4C2.9 4 2.01 4.9 2.01 6L2 18C2 19.1 2.9 20 4 20H20C21.1 20 22 19.1 22 18V8C22 6.9 21.1 6 20 6ZM20 18H4V6H9.17L11.17 8H20V18ZM17.5 12.12V15.5H14.5V10.5H15.88L17.5 12.12ZM13 9V17H19V11.5L16.5 9H13Z"
+                                    fill="#2D3748"
+                            />
+                          </svg>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="syllabus-detail">
+                      <div class="net-introduction2">
+                        Practice Time: Assignment/Mentoring
+                      </div>
+                      <div class="frame-40">
+                        <div class="chip2">
+                          <div class="active">H4SD</div>
+                        </div>
+                        <div class="_30-mins">120mins</div>
+                        <div class="offline">
+                          <div class="offline2">Offline</div>
+                        </div>
+                        <svg
+                                class="guide-review"
+                                width="24"
+                                height="24"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <g clip-path="url(#clip0_3006_421)">
+                            <path
+                                    d="M18 24H11.45C10.37 24 9.31001 23.55 8.56001 22.77L1.26001 15.16L3.33001 13.33C3.95001 12.78 4.86001 12.67 5.59001 13.06L8.00001 14.34V4.78999C8.00001 3.40999 9.12001 2.28999 10.5 2.28999C10.67 2.28999 10.84 2.30999 11.01 2.33999C11.1 1.03999 12.18 0.00999451 13.5 0.00999451C14.36 0.00999451 15.11 0.439994 15.56 1.09999C15.85 0.979994 16.17 0.919994 16.5 0.919994C17.88 0.919994 19 2.03999 19 3.41999V3.69999C19.16 3.66999 19.33 3.64999 19.5 3.64999C20.88 3.64999 22 4.76999 22 6.14999V20C22 22.21 20.21 24 18 24ZM4.14001 15.28L10 21.38C10.38 21.77 10.9 22 11.44 22H18C19.1 22 20 21.1 20 20V6.14999C20 5.86999 19.78 5.64999 19.5 5.64999C19.22 5.64999 19 5.86999 19 6.14999V12H17V3.41999C17 3.13999 16.78 2.91999 16.5 2.91999C16.22 2.91999 16 3.13999 16 3.41999V12H14V2.50999C14 2.22999 13.78 2.00999 13.5 2.00999C13.22 2.00999 13 2.22999 13 2.50999V12H11V4.78999C11 4.50999 10.78 4.28999 10.5 4.28999C10.22 4.28999 10 4.51999 10 4.78999V17.66L4.65001 14.83L4.14001 15.28Z"
+                                    fill="#2D3748"
+                            />
+                          </g>
+                          <defs>
+                            <clipPath id="clip0_3006_421">
+                              <rect width="24" height="24" fill="white" />
+                            </clipPath>
+                          </defs>
+                        </svg>
+
+                        <div class="folder">
+                          <svg
+                                  class="group3"
+                                  width="24"
+                                  height="24"
+                                  viewBox="0 0 24 24"
+                                  fill="none"
+                                  xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                                    d="M20 6H12L10 4H4C2.9 4 2.01 4.9 2.01 6L2 18C2 19.1 2.9 20 4 20H20C21.1 20 22 19.1 22 18V8C22 6.9 21.1 6 20 6ZM20 18H4V6H9.17L11.17 8H20V18ZM17.5 12.12V15.5H14.5V10.5H15.88L17.5 12.12ZM13 9V17H19V11.5L16.5 9H13Z"
+                                    fill="#2D3748"
+                            />
+                          </svg>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <svg
+                      class="line-8"
+                      width="927"
+                      height="10"
+                      viewBox="0 0 927 10"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+              >
+                <g filter="url(#filter0_d_252_20193)">
+                  <path d="M0 1H927" stroke="black" stroke-width="0.7" />
+                </g>
+                <defs>
+                  <filter
+                          id="filter0_d_252_20193"
+                          x="-4"
+                          y="0.649994"
+                          width="935"
+                          height="8.70001"
+                          filterUnits="userSpaceOnUse"
+                          color-interpolation-filters="sRGB"
+                  >
+                    <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                    <feColorMatrix
+                            in="SourceAlpha"
+                            type="matrix"
+                            values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+                            result="hardAlpha"
+                    />
+                    <feOffset dy="4" />
+                    <feGaussianBlur stdDeviation="2" />
+                    <feComposite in2="hardAlpha" operator="out" />
+                    <feColorMatrix
+                            type="matrix"
+                            values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"
+                    />
+                    <feBlend
+                            mode="normal"
+                            in2="BackgroundImageFix"
+                            result="effect1_dropShadow_252_20193"
+                    />
+                    <feBlend
+                            mode="normal"
+                            in="SourceGraphic"
+                            in2="effect1_dropShadow_252_20193"
+                            result="shape"
+                    />
+                  </filter>
+                </defs>
+              </svg>
+
+              <div class="unit-1-day-2">
+                <div class="syllabus-program-header">
+                  <div class="frame-513">
+                    <div class="unit-5">Unit 6</div>
+                    <div class="frame-1185">
+                      <div class="frame-47">
+                        <div class="net-introduction">Operators</div>
+                        <div class="_3-hrs">3.5hrs</div>
+                      </div>
+                    </div>
+                  </div>
+                  <svg
+                          class="arrow-drop-down-circle2"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <g clip-path="url(#clip0_3006_675)">
+                      <path
+                              d="M12 4C16.41 4 20 7.59 20 12C20 16.41 16.41 20 12 20C7.59 20 4 16.41 4 12C4 7.59 7.59 4 12 4ZM12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM12 15L8 11H16L12 15Z"
+                              fill="#2D3748"
+                      />
+                    </g>
+                    <defs>
+                      <clipPath id="clip0_3006_675">
+                        <rect width="24" height="24" fill="white" />
+                      </clipPath>
+                    </defs>
+                  </svg>
+                </div>
+                <div class="frame-81">
+                  <div class="frame-892">
+                    <div class="frame-43">
+                      <div class="syllabus-detail">
+                        <div class="net-introduction2">Operators</div>
+                        <div class="frame-40">
+                          <div class="chip2">
+                            <div class="active">H4SD</div>
+                          </div>
+                          <div class="_30-mins">30mins</div>
+                          <div class="online">
+                            <div class="online2">Online</div>
+                          </div>
+                          <svg
+                                  class="concept-lecture3"
+                                  width="24"
+                                  height="24"
+                                  viewBox="0 0 24 24"
+                                  fill="none"
+                                  xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <g clip-path="url(#clip0_3006_454)">
+                              <path
+                                      d="M9 13C11.21 13 13 11.21 13 9C13 6.79 11.21 5 9 5C6.79 5 5 6.79 5 9C5 11.21 6.79 13 9 13ZM9 7C10.1 7 11 7.9 11 9C11 10.1 10.1 11 9 11C7.9 11 7 10.1 7 9C7 7.9 7.9 7 9 7ZM9 15C6.33 15 1 16.34 1 19V21H17V19C17 16.34 11.67 15 9 15ZM3 19C3.22 18.28 6.31 17 9 17C11.7 17 14.8 18.29 15 19H3ZM15.08 7.05C15.92 8.23 15.92 9.76 15.08 10.94L16.76 12.63C18.78 10.61 18.78 7.56 16.76 5.36L15.08 7.05ZM20.07 2L18.44 3.63C21.21 6.65 21.21 11.19 18.44 14.37L20.07 16C23.97 12.11 23.98 6.05 20.07 2Z"
+                                      fill="#2D3748"
+                              />
+                            </g>
+                            <defs>
+                              <clipPath id="clip0_3006_454">
+                                <rect width="24" height="24" fill="white" />
+                              </clipPath>
+                            </defs>
+                          </svg>
+
+                          <div class="folder">
+                            <svg
+                                    class="group4"
+                                    width="24"
+                                    height="24"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                      d="M20 6H12L10 4H4C2.9 4 2.01 4.9 2.01 6L2 18C2 19.1 2.9 20 4 20H20C21.1 20 22 19.1 22 18V8C22 6.9 21.1 6 20 6ZM20 18H4V6H9.17L11.17 8H20V18ZM17.5 12.12V15.5H14.5V10.5H15.88L17.5 12.12ZM13 9V17H19V11.5L16.5 9H13Z"
+                                      fill="#2D3748"
+                              />
+                            </svg>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="syllabus-detail">
+                        <div class="net-introduction2">Comparation</div>
+                        <div class="frame-40">
+                          <div class="chip2">
+                            <div class="active">H4SD</div>
+                          </div>
+                          <div class="_30-mins">30mins</div>
+                          <div class="offline">
+                            <div class="offline2">Offline</div>
+                          </div>
+                          <svg
+                                  class="concept-lecture4"
+                                  width="25"
+                                  height="24"
+                                  viewBox="0 0 25 24"
+                                  fill="none"
+                                  xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <g clip-path="url(#clip0_3006_18)">
+                              <path
+                                      d="M9.5 13C11.71 13 13.5 11.21 13.5 9C13.5 6.79 11.71 5 9.5 5C7.29 5 5.5 6.79 5.5 9C5.5 11.21 7.29 13 9.5 13ZM9.5 7C10.6 7 11.5 7.9 11.5 9C11.5 10.1 10.6 11 9.5 11C8.4 11 7.5 10.1 7.5 9C7.5 7.9 8.4 7 9.5 7ZM9.5 15C6.83 15 1.5 16.34 1.5 19V21H17.5V19C17.5 16.34 12.17 15 9.5 15ZM3.5 19C3.72 18.28 6.81 17 9.5 17C12.2 17 15.3 18.29 15.5 19H3.5ZM15.58 7.05C16.42 8.23 16.42 9.76 15.58 10.94L17.26 12.63C19.28 10.61 19.28 7.56 17.26 5.36L15.58 7.05ZM20.57 2L18.94 3.63C21.71 6.65 21.71 11.19 18.94 14.37L20.57 16C24.47 12.11 24.48 6.05 20.57 2Z"
+                                      fill="#2D3748"
+                              />
+                            </g>
+                            <defs>
+                              <clipPath id="clip0_3006_18">
+                                <rect
+                                        width="24"
+                                        height="24"
+                                        fill="white"
+                                        transform="translate(0.5)"
+                                />
+                              </clipPath>
+                            </defs>
+                          </svg>
+
+                          <div class="folder">
+                            <svg
+                                    class="group5"
+                                    width="24"
+                                    height="24"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                      d="M20 6H12L10 4H4C2.9 4 2.01 4.9 2.01 6L2 18C2 19.1 2.9 20 4 20H20C21.1 20 22 19.1 22 18V8C22 6.9 21.1 6 20 6ZM20 18H4V6H9.17L11.17 8H20V18ZM17.5 12.12V15.5H14.5V10.5H15.88L17.5 12.12ZM13 9V17H19V11.5L16.5 9H13Z"
+                                      fill="#2D3748"
+                              />
+                            </svg>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="syllabus-detail">
+                        <div class="net-introduction2">Logical Operators</div>
+                        <div class="frame-40">
+                          <div class="chip2">
+                            <div class="active">H4SD</div>
+                          </div>
+                          <div class="_30-mins">30mins</div>
+                          <div class="offline">
+                            <div class="offline2">Offline</div>
+                          </div>
+                          <svg
+                                  class="guide-review2"
+                                  width="25"
+                                  height="24"
+                                  viewBox="0 0 25 24"
+                                  fill="none"
+                                  xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <g clip-path="url(#clip0_3006_468)">
+                              <path
+                                      d="M18.5 24H11.95C10.87 24 9.81001 23.55 9.06001 22.77L1.76001 15.16L3.83001 13.33C4.45001 12.78 5.36001 12.67 6.09001 13.06L8.50001 14.34V4.79C8.50001 3.41 9.62001 2.29 11 2.29C11.17 2.29 11.34 2.31 11.51 2.34C11.6 1.04 12.68 0.0100002 14 0.0100002C14.86 0.0100002 15.61 0.44 16.06 1.1C16.35 0.98 16.67 0.92 17 0.92C18.38 0.92 19.5 2.04 19.5 3.42V3.7C19.66 3.67 19.83 3.65 20 3.65C21.38 3.65 22.5 4.77 22.5 6.15V20C22.5 22.21 20.71 24 18.5 24ZM4.64001 15.28L10.5 21.38C10.88 21.77 11.4 22 11.94 22H18.5C19.6 22 20.5 21.1 20.5 20V6.15C20.5 5.87 20.28 5.65 20 5.65C19.72 5.65 19.5 5.87 19.5 6.15V12H17.5V3.42C17.5 3.14 17.28 2.92 17 2.92C16.72 2.92 16.5 3.14 16.5 3.42V12H14.5V2.51C14.5 2.23 14.28 2.01 14 2.01C13.72 2.01 13.5 2.23 13.5 2.51V12H11.5V4.79C11.5 4.51 11.28 4.29 11 4.29C10.72 4.29 10.5 4.52 10.5 4.79V17.66L5.15001 14.83L4.64001 15.28Z"
+                                      fill="#2D3748"
+                              />
+                            </g>
+                            <defs>
+                              <clipPath id="clip0_3006_468">
+                                <rect
+                                        width="24"
+                                        height="24"
+                                        fill="white"
+                                        transform="translate(0.5)"
+                                />
+                              </clipPath>
+                            </defs>
+                          </svg>
+
+                          <div class="folder">
+                            <svg
+                                    class="group6"
+                                    width="24"
+                                    height="24"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                      d="M20 6H12L10 4H4C2.9 4 2.01 4.9 2.01 6L2 18C2 19.1 2.9 20 4 20H20C21.1 20 22 19.1 22 18V8C22 6.9 21.1 6 20 6ZM20 18H4V6H9.17L11.17 8H20V18ZM17.5 12.12V15.5H14.5V10.5H15.88L17.5 12.12ZM13 9V17H19V11.5L16.5 9H13Z"
+                                      fill="#2D3748"
+                              />
+                            </svg>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="syllabus-detail">
+                        <div class="net-introduction2">
+                          Practice Time: Assignment/Mentoring
+                        </div>
+                        <div class="frame-40">
+                          <div class="chip2">
+                            <div class="active">H4SD</div>
+                          </div>
+                          <div class="_30-mins">120mins</div>
+                          <div class="online">
+                            <div class="online2">Online</div>
+                          </div>
+                          <svg
+                                  class="asignment-lab"
+                                  width="25"
+                                  height="24"
+                                  viewBox="0 0 25 24"
+                                  fill="none"
+                                  xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <g clip-path="url(#clip0_3006_435)">
+                              <path
+                                      d="M18.5 2H6.5C5.4 2 4.5 2.9 4.5 4V20C4.5 21.1 5.4 22 6.5 22H18.5C19.6 22 20.5 21.1 20.5 20V4C20.5 2.9 19.6 2 18.5 2ZM9.5 4H11.5V9L10.5 8.25L9.5 9V4ZM18.5 20H6.5V4H7.5V13L10.5 10.75L13.5 13V4H18.5V20Z"
+                                      fill="#2D3748"
+                              />
+                            </g>
+                            <defs>
+                              <clipPath id="clip0_3006_435">
+                                <rect
+                                        width="24"
+                                        height="24"
+                                        fill="white"
+                                        transform="translate(0.5)"
+                                />
+                              </clipPath>
+                            </defs>
+                          </svg>
+
+                          <div class="folder">
+                            <svg
+                                    class="group7"
+                                    width="24"
+                                    height="24"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                      d="M20 6H12L10 4H4C2.9 4 2.01 4.9 2.01 6L2 18C2 19.1 2.9 20 4 20H20C21.1 20 22 19.1 22 18V8C22 6.9 21.1 6 20 6ZM20 18H4V6H9.17L11.17 8H20V18ZM17.5 12.12V15.5H14.5V10.5H15.88L17.5 12.12ZM13 9V17H19V11.5L16.5 9H13Z"
+                                      fill="#2D3748"
+                              />
+                            </svg>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="day-4">
+              <div class="frame-482">
+                <div class="frame-512">
+                  <div class="day-42">Day 4</div>
+                </div>
+              </div>
+              <div class="unit-1-day-2">
+                <div class="syllabus-program-header">
+                  <div class="frame-513">
+                    <div class="unit-5">Unit 7</div>
+                    <div class="frame-1185">
+                      <div class="frame-47">
+                        <div class="net-introduction">Flow control</div>
+                        <div class="_3-hrs">3.5hrs</div>
+                      </div>
+                    </div>
+                  </div>
+                  <svg
+                          class="arrow-drop-down-circle3"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <g clip-path="url(#clip0_3006_599)">
+                      <path
+                              d="M12 4C16.41 4 20 7.59 20 12C20 16.41 16.41 20 12 20C7.59 20 4 16.41 4 12C4 7.59 7.59 4 12 4ZM12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM12 15L8 11H16L12 15Z"
+                              fill="#2D3748"
+                      />
+                    </g>
+                    <defs>
+                      <clipPath id="clip0_3006_599">
+                        <rect width="24" height="24" fill="white" />
+                      </clipPath>
+                    </defs>
+                  </svg>
+                </div>
+              </div>
+              <svg
+                      class="line-9"
+                      width="935"
+                      height="10"
+                      viewBox="0 0 935 10"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+              >
+                <g filter="url(#filter0_d_252_20211)">
+                  <path d="M4 1H931" stroke="black" stroke-width="0.7" />
+                </g>
+                <defs>
+                  <filter
+                          id="filter0_d_252_20211"
+                          x="0"
+                          y="0.649994"
+                          width="935"
+                          height="8.70001"
+                          filterUnits="userSpaceOnUse"
+                          color-interpolation-filters="sRGB"
+                  >
+                    <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                    <feColorMatrix
+                            in="SourceAlpha"
+                            type="matrix"
+                            values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+                            result="hardAlpha"
+                    />
+                    <feOffset dy="4" />
+                    <feGaussianBlur stdDeviation="2" />
+                    <feComposite in2="hardAlpha" operator="out" />
+                    <feColorMatrix
+                            type="matrix"
+                            values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"
+                    />
+                    <feBlend
+                            mode="normal"
+                            in2="BackgroundImageFix"
+                            result="effect1_dropShadow_252_20211"
+                    />
+                    <feBlend
+                            mode="normal"
+                            in="SourceGraphic"
+                            in2="effect1_dropShadow_252_20211"
+                            result="shape"
+                    />
+                  </filter>
+                </defs>
+              </svg>
+
+              <div class="unit-1-day-3">
+                <div class="syllabus-program-header">
+                  <div class="frame-513">
+                    <div class="unit-5">Unit 8</div>
+                    <div class="frame-1185">
+                      <div class="frame-47">
+                        <div class="net-introduction">Basic OOP</div>
+                        <div class="_3-hrs">3.5hrs</div>
+                      </div>
+                    </div>
+                  </div>
+                  <svg
+                          class="arrow-drop-down-circle4"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <g clip-path="url(#clip0_3006_665)">
+                      <path
+                              d="M12 4C16.41 4 20 7.59 20 12C20 16.41 16.41 20 12 20C7.59 20 4 16.41 4 12C4 7.59 7.59 4 12 4ZM12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM12 15L8 11H16L12 15Z"
+                              fill="#2D3748"
+                      />
+                    </g>
+                    <defs>
+                      <clipPath id="clip0_3006_665">
+                        <rect width="24" height="24" fill="white" />
+                      </clipPath>
+                    </defs>
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="rectangle-645"></div>
+        </div>
+      </div>
+      <div class="frame-1190">
+        <div class="time-allocation">
+          <div class="time-allocation2">Time allocation</div>
+        </div>
+        <div class="content2">
+          <canvas class="doughnut" id="doughnut">
+<!--            <div class="_01"></div>-->
+<!--            <div class="_02"></div>-->
+<!--            <div class="_03"></div>-->
+<!--            <div class="_04"></div>-->
+          </canvas>
+          <div class="info">
+            <div class="frame-108">
+              <div class="bullet">
+                <div class="rectangle-644"></div>
+              </div>
+              <div class="frame-5116">
+                <div class="assignment-lab">Assignment</div>
+                <div class="_54" id="assignment_pie"></div>
+              </div>
+            </div>
+            <div class="frame-113">
+              <div class="bullet">
+                <div class="rectangle-6442"></div>
+              </div>
+              <div class="frame-51162">
+                <div class="concept-lecture5">Quiz</div>
+                <div class="_29" id="quiz_pie"></div>
+              </div>
+            </div>
+            <div class="frame-114">
+              <div class="bullet">
+                <div class="rectangle-6443"></div>
+              </div>
+              <div class="frame-51162">
+                <div class="guide-review3">Final</div>
+                <div class="_9" id="final_pie"></div>
+              </div>
+            </div>
+            <div class="frame-115">
+              <div class="bullet">
+                <div class="rectangle-6444"></div>
+              </div>
+              <div class="frame-51162">
+                <div class="test-quiz">Final Theory</div>
+                <div class="_1" id="final_theory_pie"></div>
+              </div>
+            </div>
+            <div class="frame-116">
+              <div class="bullet">
+                <div class="rectangle-6445"></div>
+              </div>
+              <div class="frame-51162">
+                <div class="exam">Final Practice</div>
+                <div class="_6" id="final_practice_pie"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</div>
+
+<div th:replace="~{common :: footer}"></div>
+
+<script src="/js/common.js"></script>
+</body>
+
+</html>
