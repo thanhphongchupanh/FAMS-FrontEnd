@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport"
@@ -803,6 +803,26 @@
             performAjaxRequest();
           }
         });
+        page2.addEventListener("click", function () {
+          myVar = 2;
+          if(mode == 1) {
+            performAjaxRequest();
+          }
+        });
+        page3.addEventListener("click", function () {
+          myVar = 3;
+          if(mode == 1) {
+            performAjaxRequest();
+          }
+        });
+        // page10.addEventListener("click", function () {
+        //   myVar = 10;
+        //   if(mode === 1) {
+        //     performAjaxRequest();
+        //   }
+        //   dataTable.empty();
+        // });
+
 
         function performAjaxRequest() {
           $.ajax({
@@ -832,7 +852,7 @@
                 var durationText = item.duration + " days";
 
                 var row = '<tr>' +
-                        '<td>' + item.topicName + '</td>' +
+                        '<td><a class="linkDetails" style="text-decoration: none;" data-topic-code="'+ item.topicCode + '">' + item.topicName + '</a></td>' +
                         '<td>' + item.topicCode + '</td>' +
                         '<td>' + item.createdDate + '</td>' +
                         '<td>' + item.createdBy + '</td>' +
@@ -856,6 +876,20 @@
                         // Add other columns here
                         '</tr>';
                 dataTable.append(row);
+
+                //Link to Details
+                $(document).on('click', '.linkDetails', function () {
+                  var topicCode = $(this).data('topic-code');
+                  console.log("Clicked", topicCode);
+                  localStorage.clear();
+                  localStorage.setItem("topicCode", topicCode);
+                  // Construct the URL with the input value
+                  var url = '/general';
+
+                  // Navigate to the destination page
+                  window.location.href = url;
+                });
+
               });
 
               // Click 3dot

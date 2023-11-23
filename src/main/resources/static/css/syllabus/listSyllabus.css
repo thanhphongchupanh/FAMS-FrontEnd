@@ -170,7 +170,7 @@ span.selection {
     width: 100%;
     border-collapse: collapse;
     border-radius: 10px 10px 0px 0px;
-    box-shadow: -4px 5px 9px 1px gray;
+    box-shadow: -4px 5px 9px 1px;
 }
 
 #user-information-table td {
@@ -841,4 +841,14 @@ combo-box2 {
 }
 .toast.warning {
     transition: opacity 0.5s ease;
+=======
+a {
+    text-decoration: none;
+    color: #0B2136;
+}
+
+.linkDetails:hover{
+    cursor: pointer;
+    color: #7fa7be;
+}
 }
