@@ -857,7 +857,6 @@
 
                 $(document).on('click', '.linkDetails', function () {
                   var topicCode = $(this).data('topic-code');
-                  console.log("Clicked", topicCode);
                   localStorage.clear();
                   localStorage.setItem("topicCode", topicCode);
                   // Construct the URL with the input value
@@ -898,7 +897,8 @@
               // Click edit in syllabus menu dialog
               $(".frame-88").click(function (event) {
                 var topicCode1 = $("#menu-syllabus-function-dialog").attr("topicCode");
-                localStorage.setItem('topicCode', topicCode1);
+                localStorage.clear();
+                localStorage.setItem("topicCode1", topicCode1);
               });
 
               function hideBackdrop() {
