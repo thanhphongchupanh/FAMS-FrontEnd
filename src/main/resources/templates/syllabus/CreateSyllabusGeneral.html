@@ -383,7 +383,6 @@
         $(document).ready(function () {
             $('.save-btn').click(function (e) {
                 if(areAllFieldFilled()){
-                    localStorage.clear();
                     createSyllabusGeneral();
                     setTimeout(() => {
                         window.location.href = "http://localhost:8081/createSyllabus";
@@ -457,7 +456,7 @@
             var learningObjname = document.getElementById("LearningObjectiveName").value;
             var version1 = document.getElementById("version").value;
             // var code = $(".npl").value;
-            var searchKeywords = localStorage.getItem('topicCode');
+            var searchKeywords = localStorage.getItem('topicCode1');
             var data = {
                 topicCode: searchKeywords,
                 topicName: syllabusName,
@@ -470,7 +469,6 @@
                 version: version1,
                 createdDate: "2023-02-02"
             };
-            console.log(data.level);
             // Sử dụng $.ajax để gửi POST requesttbl_syllabus
             $.ajax({
                 url: 'http://localhost:8080/api/v1/syllabus/create-general-syllabus',
@@ -480,10 +478,11 @@
                 success: function (response) {
                     console.log('Syllabus created:', response.topicCode);
                     localStorage.clear();
-                    localStorage.setItem("topicCode",response.topicCode)
+                    localStorage.setItem("topicCode",response.topicCode);
                 },
                 error: function (err) {
                     console.error('Ngooooo:', err);
+                    showWARNING("Update không thành công");
                 }
             });
         };
@@ -491,7 +490,7 @@
 
 <script>
     // if(){
-        var searchKeywords = localStorage.getItem('topicCode');
+        var searchKeywords = localStorage.getItem('topicCode1');
         if(searchKeywords){
             showGeneralhRequest(searchKeywords);
 
