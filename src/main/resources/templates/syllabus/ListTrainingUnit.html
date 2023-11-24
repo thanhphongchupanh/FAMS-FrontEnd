@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="/css/Bootstrap%205/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="/js/Bootstrap%205/bootstrap.bundle.min.js"></script>
     <script src="/js/JQuery/jquery-3.7.1.js"></script>
     <link href="/css/select2/select2.css" rel="stylesheet" />
@@ -236,47 +237,47 @@
                     <div class="time-allocation2">Time allocation</div>
                 </div>
                 <div class="content2">
-                    <div class="doughnut">
-                        <div class="_01"></div>
-                        <div class="_02"></div>
-                        <div class="_03"></div>
-                        <div class="_04"></div>
-                    </div>
+                    <canvas class="doughnut" id="doughnut">
+<!--                        <div class="_01"></div>-->
+<!--                        <div class="_02"></div>-->
+<!--                        <div class="_03"></div>-->
+<!--                        <div class="_04"></div>-->
+                    </canvas>
                     <div class="info">
                         <div class="frame-1082">
                             <div class="bullet">
                                 <div class="rectangle-644"></div>
                             </div>
-                            <div class="assignment-lab">Assignment/Lab</div>
-                            <div class="_54">(54%)</div>
+                            <div class="assignment-lab">Assignment</div>
+                            <div class="_54" id="assignment_pie"></div>
                         </div>
                         <div class="frame-109">
                             <div class="bullet">
                                 <div class="rectangle-6442"></div>
                             </div>
-                            <div class="concept-lecture5">Concept/Lecture</div>
-                            <div class="_29">(29%)</div>
+                            <div class="concept-lecture5">Quiz</div>
+                            <div class="_29" id="quiz_pie"></div>
                         </div>
                         <div class="frame-110">
                             <div class="bullet">
                                 <div class="rectangle-6443"></div>
                             </div>
-                            <div class="guide-review2">Guide/Review</div>
-                            <div class="_9">(9%)</div>
+                            <div class="guide-review2">Final</div>
+                            <div class="_9" id="final_test_pie"></div>
                         </div>
                         <div class="frame-1112">
                             <div class="bullet">
                                 <div class="rectangle-6444"></div>
                             </div>
-                            <div class="test-quiz">Test/Quiz</div>
-                            <div class="_1">(1%)</div>
+                            <div class="test-quiz">Final Theory</div>
+                            <div class="_1" id="final_theory_pie"></div>
                         </div>
                         <div class="frame-112">
                             <div class="bullet">
                                 <div class="rectangle-6445"></div>
                             </div>
-                            <div class="exam">Exam</div>
-                            <div class="_6">(6%)</div>
+                            <div class="exam">Final Practice</div>
+                            <div class="_6" id="final_practice_pie"></div>
                         </div>
                     </div>
                 </div>
@@ -312,6 +313,91 @@
 <script src="/js/common.js"></script>
 
 <script>
+
+    function loadChart() {
+        var topicCode = localStorage.getItem('topicCode');
+//         if(topicCode != null){
+//             $.ajax({
+//                 url: 'http://localhost:8080/api/v1/syllabus/getGeneralScreen/' + topicCode
+//                 ,type: 'GET',
+//                 success: function (rs) {
+//                     console.log(rs);
+//                     $('#topicCode').html(rs.topicCode);
+//                     $('#version').html(rs.version);
+//                     console.log(rs.level);
+//                     console.log(rs.assignment);
+//
+//                     document.getElementById('assignment_pie').innerHTML = "(" + rs.assignment +"%" + ")";
+//                     document.getElementById('quiz_pie').innerHTML = "(" + rs.quiz +"%" + ")";
+//                     document.getElementById('final_pie').innerHTML = "(" + rs.finalTest +"%" + ")";
+//                     document.getElementById('final_theory_pie').innerHTML = "(" + rs.finalTheory +"%" + ")";
+//                     document.getElementById('final_practice_pie').innerHTML = "(" + rs.finalPractice +"%" + ")";
+//
+//                     const assignment = rs.assignment;
+//                     const quiz = rs.quiz;
+//                     const final = rs.finalTest;
+//                     const final_theory = rs.finalTheory;
+//                     const final_practice = rs.finalPractice;
+//
+//                     // Get the canvas element
+//                     var ctx = document.getElementById('doughnut').getContext('2d');
+//
+//                     var doughnut = new Chart(ctx, {
+//                         type: 'pie',
+//                         data: {
+//                             labels: ['Assignment', 'Quiz', 'Final', 'Final Theory', 'Final Practice'],
+//                             datasets: [{
+//                                 data: [assignment, quiz, final, final_theory, final_practice], // Replace with your own data values
+//                                 backgroundColor: ['#f4be37', '#ff9f40', '#0d2535', '#5388d8', '#206ee5'] // Replace with desired colors
+//                             }]
+//                         },options: {
+//                             plugins: {
+//                                 legend: {
+//                                     display: false,
+//                                 }
+//                             },
+//                             maintainAspectRatio: true,
+//                         },
+//                         animation: {
+//                             animateRotate: true, // Animate rotation of the pie chart
+//                             animateScale: true // Animate scaling of the pie chart
+//                         }
+//                     });
+//
+//                 },error(){
+// console.log("Not Found");
+//
+//                 }
+//
+//             });
+//         }else{
+
+            document.getElementById('assignment_pie').innerHTML = "(" + "0" +"%" + ")";
+            document.getElementById('quiz_pie').innerHTML = "(" + "0" +"%" + ")";
+            document.getElementById('final_test_pie').innerHTML = "(" + "0" +"%" + ")";
+            document.getElementById('final_theory_pie').innerHTML = "(" + "0" +"%" + ")";
+            document.getElementById('final_practice_pie').innerHTML = "(" + "0" +"%" + ")";
+
+            var ctx = document.getElementById('doughnut').getContext('2d');
+
+            const doughnut = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: ['Empty'],
+                    datasets: [{
+                        data: [100],
+                        backgroundColor: ['black']
+                    }]
+                },
+                options: {
+                    // Add any desired options here
+                }
+            });
+        // }
+
+    }
+
+
     const topicCodedata = localStorage.getItem("topicCode");
     const savedSyllabusCode = localStorage.getItem("topicCode");
     var api2;
@@ -322,6 +408,7 @@
     // const topicCodedata = "A01";
     // const savedSyllabusCode = "A01";
     $(document).ready(function() {
+        loadChart();
 
         // Load data when the page is refreshed
 

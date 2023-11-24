@@ -6,6 +6,7 @@
   <link href="/css/Bootstrap%205/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
   <script src="/js/Bootstrap%205/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="/js/JQuery/jquery-3.7.1.js"></script>
   <link href="/css/select2/select2.css" rel="stylesheet" />
   <script src="/js/select2/select2.min.js"></script>
@@ -28,6 +29,58 @@
 </header>
 
 <div class="d-flex flex-grow-1 flex-row">
+
+  <!--    ERROR-->
+  <div class="toast error" style="position: fixed; z-index:1001
+        ;display: flex; align-items: center; gap: 15px;
+        right: 0; margin: 10px 40px 0 0; opacity: 0">
+    <div class="container-1">
+      <i class="fas fa-check-circle"></i>
+    </div>
+    <div class="container-2">
+      <div class="container-2Text">
+        <p>Error</p>
+        <p></p>
+      </div>
+      <div class="loading1"></div>
+    </div>
+  </div>
+  <!--    ERROR-->
+
+  <!--    SUCCESS-->
+  <div class="toast success" style="position: fixed;z-index:1001
+        ;display: flex; align-items: center; gap: 15px;
+        right: 0; margin: 10px 40px 0 0; opacity: 0">
+    <div class="container-1">
+      <i class="fas fa-check-circle"></i>
+    </div>
+    <div class="container-2">
+      <div class="container-2Text">
+        <p>Success</p>
+        <p>Import successfully.</p>
+      </div>
+      <div class="loadingSucces"></div>
+    </div>
+  </div>
+  <!--    SUCCESS-->
+
+  <!--    WARNING-->
+  <div class="toast warning" style="position: fixed;z-index:1001
+        ;display: flex; align-items: center; gap: 15px;
+        right: 0; margin: 10px 40px 0 0; opacity: 0">
+    <div class="container-1">
+      <i class="fas fa-exclamation-circle"></i>
+    </div>
+    <div class="container-2">
+      <div class="container-2Text">
+        <p>Warning</p>
+        <p>Please fill all fields.</p>
+      </div>
+      <div class="loadingWarning"></div>
+    </div>
+  </div>
+  <!--WARNING-->
+
   <div th:replace="~{common :: menu}"></div>
 
 
@@ -38,9 +91,31 @@
       loadData();
     });
 
+    function showSuccess(){
+      var successToast = document.querySelector('.toast.success');
+      var loadingBar1 = successToast.querySelector('.loadingSucces');
+      successToast.style.opacity = '1';
+      loadingBar1.classList.add('active');
+
+      setTimeout(function () {
+        loadingBar1.classList.remove('active');
+        successToast.style.opacity = "0";
+      }, 2500);
+    }
+    function showWarning(){
+      var warningToast = document.querySelector('.toast.warning');
+      var loadingBar1 = warningToast.querySelector('.loadingWarning');
+      warningToast.style.opacity = '1';
+      loadingBar1.classList.add('active');
+
+      setTimeout(function () {
+        loadingBar1.classList.remove('active');
+        warningToast.style.opacity = "0";
+      }, 2500);
+    }
+
     function loadData() {
       var topicCode = localStorage.getItem('topicCode');
-      alert(topicCode);
       $.ajax({
         url: 'http://localhost:8080/api/v1/syllabus/showOtherScreenById/'+topicCode
         ,type: 'GET',
@@ -171,47 +246,44 @@
                       <div class="time-allocation3">Time allocation</div>
                     </div>
                     <div class="content2">
-                      <div class="doughnut">
-                        <div class="_01"></div>
-                        <div class="_02"></div>
-                        <div class="_03"></div>
-                        <div class="_04"></div>
-                      </div>
+                      <canvas class="doughnut" id="doughnut">
+
+                      </canvas>
                       <div class="info">
                         <div class="frame-108">
                           <div class="bullet">
                             <div class="rectangle-644"></div>
                           </div>
-                          <div class="assignment-lab">Assignment/Lab</div>
-                          <div class="_54">(54%)</div>
+                          <div class="assignment-lab">Assignment</div>
+                          <div class="_54" id="assignment_pie"></div>
                         </div>
                         <div class="frame-109">
                           <div class="bullet">
                             <div class="rectangle-6442"></div>
                           </div>
-                          <div class="concept-lecture">Concept/Lecture</div>
-                          <div class="_29">(29%)</div>
+                          <div class="concept-lecture">Quiz</div>
+                          <div class="_29" id="quiz_pie"></div>
                         </div>
                         <div class="frame-110">
                           <div class="bullet">
                             <div class="rectangle-6443"></div>
                           </div>
-                          <div class="guide-review">Guide/Review</div>
-                          <div class="_9">(9%)</div>
+                          <div class="guide-review">Final</div>
+                          <div class="_9" id="final_test_pie"></div>
                         </div>
                         <div class="frame-111">
                           <div class="bullet">
                             <div class="rectangle-6444"></div>
                           </div>
-                          <div class="test-quiz">Test/Quiz</div>
-                          <div class="_1">(1%)</div>
+                          <div class="test-quiz">Final Theory</div>
+                          <div class="_1" id="final_theory_pie"></div>
                         </div>
                         <div class="frame-112">
                           <div class="bullet">
                             <div class="rectangle-6445"></div>
                           </div>
-                          <div class="exam">Exam</div>
-                          <div class="_6">(6%)</div>
+                          <div class="exam">Final Practice</div>
+                          <div class="_6" id="final_practice_pie"></div>
                         </div>
                       </div>
                     </div>
@@ -220,9 +292,6 @@
               </div>
               <div class="col-xxl-6">
                 <div class="frame-113">
-                  <form method="post" >
-
-                  </form>
                   <div class="assessment-scheme">
                     <div class="percentage">
                       <div class="assessment-scheme2">Assessment scheme</div>
@@ -230,15 +299,15 @@
                     <div class="input-percent">
                       <div class="input-percent-1">
                         <div class="block" >
-                          <label>Quiz*</label> <input type="number" style="font-size: .8rem" name="quiz" id = "quiz">
+                          <label>Assignment*</label> <input type="number" style="font-size: .8rem" name="assignment" id = "assignment">
                         </div>
                         <div class="block">
-                          <label>Assignment*</label> <input type="number" style="font-size: .8rem" name="assignment" id = "assignment">
+                          <label>Quiz*</label> <input type="number" style="font-size: .8rem" name="quiz" id = "quiz">
                         </div>
                       </div>
                       <div class="input-percent-2">
                         <div class="block">
-                          <label>Final*</label> <input type="number" style="font-size: .8rem" name="final" id="final">
+                          <label>Final*</label> <input type="number" style="font-size: .8rem" name="final" id="final_test">
                         </div>
 
                         <div class="block">
@@ -569,7 +638,7 @@
             </div>
             <div class="saving-button">
               <div class="button">
-                <div class="filter"><button style="color: white" onclick="showToast()" id="">Previous</button></div>
+                <div class="filter"><button style="color: white" id="">Previous</button></div>
               </div>
               <div class="frame-5119">
                 <div class="button2">
@@ -584,18 +653,118 @@
               </div>
             </div>
             <script>
-              $(document).ready(function () {
-                let toastBox = $('#toastBox');
 
-                function showToast() {
-                  let toast = $('<div>').addClass('toast').text('success');
-                  toastBox.append(toast);
+              var ctx = document.getElementById('doughnut').getContext('2d');
+
+              let doughnut = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                  labels: ['Empty'],
+                  datasets: [{
+                    data: [100],
+                    backgroundColor: ['black']
+                  }]
+                },
+                options: {
+                  // Add any desired options here
+                  maintainAspectRatio: true
+                }
+              });
+
+              const assignmentInput = document.getElementById('assignment');
+              const assignmentOutput = document.getElementById('assignment_pie');
+
+              const quizInput = document.getElementById('quiz');
+              const quizOutput = document.getElementById('quiz_pie');
+
+              const finalInput = document.getElementById('final_test');
+              const finalOutput = document.getElementById('final_test_pie');
+
+              const finalTheoryInput = document.getElementById('final_theory');
+              const finalTheoryOutput = document.getElementById('final_theory_pie');
+
+              const finalPracticeInput = document.getElementById('final_practice');
+              const finalPracticeOutput = document.getElementById('final_practice_pie');
+
+              assignmentInput.addEventListener('input', function () {
+                const inputValue = assignmentInput.value;
+
+                assignmentOutput.innerHTML = "(" + inputValue + "%" + ")" ;
+              });
+
+              quizInput.addEventListener('input', function () {
+                const inputValue = quizInput.value;
+
+                quizOutput.innerHTML = "(" + inputValue + "%" + ")" ;
+              })
+
+              finalInput.addEventListener('input', function () {
+                const inputValue = finalInput.value;
+
+                finalOutput.innerHTML = "(" + inputValue + "%" + ")" ;
+              })
+
+              finalTheoryInput.addEventListener('input', function () {
+                const inputValue = finalTheoryInput.value;
+
+                finalTheoryOutput.innerHTML = "(" + inputValue + "%" + ")" ;
+              })
+
+              finalPracticeInput.addEventListener('input', function () {
+                const inputValue = finalPracticeInput.value;
+
+                finalPracticeOutput.innerHTML = "(" + inputValue + "%" + ")" ;
+              })
+
+
+              const inputs = [
+                assignmentInput,
+                quizInput,
+                finalInput,
+                finalTheoryInput,
+                finalPracticeInput
+              ];
+
+              // Add event listeners to the input tags
+              inputs.forEach(input => {
+                input.addEventListener('input', updateChart);
+              });
+
+              function updateChart() {
+                // Get the current values of the input tags
+                const values = inputs.map(input => parseInt(input.value));
+
+                // If a chart already exists, destroy it to create a new one
+                if (doughnut) {
+                  doughnut.destroy();
                 }
 
-                $('#show').click(function () {
-                  showToast();
+                // Create a new chart with the updated data
+                doughnut = new Chart(ctx, {
+                  type: 'pie',
+                  data: {
+                    labels: ['Assignment', 'Quiz', 'Final', 'Final Theory', 'Final Practice'],
+                    datasets: [{
+                      data: values,
+                      backgroundColor: ['#f4be37', '#ff9f40', '#0d2535', '#5388d8', '#206ee5']
+                    }]
+                  },
+                  options: {
+                    // Add any desired options here
+                    maintainAspectRatio: true,
+                    plugins:{
+                      legend: {
+                        display: false
+                      }
+                    }
+                  }
                 });
-              });
+              }
+
+              // Call the updateChart function to display the initial solid color chart
+              updateChart();
+
+
 
 
               $(document).ready(function () {
@@ -641,11 +810,7 @@
             </script>
           </div>
 
-          <button id="show">Show Notification</button>
-          <div id="notification" class="hide">
-            <span id="message">Success!</span>
-            <span id="close">&#x2715;</span>
-          </div>
+
 
 
 
