@@ -397,28 +397,32 @@
     align-items: flex-start;
     flex-shrink: 0;
     height: 104px;
+    width: 100%;
     overflow-y: auto; /* Add this line to enable vertical scrolling */
 
     /* Scrollbar styles */
     scrollbar-width: thin; /* Enable scrollbar */
     scrollbar-color: #2d3748 var(--un-modified, #8b8b8b); /* Set the scrollbar color */
-
-    /* Other styles for .frame-1193 container */
-    /* ... (your existing styles) */
+    position: relative; /* Add this line to make it a positioned container */
 }
 
 /* Style the thumb and track of the scrollbar */
 .frame-1193::-webkit-scrollbar {
-    width: 10px; /* Set the width of the scrollbar */
+    width: 8px; /* Set the width of the scrollbar */
+    height: 10px; /* Set the height of the scrollbar */
+    position: absolute; /* Add this line to position the scrollbar */
+    right: 0; /* Align the scrollbar to the right */
+    top: 0; /* Align the scrollbar to the top */
 }
 
 .frame-1193::-webkit-scrollbar-thumb {
-    background-color: #2d3748; /* Set the color of the scrollbar thumb */
+    background-color: #8b8b8b; /* Set the color of the scrollbar thumb */
     border-radius: 10px; /* Add rounded corners to the scrollbar thumb */
+
 }
 
 .frame-1193::-webkit-scrollbar-track {
-    background-color: var(--un-modified, #8b8b8b); /* Set the color of the scrollbar track */
+    background-color: var(--un-modified, white); /* Set the color of the scrollbar track */
 }
 .day-container {
     width: 100%; /* Chiều rộng 100% */
@@ -440,7 +444,7 @@
     align-items: center;
     justify-content: flex-start;
     flex-shrink: 0;
-    width: 860px;
+    width: 100%;
     position: relative;
 }
 .frame-512 {
