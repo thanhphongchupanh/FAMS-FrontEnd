@@ -134,7 +134,7 @@
       document.getElementById('syllabusNameInput').value = rs.topicName;
       document.getElementById('quiz').value = rs.quiz;
       document.getElementById('assignment').value = rs.assignment;
-      document.getElementById('final').value = rs.finalTest;
+      document.getElementById('final_test').value = rs.finalTest;
       document.getElementById('final_theory').value = rs.finalTheory;
       document.getElementById('final_practice').value = rs.finalPractice;
       document.getElementById('gpa').value = rs.gpa;
@@ -769,8 +769,16 @@
 
               $(document).ready(function () {
 
+                const topicCode = localStorage.getItem('topicCode');
+                if(topicCode!= null){
+                    loadChart();
+                }else{
+
+                }
+
                 $('#SaveSyllabus').click(function () {
                   saveToDB();
+
                 })
 
 
@@ -785,7 +793,7 @@
                   trainingPrincipal : $('#textarea1').val(),
                   quiz : $('#quiz').val(),
                   assignment : $('#assignment').val(),
-                  finalTest : $('#final').val(),
+                  finalTest : $('#final_test').val(),
                   finalTheory : $('#final_theory').val(),
                   finalPractice : $('#final_practice').val(),
                   gpa : $('#gpa').val()
@@ -799,12 +807,100 @@
                   success: function(data) {
                     // Handle the response data if needed
                     console.log('New syllabus created:', data);
+                    showSuccess("Your syllabus has been saved!")
                   },
                   error: function(error) {
                     // Handle any errors that occurred during the request
                     console.error('Error creating syllabus:', error);
+                    showError("Hư r má ơi")
                   }
                 });
+              }
+
+              function loadChart() {
+                var topicCode = localStorage.getItem('topicCode');
+                var assignment1 = 0;
+                var quiz1 = 0;
+                var finalTest = 0;
+                var finalTheory= 0;
+                var finalPractice= 0;
+                if(topicCode != null){
+                  $.ajax({
+                    url: 'http://localhost:8080/api/v1/syllabus/getGeneralScreen/' + topicCode
+                    ,type: 'GET',
+                    success: function (rs) {
+                      console.log(rs);
+                      $('#topicCode').html(rs.topicCode);
+                      $('#version').html(rs.version);
+                      console.log(rs.level);
+                      console.log(rs.assignment);
+                        assignment1 = rs.assignment;
+                        quiz1 = rs.quiz;
+                        finalTest = rs.finalTest;
+                        finalTheory = rs.finalTheory;
+                        finalPractice = rs.finalPractice;
+                        document.getElementById('assignment_pie').innerHTML = "(" + assignment1 + "%" + ")";
+                        document.getElementById('quiz_pie').innerHTML = "(" + quiz1 + "%" + ")";
+                        document.getElementById('final_test_pie').innerHTML = "(" + finalTest + "%" + ")";
+                        document.getElementById('final_theory_pie').innerHTML = "(" + finalTheory + "%" + ")";
+                        document.getElementById('final_practice_pie').innerHTML = "(" + finalPractice + "%" + ")";
+
+
+                      // Get the canvas element
+                      var ctx = document.getElementById('doughnut').getContext('2d');
+
+                      var doughnut = new Chart(ctx, {
+                        type: 'pie',
+                        data: {
+                          labels: ['Assignment', 'Quiz', 'Final', 'Final Theory', 'Final Practice'],
+                          datasets: [{
+                            data: [assignment1, quiz1, finalTest, finalTheory, finalPractice], // Replace with your own data values
+                            backgroundColor: ['#f4be37', '#ff9f40', '#0d2535', '#5388d8', '#206ee5'] // Replace with desired colors
+                          }]
+                        },options: {
+                          plugins: {
+                            legend: {
+                              display: false,
+                            }
+                          },
+                          maintainAspectRatio: true,
+                        },
+                        animation: {
+                          animateRotate: true, // Animate rotation of the pie chart
+                          animateScale: true // Animate scaling of the pie chart
+                        }
+                      });
+
+                    },error(err){
+                        alert(err);
+
+                    }
+
+                  });
+                }else{
+                  document.getElementById('assignment_pie').innerHTML = "(" + "0" +"%" + ")";
+                  document.getElementById('quiz_pie').innerHTML = "(" + "0" +"%" + ")";
+                  document.getElementById('final_test_pie').innerHTML = "(" + "0" +"%" + ")";
+                  document.getElementById('final_theory_pie').innerHTML = "(" + "0" +"%" + ")";
+                  document.getElementById('final_practice_pie').innerHTML = "(" + "0" +"%" + ")";
+
+                  var ctx = document.getElementById('doughnut').getContext('2d');
+
+                  const doughnut = new Chart(ctx, {
+                    type: 'pie',
+                    data: {
+                      labels: ['Empty'],
+                      datasets: [{
+                        data: [100],
+                        backgroundColor: ['black']
+                      }]
+                    },
+                    options: {
+                      // Add any desired options here
+                    }
+                  });
+                }
+
               }
 
             </script>
