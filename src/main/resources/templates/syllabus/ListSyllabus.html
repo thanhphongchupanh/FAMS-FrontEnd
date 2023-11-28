@@ -2129,9 +2129,9 @@
           data: formData,
           processData: false,
           contentType: false,
-          beforeSend: function(xhr) {
-            xhr.setRequestHeader('Authorization', 'Basic c3lzYWRtaW46cGFzc3dvcmQtMQ==');
-          },
+          // beforeSend: function(xhr) {
+          //   xhr.setRequestHeader('Authorization', 'Basic c3lzYWRtaW46cGFzc3dvcmQtMQ==');
+          // },
           type: 'POST',
           headers: {
             "Authorization": "Bearer " + accessToken // Sử dụng Bearer token nếu cần
