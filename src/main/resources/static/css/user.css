@@ -1,3 +1,5 @@
+
+
 .bg-main {
     background-color: #2d3748;
 }
@@ -87,7 +89,7 @@
     border: none;
 }
 
-#add-user-dialog {
+#add-user-dialog, #edit-user-dialog {
     width: 30%;
     min-width: 500px;
     border-radius: 10px;
@@ -200,6 +202,7 @@ span.selection {
     align-items: center;
     border-radius: 50px;
     background: #4DB848;
+    width: 128px;
 }
 
 .trainer-row{
@@ -210,6 +213,7 @@ span.selection {
     align-items: center;
     border-radius: 50px;
     background: #0B2136;
+    width: 128px;
 }
 
 .super-admin-row{
@@ -220,6 +224,7 @@ span.selection {
     align-items: center;
     border-radius: 50px;
     background: #FF0000;
+    width: 128px;
 }
 .name{
     font-family: Inter;
@@ -270,4 +275,211 @@ span.selection {
     border-radius: 8px;
     border: 1px solid var(--Un-modified, #8B8B8B);
     background: #FFF;
+}
+
+#open-add-user-dialog-button{
+    border-radius: 8px;
+    background: var(--Main, #2D3748);
+    /* M3/Elevation Light/1 */
+    box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15), 0px 1px 2px 0px rgba(0, 0, 0, 0.30);
+
+    height: 36px;
+}
+.add_user{
+    color: #FFF;
+
+    /* subtitle1/bold */
+    font-family: Inter;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 24px;
+}
+#select-user-type{
+    border-radius: 5px;
+    background: #FFF;
+
+    /* M3/Elevation Light/3 */
+    box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.30), 0px 4px 8px 3px rgba(0, 0, 0, 0.15);
+
+    width: 356px;
+    height: 36px;
+    padding: 0px 10px;
+    justify-content: space-between;
+    align-items: center;
+}
+#input-user-phone, #input-user-email-address, #input-user-name, #pick-date-of-birth{
+    display: flex;
+    width: 356px;
+    height: 36px;
+    padding: 10px;
+    align-items: center;
+    gap: 16px;
+    border-radius: 6px;
+    border: 1px solid var(--Un-modified, #8B8B8B);
+    background: #FFF;
+}
+
+.dropbtn {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 25px;
+    white-space: normal;
+    text-align: center;
+    outline: none !important;
+    text-decoration: none !important;
+    color: #000 !important;
+    cursor: pointer;
+}
+
+.dropbtn:active,
+.dropbtn:hover,
+.dropbtn:focus {
+    background-color: #f1f1f1 !important;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+    user-select: none;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    min-width: 160px;
+    overflow: auto;
+    background: #FFF;
+    box-shadow: 0px 20px 40px 0px rgba(0, 0, 0, 0.16);
+    z-index: 1;
+    left: -412%;
+    border-radius: 10px;
+    width: 229px;
+}
+
+.dropdown-content a {
+    color: #2C5282;
+    font-size: 16px;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover,
+.dropdown-content a:focus{
+    background: rgba(201, 203, 208, 0.37);
+}
+
+.show {
+    display: block;
+}
+
+input[type="radio"] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background: white; /* Màu nền của radio button */
+    border: 1px solid #000; /* Viền của radio button */
+    width: 18px; /* Độ rộng của radio button */
+    height: 18px; /* Chiều cao của radio button */
+    border-radius: 50%; /* Độ cong để tạo hình tròn */
+}
+
+/* Tạo màu khi radio button được chọn */
+input[type="radio"]:checked {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background: white; /* Màu nền của radio button */
+    border: 5px solid #000; /* Viền của radio button */
+    width: 18px; /* Độ rộng của radio button */
+    height: 18px; /* Chiều cao của radio button */
+    border-radius: 50%; /* Độ cong để tạo hình tròn */
+}
+
+/* Ẩn mặt sau dấu kiểm (radio button) */
+input[type="radio"]::before {
+    content: ""; /* Ẩn nội dung mặt sau */
+}
+#submit-add-user-dialog-button, #submit-edit-user-dialog-button{
+    height: 32px;
+    padding: 2px 25px;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+
+    border-radius: 8px;
+    background: var(--Main, #2D3748);
+    /* M3/Elevation Light/1 */
+    box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15), 0px 1px 2px 0px rgba(0, 0, 0, 0.30);
+
+    color: #FFF;
+
+    /* button/md */
+    font-family: Inter;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 24px;
+
+}
+
+.close-add-user-dialog-button{
+    border-radius: 8px;
+    height: 32px;
+    padding: 2px 0px;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    margin-right: 10px;
+
+    color: var(--alert, #E74A3B);
+    font-family: Inter;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 24px; /* 171.429% */
+    text-decoration-line: underline;
+}
+input[type="checkbox"]:not(:checked) {
+    background-color: whitesmoke;
+}
+
+input[type="checkbox"]:checked {
+    background-color: #D45B13;
+    border: #D45B13;
+}
+
+#update-userPermission,#name,#email,#phone,#dob{
+    color: #000;
+
+    font-family: Inter;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 22px; /* 183.333% */
+    width: 300px;
+    border-radius: 6px;
+    border: 1px solid var(--Un-modified, #8B8B8B);
+    background: #FFF;
+}
+#update-userPermission{
+
+    /* M3/Elevation Light/3 */
+    box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.30), 0px 4px 8px 3px rgba(0, 0, 0, 0.15);
+    height: 36px;
+    padding: 0px 10px;
+    justify-content: space-between;
+    align-items: center;
+}
+#role div:hover{
+    background: rgba(201, 203, 208, 0.37);
+    border-radius: 5px;
+    width: 126px;
+}
+
+.table-container{
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
 }

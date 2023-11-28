@@ -9,9 +9,10 @@ package com.fams.famsfrontend.service.user;/*  Welcome to Jio word
 
 import com.fams.famsfrontend.dto.response.ApiResponse;
 import com.fams.famsfrontend.dto.user.request.LoginRequest;
-import com.fams.famsfrontend.dto.user.response.UserDTOResponse;
 import jakarta.servlet.http.HttpSession;
 
 public interface IUserService {
-    ApiResponse<UserDTOResponse> login(LoginRequest loginRequest, HttpSession session);
+    ApiResponse<?> login(LoginRequest loginRequest);
+
+    ApiResponse<?> loginV2(String email);
 }

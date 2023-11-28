@@ -2,250 +2,96 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <link href="/css/Bootstrap%205/bootstrap.min.css" rel="stylesheet">
     <script src="/js/Bootstrap%205/bootstrap.bundle.min.js"></script>
     <script src="/js/JQuery/jquery-3.7.1.js"></script>
-    <link href="/css/select2/select2.css" rel="stylesheet" />
+    <link href="/css/select2/select2.css" rel="stylesheet"/>
     <script src="/js/select2/select2.min.js"></script>
     <link href="/css/DataTable/jquery.dataTables.css" rel="stylesheet">
     <script src="/js/DataTable/jquery.dataTables.js"></script>
-    <link href="/css/user.css" rel="stylesheet" >
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <script src="/js/user.js"></script>
+    <link href="/css/user.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="/img/FPT_logo.png" rel="shortcut icon" type="image/png"/>
+    <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
+    <link href="/css/userPermission.css" rel="stylesheet">
     <title>User management</title>
 
 </head>
 <body>
 <div class="d-flex flex-column" style="height: 100vh;">
-    <header class="bg-main text-white px-5 py-1" >
+    <header class="bg-main text-white px-5 py-1">
         <div th:replace="~{common :: header}"></div>
     </header>
     <div class="d-flex flex-grow-1 flex-row">
 
         <div th:replace="~{common :: menu}"></div>
 
-        <div class="flex-grow-1">
-            <h1>User Permission</h1>
-            <div class="row mb-3">
-                <div class="col text-end">
-                    <button class="btn btn-dark" id="dialog-button">
-                        Update permission
-                    </button>
+        <div class="flex-grow-1" id="initialContent">
+            <div class="flex-grow-1">
+                <div class="titlePermission">User Permission</div>
+                <div class="row mb-3">
+                    <div class="col text-end" style="padding-right: 28px">
+                        <button id="updateButton">
+                            <div class="namePermission">Update permission</div>
+                        </button>
+                    </div>
+                </div>
+                <p></p>
+                <div class="table-container">
+                    <table class="table table-responsive" id="userPermissionTable">
+                        <thead>
+                        <th style="border-top-left-radius: 10px">Role name</th>
+                        <th>Syllabus</th>
+                        <th>Training program</th>
+                        <th>Class</th>
+                        <th>Learning material</th>
+                        <th style="border-top-right-radius: 10px">User</th>
+
+                        </thead>
+                        <tbody>
+                        <tr></tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
-            <div class="table-container">
-                <table id="userPermissionTable" class="table table-responsive">
-                    <thead class="table-dark">
-                    <th>Role name</th>
-                    <th>Syllabus</th>
-                    <th>Training program</th>
-                    <th>Class</th>
-                    <th>Learning material</th>
-                    <th>User</th>
+        </div>
+        <div class="flex-grow-1" id="updatedContent" style="display: none;">
+            <div class="flex-grow-1">
+                <div class="titlePermission" style="padding-bottom: 86px">User Permission</div>
+                <div class="row mb-3">
 
-                    </thead>
-                    <tbody>
-                    <tr></tr>
-                    </tbody>
-                </table>
+                </div>
+                <div class="table-container">
+                    <table class="table table-responsive updatedContent">
+                        <thead>
+                        <th style="border-top-left-radius: 10px">Role name</th>
+                        <th>Syllabus</th>
+                        <th>Training program</th>
+                        <th>Class</th>
+                        <th>Learning material</th>
+                        <th style="border-top-right-radius: 10px">User</th>
+                        </thead>
+                        <tbody>
+                        </tbody>
+
+                    </table>
+                    <div class="col text-end" style="padding-top: 16px">
+                        <button class="button-text button" id="cancelButton">Cancel</button>
+                        <button class="btn btn-dark" id="saveButton">
+                            Save
+                        </button>
+                    </div>
+                </div>
+
             </div>
-
         </div>
     </div>
-    <div th:replace="~{common :: footer}"></div>
+</div>
+<div th:replace="~{common :: footer}"></div>
 
-
-    <script>
-        const permissionIcons = {
-            FULL_ACCESS: 'star', // Thay 'done' bằng tên Material Icon tương ứng
-            VIEW: 'visibility',
-            MODIFY: 'create',
-            ACCESS_DENIED: 'block',
-            CREATE: 'add'
-        };
-
-        $("#open-filter-dialog-button").click(() => {
-            $("#filter-option-dialog")[0].showModal();
-        });
-        $(document).ready(function () {
-            $("#filter-class-location").select2({
-                dropdownParent: $($("#filter-option-dialog")),
-                closeOnSelect: false,
-                width: "resolve"
-            });
-            $.ajax({
-                url: "http://localhost:8080/api/v1/usersPermission",
-                method: "GET",
-                success: function (response) {
-                    let tableData = [];
-                    response.payload.forEach(element => {
-                        let elementArr = [];
-                        elementArr.push(element.role);
-                        elementArr.push(`<i class="material-icons" style="position: relative; top:5.5px">${permissionIcons[element.syllabus]}</i>`+ " " +element.syllabus);
-                        elementArr.push(`<i class="material-icons" style="position: relative; top:5.5px">${permissionIcons[element.trainingProgram]}</i>`+ " " +element.trainingProgram);
-                        elementArr.push(`<i class="material-icons" style="position: relative; top:5.5px">${permissionIcons[element.closs]}</i>`+ " " +element.closs);
-                        elementArr.push(`<i class="material-icons" style="position: relative; top:5.5px">${permissionIcons[element.learningMaterial]}</i>`+ " " +element.learningMaterial);
-                        elementArr.push(`<i class="material-icons" style="position: relative; top:5.5px">${permissionIcons[element.userManagement]}</i>`+ " " +element.userManagement);
-                        tableData.push(elementArr);
-                        console.log(tableData);
-                    });
-                    $("#userPermissionTable").DataTable({
-                        data: tableData,
-                        searching: false,
-                        paging: false,
-                        info: false,
-
-                    });
-                },
-                error: function(error){
-                    alert(error)
-                }
-            });
-        });
-
-
-        var navWidth;
-        var closeNavWidth;
-        $(document).ready(function () {
-            var mainNavMenu = $("#main-navigation-menu");
-            navWidth = mainNavMenu.outerWidth(true);
-            $("#main-navigation-menu").css("width", navWidth);
-            closeNavWidth = $("#btn-nav-toggle").outerWidth(true) + navWidth - mainNavMenu.width();
-            $("#btn-nav-toggle-open-icon").css("opacity", "0.5");
-            $("#btn-nav-toggle-open-icon").css("transform", "rotate(-45deg)");
-        });
-        $("#btn-nav-toggle").click(function () {
-            $(this).prop("disabled",true);
-            if ($(".nav-collapsed").length === 0) {
-                collapseNavbar();
-            } else {
-                expandNavbar();
-            }
-            setTimeout(() => {
-                $(this).prop("disabled",false);
-            }, 150);
-        });
-        $(".btn-nav").click(function () {
-            $(this).prop("disabled",true);
-            if ($(".nav-collapsed").length !== 0) {
-                expandNavbar();
-            }
-            setTimeout(() => {
-                $(this).prop("disabled",false);
-            }, 150);
-        });
-        function expandNavbar() {
-            $(".nav-collapsed").removeClass("nav-collapsed");
-            $(".nav-text").removeClass("hide");
-            $(".nav-dropdown").removeClass("hide");
-            $("#main-navigation-menu").animate({ width: navWidth }, 150, function () {
-            });
-            $("#btn-nav-toggle-open-icon").animate(
-                {
-                    opacity: 0.5,
-                    angle: -45
-                },
-                {
-                    duration: 75,
-                    step: function (now, fx) {
-                        if (fx.prop === "angle") {
-                            $(this).css("transform", "rotate(" + now + "deg)");
-                        } else {
-                            $(this).css("opacity", now);
-                        }
-                    },
-                    complete: function () {
-                        $("#btn-nav-toggle-open-icon").addClass("hide");
-                        $("#btn-nav-toggle-close-icon").removeClass("hide");
-                        $("#btn-nav-toggle-close-icon").animate(
-                            {
-                                opacity: 1,
-                                angle: 0
-
-                            },
-                            {
-                                duration: 75,
-                                step: function (now, fx) {
-                                    if (fx.prop === "angle") {
-                                        $(this).css("transform", "rotate(" + now + "deg)");
-                                    } else {
-                                        $(this).css("opacity", now);
-                                    }
-                                }
-                            }
-                        );
-                    }
-                });
-        }
-        function collapseNavbar() {
-            $("#main-navigation-menu").addClass("nav-collapsed");
-            $(".collapse.show").removeClass("show");
-            $(".nav-dropdown-open").removeClass("nav-dropdown-open");
-            $("#main-navigation-menu").animate({ width: closeNavWidth }, 150, function () {
-                $(".nav-text").addClass("hide");
-                $(".nav-dropdown").addClass("hide");
-            });
-            $("#btn-nav-toggle-close-icon").animate(
-                {
-                    opacity: 0.5,
-                    angle: 45
-                },
-                {
-                    duration: 75,
-                    step: function (now, fx) {
-                        if (fx.prop === "angle") {
-                            $(this).css("transform", "rotate(" + now + "deg)");
-                        } else {
-                            $(this).css("opacity", now);
-                        }
-                    },
-                    complete: function () {
-                        $("#btn-nav-toggle-close-icon").addClass("hide");
-                        $("#btn-nav-toggle-open-icon").removeClass("hide");
-                        $("#btn-nav-toggle-open-icon").animate(
-                            {
-                                opacity: 1,
-                                angle: 0
-                            },
-                            {
-                                duration: 75,
-                                step: function (now, fx) {
-                                    if (fx.prop === "angle") {
-                                        $(this).css("transform", "rotate(" + now + "deg)");
-                                    } else {
-                                        $(this).css("opacity", now);
-                                    }
-                                }
-                            }
-                        );
-                    }
-                }
-            );
-        }
-        $(".btn-nav").click(function () {
-            $(this).prop("disabled",true);
-            let dropdown = $(this).find(".nav-dropdown");
-            $(".btn-active").removeClass("btn-active");
-            $(this).addClass("btn-active");
-            if (dropdown.length !== 0) {
-                dropdown.toggleClass("nav-dropdown-open");
-                $(this).next(".collapsing").children(".btn-nav-sub:first-child").addClass("btn-active");
-            }
-            setTimeout(() => {
-                $(this).prop("disabled",false);
-            }, 150);
-        });
-        $(".btn-nav-sub").click(function () {
-            $(this).prop("disabled",true);
-            $(".btn-active").removeClass("btn-active");
-            $(this).addClass("btn-active");
-            $(this).parent(".collapse").prev(".btn-nav").addClass("btn-active");
-            setTimeout(() => {
-                $(this).prop("disabled",false);
-            }, 150);
-        });
-    </script>
+<script src="/js/user/userPermission.js"></script>
+<script src="/js/common.js"></script>
 </div>
 </body>
 

@@ -1,0 +1,209 @@
+.titlePermission{
+    color: var(--Main, #2D3748);
+    /* Header/H4 */
+    font-family: Inter;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 36px; /* 150% */
+    letter-spacing: 4.8px;
+    padding-top: 28px;
+    padding-bottom: 50px;
+    padding-left: 28px;
+}
+
+#userPermissionTable {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 10px 10px 0px 0px;
+    box-shadow: -4px 5px 9px 1px gray;
+}
+
+#userPermissionTable td {
+    text-align: center;
+    height: 60px;
+    padding-top: 20px;
+}
+
+#userPermissionTable>tbody tr {
+    border-bottom: 0.5px solid #2D3748;
+    font-family: Inter;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 22px;
+    color: #000;
+    height: 60px;
+    text-align: center;
+}
+
+
+.updatedContent {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 10px 10px 0px 0px;
+    box-shadow: -4px 5px 9px 1px gray;
+}
+#userPermissionTable>thead th {
+    background: #2D3748;
+    color: white;
+    height: 40px;
+    text-align: center;
+}
+
+.updatedContent td {
+    text-align: center;
+    height: 60px;
+}
+
+.updatedContent>tbody tr {
+    border-bottom: 0.5px solid #2D3748;
+    font-family: Inter;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 22px;
+    color: #000;
+    height: 60px;
+    text-align: center;
+}
+
+.updatedContent>thead th {
+    background: #2D3748;
+    color: white;
+    height: 40px;
+    text-align: center;
+}
+.namePermission{
+    color: #FFF;
+
+    font-family: Inter;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 24px;
+}
+#updateButton{
+    border-radius: 8px;
+    background: var(--Main, #2D3748);
+    /* M3/Elevation Light/1 */
+    box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15), 0px 1px 2px 0px rgba(0, 0, 0, 0.30);
+
+    height: 36px;
+
+}
+
+#syllabus_super_admin, #trainingProgram_super_admin, #class_super_admin, #learningMaterial_super_admin,
+#syllabus_trainer, #trainingProgram_trainer, #class_trainer, #learningMaterial_trainer,
+#syllabus_class_admin, #trainingProgram_class_admin, #class_class_admin, #learningMaterial_class_admin,select{
+    width: 165px;
+    /*height: 30px;*/
+    padding: 0px 10px;
+    justify-content: space-between;
+    align-items: center;
+    flex-shrink: 0;
+
+    border-radius: 5px;
+    background: #FFF;
+
+    /* M3/Elevation Light/3 */
+    box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.30), 0px 4px 8px 3px rgba(0, 0, 0, 0.15);
+
+}
+#saveButton{
+    width: 84px;
+    height: 32px;
+    padding: 2px 25px;
+    border-radius: 8px;
+    gap: 5px;
+    background: #2D3748;
+    box-shadow: 0px 1px 3px 1px #00000026, 0px 1px 2px 0px #0000004D;
+    margin-left: 5px; margin-right: 20px;
+}
+.button {
+    background-color: transparent;
+    border: none;
+}
+
+.button-text {
+    font-size: 17px;
+    color: red;
+    text-decoration: underline;
+    text-decoration-skip-ink: auto;
+    position: relative;
+    top: 5px;
+}
+/*select {*/
+/*    appearance: none; !* Ẩn giao diện mặc định của <select> *!*/
+/*    background-image: url('../img/arrow_back_ios.svg'); !* Đường dẫn đến hình ảnh mũi tên tùy chỉnh *!*/
+/*    background-repeat: no-repeat; !* Ngăn lặp lại hình ảnh *!*/
+/*    background-position: right center; !* Vị trí của mũi tên (bên phải giữa) *!*/
+/*    padding-right: 20px; !* Để tạo khoảng trống cho mũi tên *!*/
+/*}*/
+.updatedContent tr:nth-child(even) {
+    border-top: 1px solid black; /* Đường viền trên màu đen */
+    border-bottom: 1px solid black; /* Đường viền dưới màu đen */
+}
+select{
+    height: 32px;
+}
+
+#cancelButton{
+    color: var(--alert, #E74A3B);
+    font-family: Inter;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 24px; /* 171.429% */
+    text-decoration-line: underline;
+}
+
+.select2-dropdown {
+    border: 2px solid #ccc; /* Viền xung quanh dropdown menu */
+    border-radius: 5px; /* Độ cong viền */
+    background-color: #fff; /* Màu nền của dropdown menu */
+    box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.30), 0px 4px 8px 3px rgba(0, 0, 0, 0.15);
+    margin: -16px auto; /* Đặt lề trái và lề phải tự động (auto) để căn giữa */
+    margin-left: 8px;
+}
+.select2-selection__choice {
+    background-color: #3498db; /* Màu nền mặc định của option được chọn */
+    color: #fff; /* Màu chữ của option được chọn */
+}
+
+.select2-container {
+    background-color: #f0f0f0;
+}
+/* Đổi màu nền của ô trước khi dropdown */
+.select2-container--default .select2-selection--single {
+    background-color: white;
+    border: none;
+}
+
+/* Đổi màu chữ trong ô trước khi dropdown */
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    width: 165px;
+    /*height: 30px;*/
+    padding: 0px 10px;
+    justify-content: space-between;
+    align-items: center;
+    flex-shrink: 0;
+
+    border-radius: 5px;
+    background: #FFF;
+
+    /* M3/Elevation Light/3 */
+    box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.30), 0px 4px 8px 3px rgba(0, 0, 0, 0.15);
+}
+
+/* Tùy chỉnh icon trước ô trước khi dropdown */
+.select2-container--default .select2-dropdown {
+    width: 165px; /* Đặt chiều rộng mà bạn muốn */
+}
+/* Ẩn hình tam giác khi focus */
+.select2-container--default .select2-selection__arrow b {
+    display: none;
+}
+.select2-container .select2-dropdown .select2-search {
+    display: none;
+}

@@ -171,7 +171,7 @@ function getFieldNameLg(input) {
 }
 
 lgForm.addEventListener('submit', function (e){
-    e.preventDefault()
+    // e.preventDefault()
 
     if (!checkRequiredLg([lgEmail, lgPassword])) {
         checkEmail2(lgEmail)

@@ -1,4 +1,7 @@
-<html lang="en">
+<html lang="en"
+      xmlns:sec="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
@@ -11,7 +14,7 @@
     <script src="/js/select2/select2.min.js"></script>
     <link href="/css/DataTable/jquery.dataTables.css" rel="stylesheet">
     <script src="/js/DataTable/jquery.dataTables.js"></script>
-    <link href="/css/user.css" rel="stylesheet" >
+
 <!--    <script src="/js/user.js"></script>-->
     <link rel="shortcut icon" type="image/png" href="img/FPT_logo.png"/>
     <title>User management</title>
@@ -28,6 +31,15 @@
     <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
 
     <style>
+        /*.dataTables_length:after {*/
+        /*    content: "Row per page";*/
+        /*    display: inline;*/
+        /*}*/
+        #user-information-table_length {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+        }
         .search-item {
             border-radius: 8px;
             border: 1px solid #FFF;
@@ -62,12 +74,39 @@
             color: white;
             height: 40px;
         }
-    </style>
+        #edit-user-dialog {
+            position: fixed;
+            top: 50%;
+            left: 35%;
+            transform: translate(-50%, -50%);
+            z-index: 1000;
+            display: none;
+        }
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5); /* Màu đen mờ với độ trong suốt 0.5 */
+            backdrop-filter: blur(2px);
+            z-index: 999; /* Đảm bảo rằng overlay nằm phía trên tất cả */
+            display: none;
+        }
+        /*#role {*/
+        /*    position: absolute;*/
+        /*    top: 0;*/
+        /*    left: 100px; !* Điều chỉnh vị trí hiển thị dialog tương ứng với phần tử "Change role" *!*/
+        /*    display: none;*/
+        /*}*/
 
+
+    </style>
+    <link href="/css/user.css" rel="stylesheet" >
 
 </head>
 <body>
-<div class="d-flex flex-column" style="height: 100vh;">
+<div class="d-flex flex-column" style="height: 100vh;" sec:authorize="isAuthenticated()" >
     <header class="bg-main text-white px-5 py-1" >
         <div th:replace="~{common :: header}"></div>
     </header>
@@ -77,6 +116,27 @@
 
         <div class="flex-grow-1">
             <div class="UserManagement">User Management</div>
+
+<!--            <div id="tbpopup-1" style="display:none; width: 60%;margin-left: auto;margin-right: auto;">-->
+<!--                    <p class="alert alert-success text-center" style="background-color: white; border: 2px solid #2D3748;-->
+<!--                    box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15), 0px 1px 2px 0px rgba(0, 0, 0, 0.30);">Add user successfully</p>-->
+<!--            </div>-->
+            <div id="tbpopup-1" style="display:none;">
+                <p class="alert alert-success text-center">Update user successfully</p>
+
+
+<!--            <p th:each="authority : ${#authentication.getAuthorities()}"-->
+<!--               th:if="${authority.authority == 'SUPER_ADMIN'}">-->
+<!--                This content is visible only for SUPER_ADMIN.-->
+<!--            </p>-->
+
+            </div>
+            <div id="tbpopup-2" style="display:none;">
+                <p class="alert alert-success text-center">Update user successfully</p>
+            </div>
+
+
+
             <div class="row w-100">
                 <div class="d-inline-block position-relative" style="width: 49%; padding-left: 28px;">
                     <i class="icon bi bi-search"></i>
@@ -84,23 +144,18 @@
                            placeholder=" Enter name or email...">
                 </div>
 
-                <div class="col text-end" style="padding-right: 28px">
-                    <button class="btn btn-dark" id="open-add-user-dialog-button">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <g clip-path="url(#clip0_487_2486)">
-                                <path
-                                        d="M13 7H11V11H7V13H11V17H13V13H17V11H13V7ZM12 2C6.49 2 2 6.49 2 12C2 17.51 6.49 22 12 22C17.51 22 22 17.51 22 12C22 6.49 17.51 2 12 2ZM12 20C7.59 20 4 16.41 4 12C4 7.59 7.59 4 12 4C16.41 4 20 7.59 20 12C20 16.41 16.41 20 12 20Z"
-                                        fill="#DFDEDE" />
-                            </g>
-                            <defs>
-                                <clipPath id="clip0_487_2486">
-                                    <rect width="24" height="24" fill="white" />
-                                </clipPath>
-                            </defs>
-                        </svg>
-                        Add user
-                    </button>
-                </div>
+                <th:block th:each="authority : ${#authentication.getAuthorities()}"
+                          th:if="${authority.authority == 'CREATE_USER MANAGEMENT'}">
+
+                    <div class="col text-end" style="padding-right: 28px">
+                        <button class="btn btn-dark" id="open-add-user-dialog-button">
+                            <img src="/img/addUser.svg" style="padding-bottom: 3px">
+                            Add user
+                        </button>
+                    </div>
+                </th:block>
+
+
             </div>
 <!--            // search-->
             <div id="search-keyword" class="search-keyword d-flex p-2 flex-wrap">
@@ -118,37 +173,28 @@
                     <th>Email</th>
                     <th>Date of birth</th>
                     <th>Gender</th>
-                    <th style="width: 12%;">Type</th>
+                    <th>Status</th>
+                    <th style="width: 100px;">Type</th>
+                    <th:block th:each="authority : ${#authentication.getAuthorities()}"
+                              th:if="${authority.authority == 'MODIFYS_USER MANAGEMENT'}">
                     <th style=" border-top-right-radius: 10px"></th>
+                    </th:block>
                     </thead>
                     <tbody>
                     <tr></tr>
                     </tbody>
                 </table>
             </div>
-
             <dialog id="add-user-dialog" class="p-0">
-                <table class="table m-0">
+                <table class="table m-0" style="border-radius: 20px;">
                     <thead class="table-dark">
-                    <th class="text-center">
+                    <th class="text-center" style="background: #2D3748;">
                         <div class="d-flex flex-row align-items-center">
-                                    <span class="flex-grow-1">
+                                    <span class="flex-grow-1 add_user">
                                         Add a new user
                                     </span>
                             <button class="btn close-add-user-dialog-button">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                     xmlns="http://www.w3.org/2000/svg">
-                                    <g clip-path="url(#clip0_46_6114)">
-                                        <path
-                                                d="M12 2C6.47 2 2 6.47 2 12C2 17.53 6.47 22 12 22C17.53 22 22 17.53 22 12C22 6.47 17.53 2 12 2ZM12 20C7.59 20 4 16.41 4 12C4 7.59 7.59 4 12 4C16.41 4 20 7.59 20 12C20 16.41 16.41 20 12 20ZM15.59 7L12 10.59L8.41 7L7 8.41L10.59 12L7 15.59L8.41 17L12 13.41L15.59 17L17 15.59L13.41 12L17 8.41L15.59 7Z"
-                                                fill="white" />
-                                    </g>
-                                    <defs>
-                                        <clipPath id="clip0_46_6114">
-                                            <rect width="24" height="24" fill="white" />
-                                        </clipPath>
-                                    </defs>
-                                </svg>
+                                <img src="/img/cancel.svg">
                             </button>
                         </div>
                     </th>
@@ -156,86 +202,197 @@
                     <tbody>
                     <tr>
                         <td>
-                            <form id="add-user-form">
+                                <form id="add-user-form">
+                                    <div class="mb-3 mt-3 row align-items-center">
+                                        <label for="select-user-type" class="form-label col-12 col-md-3 col-form-label"
+                                               style="padding-left: 25px;font-weight: 600;font-family: Inter;font-size: 14px;">User type</label>
+                                        <div class="col-12 col-md-9">
+                                            <select name="userPermission" class="form-control form-select" id="select-user-type"
+                                                    aria-placeholder="Select one">
+                                                <option value="TRAINER">Trainer</option>
+                                                <option value="CLASS_ADMIN">Admin</option>
+                                                <option value="SUPER_ADMIN" style="display: none">Super Admin</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3 row align-items-center">
+                                        <label for="input-user-name"
+                                               class="form-label col-12 col-md-3 col-form-label"
+                                               style="padding-left: 25px;font-weight: 600;font-family: Inter;font-size: 14px;">Name</label>
+                                        <div class="col-12 col-md-9">
+                                            <input type="text" class="form-control form-text" id="input-user-name"
+                                                   name="name" placeholder="User name">
+                                            <div class="invalid-feedback" id="invalid-user-name"></div>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3 row align-items-center">
+                                        <label for="input-user-email-address"
+                                               class="form-label col-12 col-md-3 col-form-label"
+                                               style="padding-left: 25px;font-weight: 600;font-family: Inter;font-size: 14px;">Email address</label>
+                                        <div class="col-12 col-md-9">
+                                            <input type="text" class="form-control form-text" id="input-user-email-address"
+                                                   name="email" placeholder="Email address">
+                                            <div class="invalid-feedback" id="invalid-email-address"></div>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3 row align-items-center">
+                                        <label for="input-user-phone" class="form-label col-12 col-md-3 col-form-label"
+                                               style="padding-left: 25px;font-weight: 600;font-family: Inter;font-size: 14px;">Phone</label>
+                                        <div class="col-12 col-md-9">
+                                            <input type="text" class="form-control form-text" id="input-user-phone"
+                                                   name="phone" placeholder="Phone number">
+                                            <div class="invalid-feedback" id="invalid-phone-number"></div>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3 row align-items-center">
+                                        <label for="pick-date-of-birth" class="form-label col-12 col-md-3 col-form-label"
+                                               style="padding-left: 25px;font-weight: 600;font-family: Inter;font-size: 14px;">Date
+                                            of
+                                            birth</label>
+                                        <div class="col-12 col-md-9">
+                                            <input type="date" class="form-control" id="pick-date-of-birth" name="dob"
+                                                   placeholder="">
+                                            <div class="invalid-feedback" id="invalid-date-of-birth"></div>
+                                        </div>
+                                    </div>
+                                    <fieldset class="row mb-3 align-items-baseline">
+                                        <legend class="col-12 col-md-3 col-form-label" style="padding-left: 25px;font-weight: 600;font-family: Inter;font-size: 14px;">Gender</legend>
+                                        <div class="col-12 col-md-9">
+                                            <div class="form-check-inline">
+                                                <input class="form-check-input" type="radio" name="gender"
+                                                       id="gender-radio-male" value="MALE" checked>
+                                                <label for="gender-radio-male" class="form-check-label" style="position: relative;top: 1px;"> Male</label>
+                                            </div>
+                                            <div class="form-check-inline">
+                                                <input class="form-check-input" type="radio" name="gender"
+                                                       id="gender-radio-female" value="FEMALE">
+                                                <label for="gender-radio-female" class="form-check-label" style="position: relative;top: 1px;"> Female</label>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                    <div class="mb-3 row align-items-end">
+                                        <p class="form-label col-12 col-md-3 col-form-label" style="padding-left: 25px;font-weight: 600;font-family: Inter;font-size: 14px;">Status</p>
+                                        <div class="col-12 col-md-9 form-check form-switch ps-3 m-auto">
+                                            <input type="checkbox" name="status" id="toggle-user-status"
+                                                   class="form-check-input m-0 align-self-center" value="true"
+                                                   style="scale: 1.5; width: 32px;height: 12px">
+                                            <label for="toggle-user-status" id="user-status-label"
+                                                   class="form-check-label mx-3"> Inactive</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 text-center">
+                                        <input type="reset" class="close-add-user-dialog-button" style="border: none; background: white" value="Cancel">
+                                        <input type="submit" name="btAction" id="submit-add-user-dialog-button" value="Save">
+                                    </div>
+                                </form>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </dialog>
+
+            <dialog id="edit-user-dialog" class="p-0">
+                <table class="table m-0" style="border-radius: 20px;">
+                    <thead class="table-dark">
+                    <th class="text-center" style="background: #2D3748;">
+                        <div class="d-flex flex-row align-items-center">
+                                    <span class="flex-grow-1 add_user">
+                                        Update User
+                                    </span>
+                            <button class="btn close-add-user-dialog-button">
+                                <img src="/img/cancel.svg">
+                            </button>
+                        </div>
+                    </th>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>
+                            <form id="edit-user-form">
                                 <div class="mb-3 mt-3 row align-items-center">
-                                    <label for="select-user-type" class="form-label col-12 col-md-2 col-form-label">User
+                                    <label for="update-userPermission" class="form-label col-12 col-md-4 col-form-label"
+                                           style="padding-left: 25px;font-weight: 600;font-family: Inter;font-size: 14px;">User
                                         type</label>
-                                    <div class="col-12 col-md-10">
-                                        <select name="userPermission" class="form-control form-select" id="select-user-type"
+                                    <div class="col-12 col-md-8">
+                                        <select name="userPermission" class="form-control form-select" id="update-userPermission"
                                                 aria-placeholder="Select one">
                                             <option value="TRAINER">Trainer</option>
                                             <option value="CLASS_ADMIN">Admin</option>
-                                            <option value="SUPER_ADMIN">Super Admin</option>
+                                            <option value="SUPER_ADMIN" style="display: none">Super Admin</option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="mb-3 row align-items-center">
-                                    <label for="input-user-name"
-                                           class="form-label col-12 col-md-2 col-form-label">Name</label>
-                                    <div class="col-12 col-md-10">
-                                        <input type="text" class="form-control form-text" id="input-user-name"
+                                    <label for="name"
+                                           class="form-label col-12 col-md-4 col-form-label"
+                                           style="padding-left: 25px;font-weight: 600;font-family: Inter;font-size: 14px;">Name</label>
+                                    <div class="col-12 col-md-8">
+                                        <input type="text" class="form-control form-text" id="name"
                                                name="name" placeholder="User name">
-                                        <div class="invalid-feedback" id="invalid-user-name"></div>
+                                        <div class="invalid-feedback" id="invalid-name"></div>
                                     </div>
                                 </div>
                                 <div class="mb-3 row align-items-center">
-                                    <label for="input-user-email-address"
-                                           class="form-label col-12 col-md-2 col-form-label">Email
+                                    <label for="email"
+                                           class="form-label col-12 col-md-4 col-form-label"
+                                           style="padding-left: 25px;font-weight: 600;font-family: Inter;font-size: 14px;">Email
                                         address</label>
-                                    <div class="col-12 col-md-10">
-                                        <input type="text" class="form-control form-text" id="input-user-email-address"
-                                               name="email" placeholder="Email address">
-                                        <div class="invalid-feedback" id="invalid-email-address"></div>
+                                    <div class="col-12 col-md-8">
+                                        <input type="text" class="form-control form-text" id="email"
+                                               name="email" placeholder="Email address" readonly style="border: none;">
+                                        <div class="invalid-feedback" id="invalid-email"></div>
                                     </div>
                                 </div>
                                 <div class="mb-3 row align-items-center">
-                                    <label for="input-user-phone" class="form-label col-12 col-md-2 col-form-label">Phone
-                                        number</label>
-                                    <div class="col-12 col-md-10">
-                                        <input type="text" class="form-control form-text" id="input-user-phone"
+                                    <label for="phone" class="form-label col-12 col-md-4 col-form-label"
+                                           style="padding-left: 25px;font-weight: 600;font-family: Inter;font-size: 14px;">Phone</label>
+                                    <div class="col-12 col-md-8">
+                                        <input type="text" class="form-control form-text" id="phone"
                                                name="phone" placeholder="Phone number">
-                                        <div class="invalid-feedback" id="invalid-phone-number"></div>
+                                        <div class="invalid-feedback" id="invalid-phone"></div>
                                     </div>
                                 </div>
                                 <div class="mb-3 row align-items-center">
-                                    <label for="pick-date-of-birth" class="form-label col-12 col-md-2 col-form-label">Date
+                                    <label for="dob" class="form-label col-12 col-md-4 col-form-label"
+                                           style="padding-left: 25px;font-weight: 600;font-family: Inter;font-size: 14px;">Date
                                         of
                                         birth</label>
-                                    <div class="col-12 col-md-10">
-                                        <input type="date" class="form-control" id="pick-date-of-birth" name="dob"
+                                    <div class="col-12 col-md-8">
+                                        <input type="date" class="form-control" id="dob" name="dob"
                                                placeholder="">
-                                        <div class="invalid-feedback" id="invalid-date-of-birth"></div>
+                                        <div class="invalid-feedback" id="in-dob"></div>
                                     </div>
                                 </div>
                                 <fieldset class="row mb-3 align-items-baseline">
-                                    <legend class="col-12 col-md-2 col-form-label">Gender</legend>
-                                    <div class="col-12 col-md-10">
+                                    <legend class="col-12 col-md-4 col-form-label"
+                                            style="padding-left: 25px;font-weight: 600;font-family: Inter;font-size: 14px;">Gender</legend>
+                                    <div class="col-12 col-md-8">
                                         <div class="form-check-inline">
                                             <input class="form-check-input" type="radio" name="gender"
-                                                   id="gender-radio-male" value="true" checked>
-                                            <label for="gender-radio-male" class="form-check-label">Male</label>
+                                                   id="gender-male" value="MALE" checked>
+                                            <label for="gender-male" class="form-check-label" style="position: relative;top: 1px;"> Male</label>
                                         </div>
                                         <div class="form-check-inline">
                                             <input class="form-check-input" type="radio" name="gender"
-                                                   id="gender-radio-female" value="false">
-                                            <label for="gender-radio-female" class="form-check-label">Female</label>
+                                                   id="gender-female" value="FEMALE">
+                                            <label for="gender-female" class="form-check-label" style="position: relative;top: 1px;"> Female</label>
                                         </div>
                                     </div>
                                 </fieldset>
                                 <div class="mb-3 row align-items-end">
-                                    <p class="form-label col-12 col-md-2 col-form-label">Status</p>
-                                    <div class="col-12 col-md-10 form-check form-switch ps-3 m-auto">
-                                        <input type="checkbox" name="status" id="toggle-user-status"
+                                    <p class="form-label col-12 col-md-4 col-form-label"
+                                       style="padding-left: 25px;font-weight: 600;font-family: Inter;font-size: 14px;">Status</p>
+                                    <div class="col-12 col-md-8 form-check form-switch ps-3 m-auto">
+                                        <input type="checkbox" name="status" id="status"
                                                class="form-check-input m-0 align-self-center" value="true"
                                                style="scale: 1.5;">
-                                        <label for="toggle-user-status" id="user-status-label"
+                                        <label for="status" id="status-label"
                                                class="form-check-label mx-3">Inactive</label>
                                     </div>
                                 </div>
                                 <div class="col-12 text-center">
-                                    <input type="reset" class="btn btn-danger close-add-user-dialog-button" value="Cancel">
-                                    <input type="submit" name="btAction" id="submit-add-user-dialog-button"
-                                           class="btn btn-dark" value="Save">
+                                    <input type="reset" class="close-add-user-dialog-button" style="border: none; background: white" value="Cancel">
+                                    <input type="submit" name="btAction" id="submit-edit-user-dialog-button" value="Save">
                                 </div>
                             </form>
                         </td>
@@ -243,6 +400,7 @@
                     </tbody>
                 </table>
             </dialog>
+            <div class="overlay"></div>
         </div>
     </div>
     <div th:replace="~{common :: footer}"></div>
@@ -260,316 +418,9 @@
     <!-- Optional Plugin -->
     <script src="https://cdn.jsdelivr.net/npm/react-multi-date-picker@latest/build/date_picker_header.browser.js"></script>
 
-    <script>
+    <script src="/js/user/user.js">
 
-        $(document).ready(function () {
-            // Tạo mảng lưu trữ các từ khóa đã tìm kiếm
-            var searchedKeywords = [];
-
-            // Khởi tạo DataTable ban đầu
-            initializeDataTable(searchedKeywords);
-
-            // Lắng nghe sự kiện khi người dùng nhấn Enter trong ô tìm kiếm
-            var input = document.getElementById("search-input");
-            input.addEventListener("keypress", function (event) {
-                if (event.key === "Enter" && input.value.trim() !== "") {
-                    let search = document.getElementById("search-keyword");
-                    let item = document.createElement("div");
-                    item.className = "search-item";
-                    const keyword = input.value.trim().toLowerCase(); // Chuyển đổi thành chữ viết thường
-                    item.innerHTML += `
-                ${keyword}
-                <span>&#10005;</span>
-            `
-                    search.appendChild(item);
-                    searchedKeywords.push(keyword);
-                    // Gọi hàm sendSearchRequest để gửi yêu cầu AJAX
-                    sendSearchRequest(searchedKeywords);
-                    input.value = "";
-
-                    let deleteButton = item.getElementsByTagName("span")[0];
-                    deleteButton.addEventListener("click", () => {
-                        // Xóa từ khóa khỏi mảng searchedKeywords
-                        const index = searchedKeywords.indexOf(keyword);
-                        if (index !== -1) {
-                            searchedKeywords.splice(index, 1);
-                            if(searchedKeywords.length == 0){
-                                initializeDataTable(searchedKeywords);
-                            }else
-                            sendSearchRequest(searchedKeywords);
-                        }
-                        item.remove();
-                    });
-                }
-            });
-
-            // Lắng nghe sự kiện khi người dùng xóa từ khóa
-            document.querySelectorAll(".search-item").forEach(element => {
-                let deleteButton = element.getElementsByTagName("span")[0];
-                deleteButton.addEventListener("click", () => {
-                    // Xóa từ khóa khỏi mảng searchedKeywords
-                    const index = searchedKeywords.indexOf(element.textContent.trim());
-                    if (index !== -1) {
-                        searchedKeywords.splice(index, 1);
-                    }
-                    element.remove();
-                    // Gọi hàm sendSearchRequest để gửi yêu cầu AJAX khi xóa từ khóa
-                    sendSearchRequest(searchedKeywords);
-                });
-            });
-
-            // Hàm khởi tạo DataTable
-            function initializeDataTable(searchKeywords) {
-                var url = "http://localhost:8080/api/v1/users";
-                if (searchKeywords.length > 0) {
-                    url = "http://localhost:8080/api/v1/users/search?keyword=" + searchKeywords.join(",");
-                }
-
-                $.ajax({
-                    url: url,
-                    method: "GET",
-                    success: function (response) {
-                        let tableData = [];
-                        response.payload.forEach(element => {
-                            let elementArr = [];
-                            elementArr.push(element.userId);
-                            elementArr.push('<strong>' + element.name + '</strong>');
-                            elementArr.push(element.email);
-                            elementArr.push(element.dob);
-                            if (element.gender.toLowerCase() === "male") {
-                                elementArr.push('<img src="img/male.png" alt="Male" class="gender-icon">');
-                            } else if (element.gender.toLowerCase() === "female") {
-                                elementArr.push('<img src="img/female.png" alt="Female" class="gender-icon">');
-                            }
-                            if (element.userPermission === "CLASS_ADMIN") {
-                                elementArr.push('<p class="class-admin-row name">ADMIN</p>');
-                            }else if (element.userPermission === "TRAINER") {
-                                elementArr.push('<p class="trainer-row name">TRAINER</p>');
-                            }else if (element.userPermission === "SUPER_ADMIN") {
-                                elementArr.push('<p class="super-admin-row name">SUPER-ADMIN</p>');
-                            }
-                            elementArr.push('<img style="align-content: center" src="img/more_horizontal.svg">');
-                            tableData.push(elementArr);
-                            console.log(tableData);
-                        });
-
-                        // Khởi tạo hoặc cập nhật DataTable
-                        if ($.fn.dataTable.isDataTable("#user-information-table")) {
-                            $("#user-information-table").DataTable().clear().destroy();
-                        }
-
-                        $("#user-information-table").DataTable({
-                            data: tableData,
-                            searching: false,
-                            paging: true,
-                            info: false,
-                        });
-                    },
-                    error: function (error) {
-                        alert(error);
-                    }
-                });
-            }
-
-            // Hàm gửi yêu cầu AJAX với từ khóa tìm kiếm
-            function sendSearchRequest(searchKeywords) {
-                var url = "http://localhost:8080/api/v1/users";
-                if (searchKeywords.length > 0) {
-                    url = "http://localhost:8080/api/v1/users/search?keyword=" + searchKeywords.join(",");
-                }
-
-                $.ajax({
-                    url: url,
-                    method: "GET",
-                    success: function (response) {
-                        let tableData = [];
-                        response.payload.forEach(element => {
-                            let elementArr = [];
-                            elementArr.push(element.userId);
-                            elementArr.push('<strong>' + element.name + '</strong>');
-                            elementArr.push(element.email);
-                            elementArr.push(element.dob);
-                            if (element.gender.toLowerCase() === "male") {
-                                elementArr.push('<img src="img/male.png" alt="Male" class="gender-icon">');
-                            } else if (element.gender.toLowerCase() === "female") {
-                                elementArr.push('<img src="img/female.png" alt="Female" class="gender-icon">');
-                            }
-                            if (element.userPermission === "CLASS_ADMIN") {
-                                elementArr.push('<p class="class-admin-row name">ADMIN</p>');
-                            }else if (element.userPermission === "TRAINER") {
-                                elementArr.push('<p class="trainer-row name">TRAINER</p>');
-                            }else if (element.userPermission === "SUPER_ADMIN") {
-                                elementArr.push('<p class="super-admin-row name">SUPER-ADMIN</p>');
-                            }
-                            elementArr.push('<img style="align-content: center" src="img/more_horizontal.svg">');
-                            tableData.push(elementArr);
-                            console.log(tableData);
-                        });
-
-                        // Khởi tạo hoặc cập nhật DataTable
-                        if ($.fn.dataTable.isDataTable("#user-information-table")) {
-                            $("#user-information-table").DataTable().clear().destroy();
-                        }
-
-                        $("#user-information-table").DataTable({
-                            data: tableData,
-                            searching: false,
-                            paging: true,
-                            info: false,
-                        });
-                    },
-                    error: function (error) {
-                        alert(error);
-                    }
-                });
-            }
-        });
-
-
-
-        function getUserTableData(){
-            $.ajax({
-                url: "https://localhost:8080/api/v1/users",
-                method: "GET",
-                success: function (response) {
-                    let tableData = [];
-                    response.forEach(element => {
-                        let elementArr = [];
-                        elementArr.push(element.name);
-                        elementArr.push(element.email);
-                        elementArr.push(element.dob);
-                        elementArr.push(element.gender);
-                        elementArr.push(element.userPermission);
-                        tableData.push(elementArr);
-                    });
-                    $("#user-information-table").DataTable().clear().rows.add(tableData).draw()
-                },
-                error: function(error){
-                    alert(error)
-                }
-            });
-        };
-        $("#filter-form").submit(function (event) {
-            event.preventDefault();
-            console.log($(this).serializeArray());
-            var arr1 = $(this).serializeArray();
-            var keyValues = {};
-            $.each(arr1, function (index, item) {
-                // Use the "name" as the key and "value" as the value
-                var key = item.name;
-                var value = item.value;
-                // Check if the key already exists, if so, create an array to store values
-                if (keyValues.hasOwnProperty(key)) {
-                    keyValues[key].push(value);
-                } else {
-                    if (key.endsWith("List")) {
-                        keyValues[key] = [];
-                        keyValues[key].push(value);
-                    } else {
-                        if (value !== "") {
-                            keyValues[key] = value;
-                        }
-                    }
-                }
-            });
-            console.log(JSON.stringify(keyValues));
-        });
-        $("#reset-filter-option-dialog-button").click(function (event) {
-            $("#filter-class-location").val(null).trigger("change");
-        });
-        $("#cancel-filter-option-dialog-button").click(function (event) {
-            $("#filter-class-location").val(null).trigger("change");
-            $("#filter-option-dialog")[0].close();
-        });
-        $("#open-add-user-dialog-button").click(() => {
-            $("#add-user-dialog")[0].showModal();
-        });
-        $("#toggle-user-status").click(function () {
-            $(this).prop("disabled", true);
-            if ($("#user-status-label")[0].textContent === "Active") {
-                $("#user-status-label")[0].textContent = "Inactive";
-            } else {
-                $("#user-status-label")[0].textContent = "Active";
-            }
-            setTimeout(() => {
-                $(this).prop("disabled", false);
-            }, 150);
-        });
-        $("#add-user-form").submit(function (event) {
-            event.preventDefault();
-            $(".is-invalid").removeClass("is-invalid")
-            $(".invalid-feedback").text("");
-            let arr1 = $(this).serializeArray();
-            let keyValues = {}
-            let isValid = true;
-            $.each(arr1, function (index, item) {
-                let key = item.name;
-                let value = item.value;
-                if (key === "name" && value.trim().length === 0) {
-                    $("#invalid-user-name").text("Invalid username");
-                    $("#input-user-name").addClass("is-invalid");
-                    isValid=false;
-                }
-                if (key === "email" && !value.trim().match(/^[a-z0-9]+@\w+\.\w+$/)) {
-                    $("#invalid-email-address").text("Invalid email address");
-                    $("#input-user-email-address").addClass("is-invalid");
-                    isValid=false;
-                }
-                if (key === "phone" && !value.trim().match(/[0-9]{10}/)) {
-                    $("#invalid-phone-number").text("Invalid phone number");
-                    $("#input-user-phone").addClass("is-invalid");
-                    isValid=false;
-                }
-                if (key === "dob" && value.trim().length === 0) {
-                    $("#invalid-date-of-birth").text("Invalid date of birth");
-                    $("#pick-date-of-birth").addClass("is-invalid");
-                    isValid=false
-                }
-                if (value==="true") {
-                    value = true
-                }
-                if (value==="false"){
-                    value = false
-                }
-                keyValues[key] = value;
-            });
-            if (isValid){
-                console.log(JSON.stringify(keyValues));
-                $.ajax({
-                    url:"https://localhost:8080/api/v1/users",
-                    method:"POST",
-                    contentType:"application/json; charset=utf-8",
-                    data: JSON.stringify(keyValues),
-                    success: function(){
-                        alert("Success");
-                        $("#add-user-dialog")[0].close();
-                        getUserTableData();
-                    },
-                    error:function(error){
-                        console.log(error);
-                    }
-                });
-            }
-        });
-        $("#input-user-name").click(function () {
-            $(this).removeClass("is-invalid");
-        });
-        $("#input-user-email-address").click(function () {
-            $(this).removeClass("is-invalid");
-        });
-        $("#input-user-phone").click(function () {
-            $(this).removeClass("is-invalid");
-        });
-        $("#pick-date-of-birth").click(function () {
-            $(this).removeClass("is-invalid");
-        });
-        $(".close-add-user-dialog-button").click(function (event) {
-            event.preventDefault();
-            $(".is-invalid").removeClass("is-invalid")
-            $(".invalid-feedback").text("");
-            $("#add-user-form")[0].reset();
-            $("#add-user-dialog")[0].close();
-        });
+//-----------------------------------------------------------------------------------------------
 
     </script>
     <script src="/js/common.js"></script>
