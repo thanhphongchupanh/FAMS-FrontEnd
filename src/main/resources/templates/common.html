@@ -108,12 +108,12 @@
                             </span>
             </button>
             <div class="collapse" id="navigation-syllabus-collapse">
-                <button class=" btn btn-nav-sub">
-                    View syllabus
-                </button>
-                <button class="btn btn-nav-sub">
-                    Create syllabus
-                </button>
+                <a class="btn btn-nav-sub" th:href="@{/viewSyllabus}">
+                    View Syllabus
+                </a>
+                <a id="createSyllabusBtn" class="btn btn-nav-sub" th:href="@{/createSyllabusGeneral}">
+                    Create Syllabus
+                </a>
             </div>
         </li>
         <li class="mb-1">
