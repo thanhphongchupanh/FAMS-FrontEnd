@@ -529,7 +529,7 @@
                             // deleteCookie("refreshToken");
 
                             // Gửi lại yêu cầu gốc với accessToken mới
-                            sendSearchRequest(searchKeywords);
+                            createUnitName(data, typedUnitName);
                         },
                         error: function (refreshError) {
                             if (refreshError.status === 403) {
@@ -606,7 +606,7 @@
                             // deleteCookie("refreshToken");
 
                             // Gửi lại yêu cầu gốc với accessToken mới
-                            sendSearchRequest(searchKeywords);
+                            loadData(topicCode);
                         },
                         error: function (refreshError) {
                             if (refreshError.status === 403) {
@@ -677,7 +677,7 @@
                             // deleteCookie("refreshToken");
 
                             // Gửi lại yêu cầu gốc với accessToken mới
-                            sendSearchRequest(searchKeywords);
+                            loadday(topicCode);
                         },
                         error: function (refreshError) {
                             if (refreshError.status === 403) {
@@ -750,7 +750,7 @@
                             // deleteCookie("refreshToken");
 
                             // Gửi lại yêu cầu gốc với accessToken mới
-                            sendSearchRequest(searchKeywords);
+                            getTrainingContent(unitCode1);
                         },
                         error: function (refreshError) {
                             if (refreshError.status === 403) {
@@ -781,20 +781,73 @@
         var topicCode1 = topicCodedata;
         var dayNumber1 = selectedDay;
         var apiUrl1 = 'http://localhost:8080/api/v1/syllabus/OutlineScreen/addTrainingUnitCode/'+ topicCode1 + '/' + dayNumber1;
-
+        var accessToken = getCookie("accessToken");
         $.ajax(
             {
                 url : apiUrl1,
                 type : 'POST',
-
+                headers: {
+                    "Authorization": "Bearer " + accessToken // Sử dụng Bearer token nếu cần
+                },
+                xhrFields: {
+                    withCredentials: true
+                },
                 success: function(response) {
                     // Handle the successful response or any additional actions
                     console.log(response);
                     // Reload the page after a successful request
                 },
-                error: function(error) {
-                    // Handle the error or any error-specific actions
-                    console.log('Error:', error);
+                error: function (error) {
+                    // alert(error);
+                    // Xử lý lỗi khi gửi yêu cầu
+                    if (error.status === 401) {
+                        // Trường hợp lỗi 401: Unauthorized
+                        // Gửi yêu cầu refreshToken để lấy accessToken mới
+                        var refreshToken = getCookie("refreshToken");
+                        $.ajax({
+                            url: "http://localhost:8080/api/v1/auth/refreshToken",
+                            method: "POST",
+                            data: JSON.stringify({ refreshToken: refreshToken }), // Đặt refreshToken vào phần thân của yêu cầu
+                            contentType: "application/json", // Xác định kiểu dữ liệu của yêu cầu
+                            xhrFields: {
+                                withCredentials: true
+                            },
+                            success: function (response) {
+                                //Xóa cookie cũ (accessToken)
+                                deleteCookie("accessToken");
+                                // Lưu accessToken mới vào cookie
+                                var accessTokenV2 = response.payload.accessToken;
+
+                                setCookie("accessToken",accessTokenV2 , 1); // Ví dụ: thời gian sống 1 giờ
+
+                                // // Xóa cookie cũ (refreshToken)
+                                // deleteCookie("refreshToken");
+
+                                // Gửi lại yêu cầu gốc với accessToken mới
+                                addUnitCode();
+                            },
+                            error: function (refreshError) {
+                                if (refreshError.status === 403) {
+                                    // Trường hợp lỗi 403: Forbidden
+                                    // Chuyển hướng trình duyệt đến trang khác (ví dụ: http://localhost:8081/logout
+                                    // )
+                                    window.location.href = "http://localhost:8081/logout" +
+                                        "";
+                                } else {
+                                    alert("Refresh token failed: " + refreshError);
+                                    // Xử lý lỗi khác khi refreshToken không thành công
+                                    window.location.href = "http://localhost:8081/logout" +
+                                        "";
+
+                                }
+                            }
+                        });
+                    } else {
+                        alert("Error: " + error.status);
+                        // Xử lý lỗi khác (không phải lỗi 401)
+                        // window.location.href = "http://localhost:8081/logout
+                        // ";
+                    }
                 }
             }
         )
@@ -846,7 +899,7 @@
                                 // deleteCookie("refreshToken");
 
                                 // Gửi lại yêu cầu gốc với accessToken mới
-                                sendSearchRequest(searchKeywords);
+                                addDay();
                             },
                             error: function (refreshError) {
                                 if (refreshError.status === 403) {
@@ -922,7 +975,7 @@
                             // deleteCookie("refreshToken");
 
                             // Gửi lại yêu cầu gốc với accessToken mới
-                            sendSearchRequest(searchKeywords);
+                            updateSelectedDay(selectedDay);
                         },
                         error: function (refreshError) {
                             if (refreshError.status === 403) {
@@ -1147,7 +1200,7 @@
                             // deleteCookie("refreshToken");
 
                             // Gửi lại yêu cầu gốc với accessToken mới
-                            sendSearchRequest(searchKeywords);
+                            getTrainingUnitforadd();
                         },
                         error: function (refreshError) {
                             if (refreshError.status === 403) {
@@ -1394,7 +1447,7 @@
                                                     // deleteCookie("refreshToken");
 
                                                     // Gửi lại yêu cầu gốc với accessToken mới
-                                                    sendSearchRequest(searchKeywords);
+                                                    addTrainingContentform(deliveryData, typeData,trainingUnit,unitCode);
                                                 },
                                                 error: function (refreshError) {
                                                     if (refreshError.status === 403) {
@@ -1563,7 +1616,7 @@
                         // deleteCookie("refreshToken");
 
                         // Gửi lại yêu cầu gốc với accessToken mới
-                        sendSearchRequest(searchKeywords);
+                        getDeliveryAndType(unitCode);
                     },
                     error: function (refreshError) {
                         if (refreshError.status === 403) {
