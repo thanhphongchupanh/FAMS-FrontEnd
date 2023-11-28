@@ -1097,6 +1097,12 @@
                   $.ajax({
                     url: url,
                     method: "GET",
+                    headers: {
+                      "Authorization": "Bearer " + accessToken // Sử dụng Bearer token nếu cần
+                    },
+                    xhrFields: {
+                      withCredentials: true
+                    },
                     success: function (data) {
                       console.log("DATA 2: " + data);
                       // Xử lý dữ liệu và cập nhật bảng
