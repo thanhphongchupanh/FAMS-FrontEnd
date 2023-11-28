@@ -133,6 +133,22 @@
       }, 2500);
     }
 
+    function showError(message) {
+      var errorToast = document.querySelector('.toast.error');
+      var loadingBar1 = errorToast.querySelector('.loading1');
+      var errorText = errorToast.querySelector('.container-2Text p:last-child');
+
+      errorText.textContent = message;
+
+      errorToast.style.opacity = '1';
+      loadingBar1.classList.add('active');
+
+      setTimeout(function() {
+        loadingBar1.classList.remove('active');
+        errorToast.style.opacity = '0';
+      }, 2500);
+    }
+
     function loadData() {
       var accessToken = getCookie("accessToken");
 
@@ -913,9 +929,11 @@
                   success: function(data) {
                     // Handle the response data if needed
                     console.log('New syllabus created:', data);
-                    showSuccess("Your syllabus has been saved!")
+                    showSuccess("Your syllabus has been saved!");
+                    window.location.href = "/viewSyllabus";
                   },
                   error: function (error) {
+                    showError("There were errors in the process. Please try again!");
                     // alert(error);
                     // Xử lý lỗi khi gửi yêu cầu
                     if (error.status === 401) {
