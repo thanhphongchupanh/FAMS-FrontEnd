@@ -930,7 +930,9 @@
                     // Handle the response data if needed
                     console.log('New syllabus created:', data);
                     showSuccess("Your syllabus has been saved!");
-                    window.location.href = "/viewSyllabus";
+                    setTimeout(()=>{
+                      window.location.href = "/viewSyllabus";
+                    }, 2800);
                   },
                   error: function (error) {
                     showError("There were errors in the process. Please try again!");
