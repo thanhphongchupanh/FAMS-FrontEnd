@@ -671,7 +671,7 @@
 
                 <div class="edit-syllabus">Edit syllabus</div>
               </a>
-              <div class="frame-85">
+              <div style="text-decoration: none; color: #0B2136; cursor: pointer" class="frame-85">
                 <svg
                         class="copy"
                         width="24"
@@ -836,6 +836,77 @@
             performAjaxRequest();
           }
         });
+        function duplicateAPI(topicCode) {
+          var accessToken = getCookie("accessToken");
+          $.ajax({
+            url: 'http://localhost:8080/api/v1/syllabus/duplicate/'+topicCode,
+            type: 'GET',
+            headers: {
+              "Authorization": "Bearer " + accessToken // Sử dụng Bearer token nếu cần
+            },
+            xhrFields: {
+              withCredentials: true
+            },
+            success: function (data) {
+              showSuccess("Duplicated successfully.");
+            },
+            error: function (error) {
+              // alert(error);
+              // Xử lý lỗi khi gửi yêu cầu
+              if (error.status === 401) {
+                // Trường hợp lỗi 401: Unauthorized
+                // Gửi yêu cầu refreshToken để lấy accessToken mới
+                var refreshToken = getCookie("refreshToken");
+                $.ajax({
+                  url: "http://localhost:8080/api/v1/auth/refreshToken",
+                  method: "POST",
+                  data: JSON.stringify({ refreshToken: refreshToken }), // Đặt refreshToken vào phần thân của yêu cầu
+                  contentType: "application/json", // Xác định kiểu dữ liệu của yêu cầu
+                  xhrFields: {
+                    withCredentials: true
+                  },
+                  success: function (response) {
+                    //Xóa cookie cũ (accessToken)
+                    deleteCookie("accessToken");
+                    // Lưu accessToken mới vào cookie
+                    var accessTokenV2 = response.payload.accessToken;
+
+                    setCookie("accessToken",accessTokenV2 , 1); // Ví dụ: thời gian sống 1 giờ
+
+                    // // Xóa cookie cũ (refreshToken)
+                    // deleteCookie("refreshToken");
+
+                    // Gửi lại yêu cầu gốc với accessToken mới
+                    performAjaxRequest();
+                  },
+                  error: function (refreshError) {
+                    if (refreshError.status === 403) {
+                      // Trường hợp lỗi 403: Forbidden
+                      // Chuyển hướng trình duyệt đến trang khác (ví dụ: http://localhost:8081/logout
+                      // )
+                      window.location.href = "http://localhost:8081/logout" +
+                              "";
+                    } else {
+                      alert("Refresh token failed: " + refreshError);
+                      // Xử lý lỗi khác khi refreshToken không thành công
+                      window.location.href = "http://localhost:8081/logout" +
+                              "";
+
+                    }
+                  }
+                });
+              } else {
+                alert("Error: " + error.status);
+                // Xử lý lỗi khác (không phải lỗi 401)
+                // window.location.href = "http://localhost:8081/logout
+                // ";
+              }
+
+              //
+            }
+          });
+        };
+
         function performAjaxRequest() {
           var accessToken = getCookie("accessToken");
           $.ajax({
@@ -928,7 +999,13 @@
                 localStorage.clear();
                 localStorage.setItem("topicCode1", topicCode1);
               });
-
+              // Click duplicate in syllabus menu dialog
+              $(".frame-85").click(function (event) {
+                var topicCode1 = $("#menu-syllabus-function-dialog").attr("topicCode");
+                localStorage.clear();
+                localStorage.setItem("topicCode1", topicCode1);
+                duplicateAPI(topicCode1);
+              });
               function hideBackdrop() {
                 $("#dialog-backdrop").css("display", "none");
               }
@@ -1006,6 +1083,7 @@
             }
           });
         };
+
         }
 
 
@@ -1813,6 +1891,36 @@
           //
         }
       });
+    }
+
+    function showSuccess(message){
+      var successToast = document.querySelector('.toast.success');
+      var loadingBar1 = successToast.querySelector('.loadingSucces');
+      var successText = successToast.querySelector('.container-2Text p:last-child');
+
+      successText.textContent = message;
+      successToast.style.opacity = '1';
+      loadingBar1.classList.add('active');
+
+      setTimeout(function () {
+        loadingBar1.classList.remove('active');
+        successToast.style.opacity = "0";
+      }, 2500);
+    }
+    function showError(message) {
+      var errorToast = document.querySelector('.toast.error');
+      var loadingBar1 = errorToast.querySelector('.loading1');
+      var errorText = errorToast.querySelector('.container-2Text p:last-child');
+
+      errorText.textContent = message;
+
+      errorToast.style.opacity = '1';
+      loadingBar1.classList.add('active');
+
+      setTimeout(function() {
+        loadingBar1.classList.remove('active');
+        errorToast.style.opacity = '0';
+      }, 2500);
     }
   </script>
 
