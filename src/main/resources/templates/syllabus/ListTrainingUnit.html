@@ -315,6 +315,129 @@
 <script>
 // =========================================================================
 
+var topicCode = localStorage.getItem("topicCode");
+
+$(document).ready(function() {
+
+    console.log(localStorage.getItem("topicCode"));
+    getOutline();
+
+
+});
+
+function getOutline() {
+    console.log(topicCode)
+    var accessToken = getCookie("accessToken");
+
+    $.ajax({
+        url: 'http://localhost:8080/api/v1/syllabus/showOutlineById/' + topicCode
+        ,type: 'GET',
+        headers: {
+            "Authorization": "Bearer " + accessToken // Sử dụng Bearer token nếu cần
+        },
+        xhrFields: {
+            withCredentials: true
+        },
+        success: function (ds) {
+            console.log(ds);
+            loadOutline(ds);
+        },
+        error: function (error) {
+            // alert(error);
+            // Xử lý lỗi khi gửi yêu cầu
+            if (error.status === 401) {
+                // Trường hợp lỗi 401: Unauthorized
+                // Gửi yêu cầu refreshToken để lấy accessToken mới
+                var refreshToken = getCookie("refreshToken");
+                $.ajax({
+                    url: "http://localhost:8080/api/v1/auth/refreshToken",
+                    method: "POST",
+                    data: JSON.stringify({ refreshToken: refreshToken }), // Đặt refreshToken vào phần thân của yêu cầu
+                    contentType: "application/json", // Xác định kiểu dữ liệu của yêu cầu
+                    xhrFields: {
+                        withCredentials: true
+                    },
+                    success: function (response) {
+                        //Xóa cookie cũ (accessToken)
+                        deleteCookie("accessToken");
+                        // Lưu accessToken mới vào cookie
+                        var accessTokenV2 = response.payload.accessToken;
+
+                        setCookie("accessToken",accessTokenV2 , 1); // Ví dụ: thời gian sống 1 giờ
+
+                        // // Xóa cookie cũ (refreshToken)
+                        // deleteCookie("refreshToken");
+
+                        // Gửi lại yêu cầu gốc với accessToken mới
+                        sendSearchRequest(searchKeywords);
+                    },
+                    error: function (refreshError) {
+                        if (refreshError.status === 403) {
+                            // Trường hợp lỗi 403: Forbidden
+                            // Chuyển hướng trình duyệt đến trang khác (ví dụ: http://localhost:8081/logout
+                            // )
+                            window.location.href = "http://localhost:8081/logout" +
+                                "";
+                        } else {
+                            alert("Refresh token failed: " + refreshError);
+                            // Xử lý lỗi khác khi refreshToken không thành công
+                            window.location.href = "http://localhost:8081/logout" +
+                                "";
+
+                        }
+                    }
+                });
+            } else {
+                alert("Error: " + error.status);
+                // Xử lý lỗi khác (không phải lỗi 401)
+                // window.location.href = "http://localhost:8081/logout
+                // ";
+            }
+
+            //
+        }
+
+
+    });
+
+    function loadOutline(ds) {
+        document.getElementById('assignment_pie').innerHTML = "(" + ds.assignment +"%" + ")";
+        document.getElementById('quiz_pie').innerHTML = "(" + ds.quiz +"%" + ")";
+        document.getElementById('final_test_pie').innerHTML = "(" + ds.finalTest +"%" + ")";
+        document.getElementById('final_theory_pie').innerHTML = "(" + ds.finalTheory +"%" + ")";
+        document.getElementById('final_practice_pie').innerHTML = "(" + ds.finalPractice +"%" + ")";
+
+        // Example data value (between 0 and 100)
+        const assignment = ds.assignment;
+        const quiz = ds.quiz;
+        const final = ds.finalTest;
+        const final_theory = ds.finalTheory;
+        const final_practice = ds.finalPractice;
+
+        // Get the canvas element
+        var ctx = document.getElementById('doughnut').getContext('2d');
+
+        var doughnut = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: ['Assignment', 'Quiz', 'Final', 'Final Theory', 'Final Practice'],
+                datasets: [{
+                    data: [assignment, quiz, final, final_theory, final_practice], // Replace with your own data values
+                    backgroundColor: ['#f4be37', '#ff9f40', '#0d2535', '#5388d8', '#206ee5'] // Replace with desired colors
+                }]
+            },options: {
+                plugins: {
+                    legend: {
+                        display: false,
+                    }
+                },
+                maintainAspectRatio: true,
+            }
+        });
+
+    }
+};
+
     const topicCodedata = localStorage.getItem("topicCode");
     const savedSyllabusCode = localStorage.getItem("topicCode");
     var api2;
@@ -325,8 +448,6 @@
     // const topicCodedata = "A01";
     // const savedSyllabusCode = "A01";
     $(document).ready(function() {
-        loadChart();
-
         // Load data when the page is refreshed
 
         console.log(savedSyllabusCode);
@@ -1718,89 +1839,7 @@
         }, 2500);
     }
     //=============================================================
-    function loadChart() {
-    var topicCode = localStorage.getItem('topicCode');
-    if(topicCode != null){
-        $.ajax({
-            url: 'http://localhost:8080/api/v1/syllabus/getGeneralScreen/' + topicCode
-            ,type: 'GET',
-            success: function (rs) {
-                console.log(rs);
-                $('#topicCode').html(rs.topicCode);
-                $('#version').html(rs.version);
-                console.log(rs.level);
-                console.log(rs.assignment);
-
-                document.getElementById('assignment_pie').innerHTML = "(" + rs.assignment +"%" + ")";
-                document.getElementById('quiz_pie').innerHTML = "(" + rs.quiz +"%" + ")";
-                document.getElementById('final_test_pie').innerHTML = "(" + rs.finalTest +"%" + ")";
-                document.getElementById('final_theory_pie').innerHTML = "(" + rs.finalTheory +"%" + ")";
-                document.getElementById('final_practice_pie').innerHTML = "(" + rs.finalPractice +"%" + ")";
-
-                const assignment = rs.assignment;
-                const quiz = rs.quiz;
-                const final = rs.finalTest;
-                const final_theory = rs.finalTheory;
-                const final_practice = rs.finalPractice;
-
-                // Get the canvas element
-                var ctx = document.getElementById('doughnut').getContext('2d');
-
-                var doughnut = new Chart(ctx, {
-                    type: 'pie',
-                    data: {
-                        labels: ['Assignment', 'Quiz', 'Final', 'Final Theory', 'Final Practice'],
-                        datasets: [{
-                            data: [assignment, quiz, final, final_theory, final_practice], // Replace with your own data values
-                            backgroundColor: ['#f4be37', '#ff9f40', '#0d2535', '#5388d8', '#206ee5'] // Replace with desired colors
-                        }]
-                    },options: {
-                        plugins: {
-                            legend: {
-                                display: false,
-                            }
-                        },
-                        maintainAspectRatio: true,
-                    },
-                    animation: {
-                        animateRotate: true, // Animate rotation of the pie chart
-                        animateScale: true // Animate scaling of the pie chart
-                    }
-                });
-
-            },error(){
-
-
-            }
-
-        });
-    }else{
-
-        document.getElementById('assignment_pie').innerHTML = "(" + "0" +"%" + ")";
-        document.getElementById('quiz_pie').innerHTML = "(" + "0" +"%" + ")";
-        document.getElementById('final_test_pie').innerHTML = "(" + "0" +"%" + ")";
-        document.getElementById('final_theory_pie').innerHTML = "(" + "0" +"%" + ")";
-        document.getElementById('final_practice_pie').innerHTML = "(" + "0" +"%" + ")";
-
-        var ctx = document.getElementById('doughnut').getContext('2d');
-
-        const doughnut = new Chart(ctx, {
-            type: 'pie',
-            data: {
-                labels: ['Empty'],
-                datasets: [{
-                    data: [100],
-                    backgroundColor: ['black']
-                }]
-            },
-            options: {
-                // Add any desired options here
-            }
-        });
-    }
-
-    }
-    //===============================================================
+//===============================================================
     function getCookie(name) {
         var cookieArray = document.cookie.split("; ");
         for (var i = 0; i < cookieArray.length; i++) {
