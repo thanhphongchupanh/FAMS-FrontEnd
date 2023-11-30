@@ -1197,6 +1197,7 @@
     text-align: left;
     font: 700 14px "Inter", sans-serif;
     position: relative;
+    width: max-content;
 }
 .concept-lecture3 {
     flex-shrink: 0;

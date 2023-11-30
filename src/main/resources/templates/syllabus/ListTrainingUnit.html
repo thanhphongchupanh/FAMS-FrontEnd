@@ -338,6 +338,7 @@
         $('.add-day-button-2').click(function() {
             location.reload();
             addDay();
+
         });
         $(document).on('click', '#toggleButton', function () {
             $('.toggle-online').toggleClass('active');
@@ -359,6 +360,11 @@
         });
         $('.add-unit').click(function() {
             if (selectedDay != null) {
+                $('.add-day-button-2').hide();
+                $('.add-unit-button').hide();
+                setTimeout(() => {
+                    $('.frame-48').prop('disabled', true);
+                }, 100);
                 addUnitCode();
                 setTimeout(() => {
                     getTrainingUnitforadd();
@@ -499,6 +505,9 @@
                 // Handle the API response here
                 console.log('API response:', data);
                 showSuccess('Added TrainingContent successfully');
+                $('.add-day-button-2').show();
+                $('.add-unit-button').show();
+                $('.frame-48').prop('disabled', false);
                 // console.log(unitCode);
                 // You can perform additional actions as needed
             },
@@ -1086,7 +1095,7 @@
                 dayContainer.append(addclass1);
                 daymainField.append(dayContainer);
                 // Attach the click event to the newly created day buttons
-                dayfield.click(function () {
+                addclass1.click(function () {
                     $('.frame-54').remove();
                     selectedDay = $(this).text().replace('Day ', '');
                     updateSelectedDay(selectedDay);
@@ -1229,14 +1238,14 @@
     }
     function updateTrainingContent(data){
         var contents = data.content;
-        var Id = data.trainingContentId;
+        var Id = data.learningObject;
         var duration = data.duration;
         var format= data.trainingFormat
         var day = selectedDay;
         var deliveryTypes = data.deliveryType;
         var unitNamefield = $('#unit-names-container--'+ day + '-' + data.unitCode1);
         var TrainingContent_Field = $('<div>').addClass('trainingContent-field')
-        let totalDuration = 0;
+        var totalDuration = 0;
         $.each(contents, function (index, contentItem) {
             var trainingContentContainer = $('<div>').addClass('frame-41');
             var trainingContentName = $('<div>', {
@@ -1249,7 +1258,7 @@
             var trainingContentIdContainer = $('<div>').addClass('frame-95');
             var trainingContentId = $('<div>', {
                 class: 'h-4-sd',
-                text: Id[index]
+                text: Id
             });
             var trainingContentDuration = $('<div>', {
                 class: '_30-mins',
@@ -1271,16 +1280,27 @@
             unitNamefield.append(TrainingContent_Field);
             // Update total duration
             totalDuration += parseFloat(duration[index]);
-
         });
 
         var addDiv = $('<button>').addClass('add').attr('id','addbtn');
         unitNamefield.append(addDiv);
         if (totalDuration != 0) {
-            if (totalDuration == 1) {
-                var totalDuration1 = $('<div>').addClass('duration').text(totalDuration + 'hr');
-            } else if (totalDuration > 1) {
-                var totalDuration1 = $('<div>').addClass('duration').text(totalDuration + 'hrs');
+            if (totalDuration <= 60) {
+                if (totalDuration == 1){
+                    var totalDuration1 = $('<div>').addClass('duration').text(totalDuration + ' min');
+                }
+                else {
+                    var totalDuration1 = $('<div>').addClass('duration').text(totalDuration + ' mins');
+                }
+            } else if (totalDuration > 60) {
+                totalDuration /= 60;
+                totalDuration = totalDuration.toFixed(2);
+                if (totalDuration == 1){
+                    var totalDuration1 = $('<div>').addClass('duration').text(totalDuration + ' hr');
+                }
+                else {
+                    var totalDuration1 = $('<div>').addClass('duration').text(totalDuration + ' hrs');
+                }
             }
             var unitName = $('#unitname-'+ day + '-' + data.unitCode1);
             unitName.append(totalDuration1);
