@@ -867,7 +867,7 @@
                   }
                 });
               } else {
-                alert("Error: " + error.status);
+                console.log("Error: " + error.status);
                 // Xử lý lỗi khác (không phải lỗi 401)
                 // window.location.href = "http://localhost:8081/logout
                 // ";
@@ -1044,7 +1044,7 @@
                   }
                 });
               } else {
-                alert("Error: " + error.status);
+                console.log("Error: " + error.status);
                 // Xử lý lỗi khác (không phải lỗi 401)
                 // window.location.href = "http://localhost:8081/logout
                 // ";
@@ -1113,7 +1113,7 @@
                     }
                   });
 
-                  // XÓA TỪ KHÓA
+                  // XÓA TỪ KHÓA 2
                   let deleteButton = item.getElementsByTagName("span")[0];
                   deleteButton.addEventListener("click", () => {
                     tagNum--;
@@ -1122,9 +1122,10 @@
                     if (index !== -1) {
                       searchKeywords.splice(index, 1);
                         if (searchKeywords.length == 0) {
-                          inputCalendar.value = "";
-                          input.value = "";
-                          performAjaxRequest();
+                          // inputCalendar.value = "";
+                          // input.value = "";
+                          // performAjaxRequest();
+                          location.reload();
                       } else
                         sendSearchRequest(searchKeywords);
                     }
@@ -1301,7 +1302,7 @@
                           }
                         });
                       } else {
-                        alert("Error: " + error.status);
+                        console.log("Error: " + error.status);
                         // Xử lý lỗi khác (không phải lỗi 401)
                         // window.location.href = "http://localhost:8081/logout
                         // ";
@@ -1353,7 +1354,7 @@
                     }
                   });
 
-                  // XÓA TỪ KHÓA
+                  // XÓA TỪ KHÓA 1
                   let deleteButton = item.getElementsByTagName("span")[0];
                   deleteButton.addEventListener("click", () => {
                     tagNum--;
@@ -1362,9 +1363,7 @@
                     if (index !== -1) {
                       searchKeywords.splice(index, 1);
                       if (searchKeywords.length == 0) {
-                        inputCalendar.value = "";
-                        input.value = "";
-                        performAjaxRequest();
+                        location.reload();
                       } else
                         sendSearchRequest(searchKeywords);
                     }
@@ -1557,7 +1556,7 @@
                           }
                         });
                       } else {
-                        alert("Error: " + error.status);
+                        console.log("Error: " + error.status);
                         // Xử lý lỗi khác (không phải lỗi 401)
                         // window.location.href = "http://localhost:8081/logout
                         // ";
@@ -1778,7 +1777,7 @@
                     }
                   });
                 } else {
-                  alert("Error: " + error.status);
+                  console.log("Error: " + error.status);
                   // Xử lý lỗi khác (không phải lỗi 401)
                   // window.location.href = "http://localhost:8081/logout
                   // ";
@@ -1855,7 +1854,7 @@
               }
             });
           } else {
-            alert("Error: " + error.status);
+            console.log("Error: " + error.status);
             // Xử lý lỗi khác (không phải lỗi 401)
             // window.location.href = "http://localhost:8081/logout
             // ";
@@ -2096,7 +2095,6 @@
 <!--  Check max length file-->
   <script>
     var modeDuplicate = 1;
-    var modeScan = 1;
     function deleteCookie(name) {
       document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
     }
@@ -2210,18 +2208,12 @@
       $("#skipDuplicate").on('click', function () {
         modeDuplicate =  $("#skipDuplicate").val();
       });
-      $("#topicNameDuplicate").on('click', function () {
-        modeScan =  $("#topicNameDuplicate").val();
-      });
-      $("#topicCodeDuplicate").on('click', function () {
-        modeScan =  $("#topicCodeDuplicate").val();
-      });
       function importSyllabusAPI(fileName) {
         var formData = new FormData();
         formData.append('file', fileName);
         var accessToken = getCookie("accessToken");
         $.ajax({
-          url: 'http://localhost:8080/api/v1/syllabus/importExcel?mode='+modeDuplicate+'&scan='+modeScan,
+          url: 'http://localhost:8080/api/v1/syllabus/importExcel?mode='+modeDuplicate,
           data: formData,
           processData: false,
           contentType: false,
@@ -2267,7 +2259,7 @@
                   // deleteCookie("refreshToken");
 
                   // Gửi lại yêu cầu gốc với accessToken mới
-                  importSyllabusAPI(fileName);
+                  exportExcel(topicCode);
                 },
                 error: function (refreshError) {
                   if (refreshError.status === 403) {
@@ -2286,9 +2278,11 @@
                 }
               });
             } else {
-              showError("Fail to import file!");
+              showError("Fail to import.");
+              // Xử lý lỗi khác (không phải lỗi 401)
+              // window.location.href = "http://localhost:8081/logout
+              // ";
             }
-
             //
           }
         });
