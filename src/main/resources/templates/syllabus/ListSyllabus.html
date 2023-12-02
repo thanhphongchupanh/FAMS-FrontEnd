@@ -1616,6 +1616,7 @@
 
           // Hàm gửi yêu cầu AJAX với ngày tìm kiếm
           function sendDateRequest(formattedDate, searchKeywords) {
+            myVar = 1;
             var encodedKeywords = encodeURIComponent(searchKeywords);
             var url = `http://localhost:8080/api/v1/syllabus/search-syllabus-byCreatedDate/` + selectedValue + `?key=` + encodedKeywords + `&date=` + formattedDate + '&page=' + myVar;
             var accessToken = getCookie("accessToken");
