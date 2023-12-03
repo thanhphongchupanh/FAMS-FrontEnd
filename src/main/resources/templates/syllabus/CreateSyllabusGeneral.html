@@ -115,7 +115,7 @@
             <div class="syllabus-name-code">
                 <div class="req-text-box">
                     <div class="text3">Syllabus Name*</div>
-                    <input type="text" id="syllabus-name" name="" value="" class="text-box">
+                    <input type="text" id="syllabus-name" name="" value="" class="text-box"  maxlength="200">
                 </div>
                 <div class="req-text-box">
                     <div class="text3">Code</div>
@@ -167,7 +167,7 @@
                             <div class="req-text-box3">
                                 <div class="text3">Attendee number</div>
                                 <div class="input2">
-                                    <input type="number" name="" id="attendee-number" style="width: 100%; border: none; outline: none">
+                                    <input oninput="limitInputLength(this, 5)" type="number" name="" id="attendee-number" style="width: 100%; border: none; outline: none">
                                     <input type="hidden" value="2" id="userid">
                                 </div>
                             </div>
@@ -837,6 +837,14 @@
             });
         }
     // }
+</script>
+<script>
+    function limitInputLength(input, maxLength) {
+        let inputValue = input.value;
+        if (inputValue.length > maxLength) {
+            input.value = inputValue.slice(0, maxLength); // Cắt giảm độ dài nếu vượt quá giới hạn
+        }
+    }
 </script>
 
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
