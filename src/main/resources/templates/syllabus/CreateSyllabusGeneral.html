@@ -496,7 +496,6 @@
                                 // deleteCookie("refreshToken");
 
                                 // Gửi lại yêu cầu gốc với accessToken mới
-                                performAjaxRequest();
                             },
                             error: function (refreshError) {
                                 if (refreshError.status === 403) {
@@ -515,7 +514,7 @@
                             }
                         });
                     } else {
-                        alert("Error: " + error.status);
+                        showError("Topic name is duplicated");
                         // Xử lý lỗi khác (không phải lỗi 401)
                         // window.location.href = "http://localhost:8081/logout
                         // ";

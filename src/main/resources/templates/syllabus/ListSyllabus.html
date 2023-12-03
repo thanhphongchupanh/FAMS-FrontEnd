@@ -594,30 +594,6 @@
           </div>
           <div class="syllabus-popup-menu">
             <div class="frame-86">
-              <div class="frame-87">
-                <svg
-                        class="add"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                >
-                  <g clip-path="url(#clip0_45_1808)">
-                    <path
-                            d="M13 7H11V11H7V13H11V17H13V13H17V11H13V7ZM12 2C6.49 2 2 6.49 2 12C2 17.51 6.49 22 12 22C17.51 22 22 17.51 22 12C22 6.49 17.51 2 12 2ZM12 20C7.59 20 4 16.41 4 12C4 7.59 7.59 4 12 4C16.41 4 20 7.59 20 12C20 16.41 16.41 20 12 20Z"
-                            fill="#285D9A"
-                    />
-                  </g>
-                  <defs>
-                    <clipPath id="clip0_45_1808">
-                      <rect width="24" height="24" fill="white" />
-                    </clipPath>
-                  </defs>
-                </svg>
-
-                <div class="add-training-program">Add training program</div>
-              </div>
               <a style="text-decoration: none; color: #0B2136" th:href="@{/createSyllabusGeneral}" class="frame-88">
                 <svg
                         class="create"
@@ -665,30 +641,6 @@
                 </svg>
 
                 <div class="duplicate-syllabus">Duplicate syllabus</div>
-              </div>
-              <div class="frame-84">
-                <svg
-                        class="delete-forever"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                >
-                  <g clip-path="url(#clip0_45_1817)">
-                    <path
-                            d="M14.12 10.47L12 12.59L9.87 10.47L8.46 11.88L10.59 14L8.47 16.12L9.88 17.53L12 15.41L14.12 17.53L15.53 16.12L13.41 14L15.53 11.88L14.12 10.47ZM15.5 4L14.5 3H9.5L8.5 4H5V6H19V4H15.5ZM6 19C6 20.1 6.9 21 8 21H16C17.1 21 18 20.1 18 19V7H6V19ZM8 9H16V19H8V9Z"
-                            fill="#2C5282"
-                    />
-                  </g>
-                  <defs>
-                    <clipPath id="clip0_45_1817">
-                      <rect width="24" height="24" fill="white" />
-                    </clipPath>
-                  </defs>
-                </svg>
-
-                <div class="delete-syllabus">Delete syllabus</div>
               </div>
             </div>
           </div>
@@ -2129,13 +2081,14 @@
         if(input.files.length === 0) {
           showWarning();
         }
-        if(checkFileSize()){
-          showError("File size exceeds the maximum limit (25MB).");
-        }
         if(checkFileExtension(fileName, ['xlsx'])) {
-          importSyllabusAPI(file1);
-          $("#fileInput").val("");
-          $("#selectedFileName").text("");
+          if(checkFileSize()){
+            showError("File size exceeds the maximum limit (25MB).");
+          } else {
+            importSyllabusAPI(file1);
+            $("#fileInput").val("");
+            $("#selectedFileName").text("");
+          }
         }else {
           showError("Wrong file format.");
         }
@@ -2279,7 +2232,7 @@
                 }
               });
             } else {
-              showError("Fail to import.");
+              showError("Fail to import");
               // Xử lý lỗi khác (không phải lỗi 401)
               // window.location.href = "http://localhost:8081/logout
               // ";
