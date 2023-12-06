@@ -1288,7 +1288,13 @@
 
                         click: function () {
                             // Call a function to handle delete
+                            var userConfirmed = window.confirm("Are you sure you want to perform this action?");
+                            if(userConfirmed){
                             deleteTrainingUnit(unitCode1);
+                            }
+                            else {
+                                showWarning("Delete was canceled");
+                            }
                         }
                     });
 
@@ -1449,9 +1455,15 @@
                 getDeliveryTypeandlearningObjecttype(unitNamefield, UnitCOde, trainingcontentCode,clickData);
             })
             deleteTCbtn.click(function (){
-                var trainingcontentCodes = data.trainingContentId
-                var trainingcontentCode = trainingcontentCodes[index];
-                deleteTrainingContent(trainingcontentCode);
+                var userConfirmed = window.confirm("Are you sure you want to perform this action?");
+                if(userConfirmed){
+                    var trainingcontentCodes = data.trainingContentId
+                    var trainingcontentCode = trainingcontentCodes[index];
+                    deleteTrainingContent(trainingcontentCode);
+                }
+                else {
+                    showWarning("Delete was canceled");
+                }
             })
         });
 
@@ -2206,7 +2218,7 @@
                             // deleteCookie("refreshToken");
 
                             // Gửi lại yêu cầu gốc với accessToken mới
-                            deleteTrainingUnit(unitCode1);
+                            deleteTrainingContent(TCcode);
                         },
                         error: function (refreshError) {
                             if (refreshError.status === 403) {
@@ -2484,7 +2496,7 @@
                                             // deleteCookie("refreshToken");
 
                                             // Gửi lại yêu cầu gốc với accessToken mới
-                                            addTrainingContentform(deliveryData, typeData, trainingUnit, unitCode);
+                                            editTrainingContentform(deliveryData, typeData ,unitNamefield,unitCode, trainingcontentCode,clickdata);
                                         },
                                         error: function (refreshError) {
                                             if (refreshError.status === 403) {

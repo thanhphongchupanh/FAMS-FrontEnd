@@ -2084,6 +2084,9 @@
 .error i{
     color: #ff355b;
 }
+.confirm {
+    border-left: 8px solid #0a53be;
+}
 .info i{
     color: #2F86EB;
 }
@@ -2213,4 +2216,22 @@
     right: 0;
     margin: 10px 40px 0 0;
 }
+.confirm {
+    border-left: 8px solid #0a53be;
+}
+
+.confirm i {
+    color: #0a53be;
+}
+
+.toast.confirm .loadingSuccess.active {
+    display: block;
+}
+
+.toast.confirm .container-2 p {
+    margin-bottom: 0;
+}
+
 /*============*/
+
+
